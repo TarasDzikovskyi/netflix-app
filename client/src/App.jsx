@@ -17,6 +17,7 @@ function App() {
             <Switch>
                 <Route exact path='/'>
                     {user ? <Home/> : <Redirect to='/register'/>}
+                    {/*<Home/>*/}
                 </Route>
                 <Route to='/register'>
                     {!user ? <Register/> : <Redirect to='/'/>}
@@ -39,7 +40,6 @@ function App() {
                 )}
             </Switch>
         </Router>
-
     );
 }
 

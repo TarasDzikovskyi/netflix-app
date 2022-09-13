@@ -13,6 +13,7 @@ module.exports.createUser = async (req, res, next) => {
         });
 
         const user = await newUser.save();
+        console.log(user)
         res.status(201).json(user)
     } catch(e){
         next(e);

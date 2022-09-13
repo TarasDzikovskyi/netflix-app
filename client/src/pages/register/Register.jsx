@@ -21,8 +21,9 @@ export default function Register() {
             e.preventDefault()
             setPassword(passwordRef.current.value)
             setUsername(usernameRef.current.value)
+        console.log(username)
+        console.log(password)
         try{
-
             await axios.post('/auth/register', {email, username, password})
             history.push('/login')
         } catch(e){
@@ -30,6 +31,9 @@ export default function Register() {
         }
     }
 
+    const handleClick = () => {
+        history.push('/login')
+    }
 
   return (
     <div className="register">
@@ -40,9 +44,7 @@ export default function Register() {
                     src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png' 
                     alt="logo"
                 />
-                <Link to='/login'>
-                    <button className="loginButton">Sign In</button>            
-                </Link>
+                <button className="loginButton" onClick={handleClick}>Sign In</button>
             </div>
 
         </div>

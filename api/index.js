@@ -6,7 +6,7 @@ dotenv.config()
 const {authRouter, userRouter, movieRouter, listRouter} = require('./routes')
 
 mongoose
-    .connect('mongodb+srv://root:root@cluster0.zmoyzer.mongodb.net/netflix?retryWrites=true&w=majority', {
+    .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         // useCreateIndex: true
