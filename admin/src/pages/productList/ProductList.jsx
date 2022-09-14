@@ -4,7 +4,7 @@ import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import MovieContext from '../../context/movieContext/MovieContext';
+import {MovieContext} from '../../context/movieContext/MovieContext';
 import { deleteMovie, getMovies } from "../../context/movieContext/apiCalls";
 
 export default function ProductList() {

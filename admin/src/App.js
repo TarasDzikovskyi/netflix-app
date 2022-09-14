@@ -17,8 +17,8 @@ import List from "./pages/list/List";
 import NewList from "./pages/newList/NewList";
 
 function App() {
-  const {user} = useContext(AuthContext)
-  // const user = true
+  // const {user} = useContext(AuthContext)
+  const user = true
  
   return (
     <Router>

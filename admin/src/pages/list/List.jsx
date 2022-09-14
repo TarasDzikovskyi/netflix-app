@@ -29,7 +29,7 @@ export default function List() {
                   </div>
                   <div className="productInfoItem">
                       <span className="productInfoKey">genre:</span>
-                      <span className="productInfoValue">{movie.genre}</span>
+                      <span className="productInfoValue">{list.genre}</span>
                   </div>
                   <div className="productInfoItem">
                       <span className="productInfoKey">type:</span>
@@ -46,7 +46,7 @@ export default function List() {
                   <label>Type</label>
                   <input type="text" placeholder={list.type} />
                   <label>Genre</label>
-                  <input type="text" placeholder={movie.genre} />
+                  <input type="text" placeholder={list.genre} />
               </div>
               <div className="productFormRight">
                   <button className="productButton">Update</button>

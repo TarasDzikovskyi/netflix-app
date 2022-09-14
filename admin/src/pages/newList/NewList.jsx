@@ -2,16 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { createList } from "../../context/listContext/apiCalls";
 import { ListContext } from "../../context/listContext/ListContext";
 import { createMovie, getMovies } from "../../context/movieContext/apiCalls";
-import MovieContext from "../../context/movieContext/MovieContext";
+import {MovieContext} from "../../context/movieContext/MovieContext";
 import storage from "../../firebase";
 import "./newList.css";
+import { useHistory } from "react-router-dom";
+
 
 export default function NewList() {
   const [list, setList] = useState(null)
   const history = useHistory()
 
   const { dispatch } = useContext(ListContext)
-  const { movie, dispatch: dispatchMovie } = useContext(MovieContext)
+  const { movies, dispatch: dispatchMovie } = useContext(MovieContext)
 
   const handleChange = (e) => {
     const value = e.target.value;

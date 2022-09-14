@@ -10,6 +10,8 @@ const firebaseConfig = {
     measurementId: "G-NS9VQN9VY4"
   };
 
-  firebase.initialeziApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
   const storage = firebase.storage();
   export default storage;
+
+  // https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png

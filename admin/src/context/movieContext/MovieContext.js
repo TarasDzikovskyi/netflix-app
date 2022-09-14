@@ -24,4 +24,3 @@ export const MovieContextProvider = ({children}) => {
     )
 }
 
-export default MovieContext
