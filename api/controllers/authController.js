@@ -32,9 +32,10 @@ module.exports.login = async (req, res, next) => {
 
         const accessToken = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.SECRET_KEY, {expiresIn: '5d'})
 
-        const {password, ...info} = user._doc;
+        console.log(user._doc)
+        const {password, ...info} = user;
 
-        res.status(200).json(...info, accessToken)
+        res.status(200).json({...info, accessToken})
     } catch(e){
         next(e);
     }

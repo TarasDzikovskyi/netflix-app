@@ -1,38 +1,46 @@
-import React, {useEffect, useState} from 'react'
-import './home.scss'
-import Navbar from '../../components/navbar/Navbar'
+import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
+import "./home.scss";
 import List from "../../components/list/List";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Home({type}) {
-    const [lists, setLists] = useState([])
-    const [genre, setGenre] = useState(null)
+const Home = ({ type }) => {
+    const [lists, setLists] = useState([]);
+    const [genre, setGenre] = useState(null);
 
     useEffect(() => {
-        const getRandomList = async () => {
+        const getRandomLists = async () => {
             try {
-                const res = await axios.get(`lists${type ? "?type=" + type : ""}&${genre ? "&genre=" + genre : ""}`, {
-                    headers: {
-                        token: "Bearer "
+                const res = await axios.get(
+                    `lists${type ? "?type=" + type : ""}${
+                        genre ? "&genre=" + genre : ""
+                    }`,
+                    {
+                        headers: {
+                            token:
+                                "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+                        },
                     }
-                })
-
-            } catch (e) {
-                console.log(e)
+                );
+                setLists(res.data);
+            } catch (err) {
+                console.log(err);
             }
         };
-        getRandomList();
+        getRandomLists();
     }, [type, genre]);
 
+    console.log(type)
+    return (
+        <div className="home">
+            <Navbar />
+            <Featured type={type} setGenre={setGenre} />
+            {lists.map((list) => (
+                <List list={list} />
+            ))}
+        </div>
+    );
+};
 
-  return (
-    <div className='home'>
-        <Navbar/>
-        <Featured type={type} setGenre={setGenre}/>
-        {lists.map((list) => (
-            <List list={list}/>
-        ))}
-    </div>
-  )
-}
+export default Home;

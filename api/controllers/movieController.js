@@ -2,15 +2,15 @@ const Movie = require('../models/Movie')
 
 module.exports.createMovie = async (req, res, next) => {
     try{
-        if(req.user.isAdmin){
+        // if(req.user.isAdmin){
             const newMovie = new Movie(req.body);
 
             const savedMovie = await newMovie.save()
             
             res.status(201).json(savedMovie)
-        } else {
-            req.status(403).json("You are not allowed!")
-        }
+        // } else {
+        //     req.status(403).json("You are not allowed!")
+        // }
 
     } catch(e){
         next(e);
@@ -63,12 +63,12 @@ module.exports.getRandomMovie = async (req, res, next) => {
 
         if(type === 'series') {
             movie = await Movie.aggregate([
-                {$match: {$isSeries: true}},
+                {$match: {isSeries: true}},
                 {$sample: {size: 1}}
             ])
         } else {
             movie = await Movie.aggregate([
-                {$match: {$isSeries: false}},
+                {$match: {isSeries: false}},
                 {$sample: {size: 1}}
             ])
         }
