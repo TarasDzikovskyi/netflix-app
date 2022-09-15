@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken')
 
 module.exports.createUser = async (req, res, next) => {
     try{
-        console.log(req.body);
-        // console.log("req");
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
@@ -32,7 +30,6 @@ module.exports.login = async (req, res, next) => {
 
         const accessToken = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.SECRET_KEY, {expiresIn: '5d'})
 
-        console.log(user._doc)
         const {password, ...info} = user;
 
         res.status(200).json({...info, accessToken})

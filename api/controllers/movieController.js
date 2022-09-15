@@ -2,16 +2,15 @@ const Movie = require('../models/Movie')
 
 module.exports.createMovie = async (req, res, next) => {
     try{
-        // if(req.user.isAdmin){
+        if(req.user.isAdmin){
             const newMovie = new Movie(req.body);
 
             const savedMovie = await newMovie.save()
             
             res.status(201).json(savedMovie)
-        // } else {
-        //     req.status(403).json("You are not allowed!")
-        // }
-
+        } else {
+            req.status(403).json("You are not allowed!")
+        }
     } catch(e){
         next(e);
     }

@@ -36,6 +36,7 @@
 
             span{
                 margin-right: 20px;
+                min-width: 120px;
                 cursor: pointer;
 
                 @include tablet{

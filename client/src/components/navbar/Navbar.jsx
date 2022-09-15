@@ -4,6 +4,8 @@ import {ArrowDropDown, Notifications, Search} from '@material-ui/icons'
 import {Link} from "react-router-dom";
 import { AuthContext } from '../../authContext/AuthContext';
 import { logout } from '../../authContext/AuthAction';
+import iconProfile from '../../content/icon_profile.png';
+import logo from '../../content/logo.png';
 
 
 export default function Navbar() {
@@ -19,8 +21,8 @@ export default function Navbar() {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
         <div className="container">
             <div className="left">
-                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png' alt="logo"/>
-                <span>Homepage</span>
+                <img src={logo} alt="logo"/>
+                <Link to='/' className='link'><span className='navbarMainLinks'>Homepage</span></Link>
                 <Link to='/series' className='link'><span className='navbarMainLinks'>Series</span></Link>
                 <Link to='/movies' className='link'><span className='navbarMainLinks'>Movies</span></Link>
                 <span>New and Popular</span>
@@ -28,9 +30,9 @@ export default function Navbar() {
             </div>
             <div className="right">
                 <Search className="icon"/>
-                <span>KID</span>
+                <span>Kids</span>
                 <Notifications className="icon"/>
-                <img src="" alt=""/>
+                <img src={iconProfile} alt=""/>
                 <div className="profile">
                     <ArrowDropDown className="icon"/>
                     <div className="options">
