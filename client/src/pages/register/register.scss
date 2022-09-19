@@ -86,7 +86,7 @@
 }
 
 
-.body{
+.body-register{
     width: 100vw;
     // height: 400px;
     background-color: black;
@@ -108,13 +108,13 @@
         
         .leftSide{
             color: white;
-            width: 60vh;
+            width: 69vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             // align-items: center;
             margin: 0 25px;
-            height: 500px;
+            height: 530px;
 
 
             h2{
@@ -129,10 +129,10 @@
         
         .rightSide{
             color: white;
-            width: 60vh;
+            width: 69vh;
             position: relative;
             margin: 0 25px;
-            height: 500px;
+            height: 530px;
 
             .imgKids{
                 margin-top: 50px;

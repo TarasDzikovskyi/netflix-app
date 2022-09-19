@@ -55,7 +55,7 @@ export default function Featured({type, setGenre}) {
             <div className="buttons">
                 <button className="play">
                     <PlayArrow/>
-                    <span>Info</span>
+                    <span>Play</span>
                 </button>
                 <button className="more">
                     <InfoOutlined/>

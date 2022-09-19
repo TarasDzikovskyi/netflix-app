@@ -78,7 +78,7 @@ export default function Register() {
           )}
         </div>
       </div>
-      <div className="body">
+      <div className="body-register">
         <div className="slice"></div>
         <div className="content">
 

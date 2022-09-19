@@ -36,7 +36,7 @@ const App = () => {
             <Route path="/series">
               <Home type="series" />
             </Route>
-            <Route path="/watch">
+            <Route path="/watch/:movie_id">
               <Watch />
             </Route>
           </>
