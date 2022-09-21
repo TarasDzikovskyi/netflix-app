@@ -1,0 +1,147 @@
+.plans {
+  // background-color: var(--main-color);
+  width: 100vw;
+  height: 100vh;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .left {
+      .logo {
+        height: 45px;
+        margin-top: 25px;
+        margin-left: 50px;
+      }
+
+    }
+
+    .right {
+      margin-top: 25px;
+      margin-right: 50px;
+
+      a {
+        text-decoration: none;
+        color: var(--main-color);
+        font-weight: 500;
+        font-size: 17px;
+      }
+    }
+  }
+
+  .wrapper {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .conditions {
+      width: 70vw;
+
+      h1 {
+        margin-bottom: 15px;
+      }
+
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+        // align-items: center;
+
+        li {
+          display: flex;
+          align-items: center;
+          height: 30px;
+          font-size: 17px;
+          margin: 2px 0;
+          box-sizing: border-box;
+
+          .icon {
+            color: #E50914;
+            padding-right: 5px;
+            font-size: 27px;
+          }
+
+        }
+      }
+    }
+
+    .planWrapper {
+      width: 70vw;
+      display: flex;
+      justify-content: flex-end;
+
+
+      .planBox {
+        margin: 0 1.7vw;
+        position: relative;
+        width: 130px;
+        height: 120px;
+        background-color: #cb3a2d;
+        color: white;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .planBox::after {
+        background-color: #cb3a2d;
+        bottom: -86px;
+        content: '';
+        display: block;
+        height: 40px;
+        left: 49%;
+        margin-left: -20px;
+        position: relative;
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        width: 40px;
+        z-index: -1;
+      }
+
+      .opacity-100 {
+        opacity: 100%;
+      }
+
+      .opacity-60 {
+        opacity: 60%;
+      }
+    }
+
+    .tableWrapper {
+      width: 70vw;
+    }
+
+    .text {
+      width: 70vw;
+      color: gray;
+      font-size: 13px;
+      padding-right: 12vw;
+      box-sizing: border-box;
+    }
+
+    .subscribe{
+      font-size: 24px;
+      background-color: #cb3a2d;
+      border: none;
+      color: white;
+      padding: 18px 170px;
+      font-weight: 200;
+      margin: 20px 0 50px 0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+
+}

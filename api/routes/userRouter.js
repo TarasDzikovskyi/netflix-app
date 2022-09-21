@@ -4,7 +4,6 @@ const {userController} = require('../controllers')
 const verify = require('../verifyToken')
 
 
-
 router.put('/:id', verify, userController.updateUser)
 
 router.delete('/:id', verify, userController.deleteUser)

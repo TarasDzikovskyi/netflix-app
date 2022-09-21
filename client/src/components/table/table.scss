@@ -1,0 +1,44 @@
+.table {
+    width: 100%;
+
+
+    table{
+        width: 100%;
+        // border-collapse: collapse;
+        border-spacing: 0 35px ;
+
+        .tr_border{
+            border-bottom: 1px solid black;
+        }
+
+        .slide{
+            height: 4px;
+            width: 100%;
+            background-color: #E50914;
+        }
+
+        tr{ 
+            border-bottom: 1px solid black;
+
+            .info{
+                width: 180px;
+                text-align: center;
+                font-size: 17px;
+            }
+
+            .fz{
+                font-size: 35px;
+            }
+
+            .selected_td{
+                color: #E50914;
+                font-weight: 500;
+            }
+
+            .title{
+                max-width: 350px;
+                //padding-right: 60px;
+            }
+        }
+    }
+}

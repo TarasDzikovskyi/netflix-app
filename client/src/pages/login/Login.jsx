@@ -3,7 +3,9 @@ import {login} from '../../authContext/apiCalls'
 import {AuthContext} from '../../authContext/AuthContext'
 import './login.scss'
 import {Link} from "react-router-dom";
-import LoginFooter from "../../components/footer/LoginFooter";
+import Footer from "../../components/footer/Footer";
+import logo from '../../content/logo.png';
+
 
 export default function Login() {
 
@@ -23,7 +25,7 @@ export default function Login() {
                     <div className="wrapper">
                         <img
                             className="logo"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                            src={logo}
                             alt=""
                         />
                     </div>
@@ -31,31 +33,63 @@ export default function Login() {
                 <div className="container">
                     <form>
                         <h1>Sign In</h1>
-                        <input
-                            type="email"
-                            placeholder="Email or phone number"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+
+                        <label className="field field_v2">
+
+                            <input
+                                type="email"
+                                className="field__input input"
+                                // placeholder="example@mail.co"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <span className="field__label-wrap">
+                                    <span className="field__label">Email or phone number</span>
+                                </span>
+                        </label>
+
+                        <label className="field field_v2">
+                            <input
+                                type="password"
+                                className="field__input input"
+                                // placeholder="example@mail.co"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <span className="field__label-wrap">
+                                    <span className="field__label">Password</span>
+                                </span>
+                        </label>
                         <button className="loginButton" onClick={handleLogin}>
                             Sign In
                         </button>
-                        <span>
+
+                        <div className="login-help">
+                            <div className="checker">
+                                <input type="checkbox" name='remember'/>
+                                <label htmlFor="remember">Remember me</label>
+                            </div>
+                            <div className="help">
+                                <Link to='/forgot'>Need help?</Link>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <span className='sign-text'>
                         New to Netflix? <b><Link to="/register">Sign up now.</Link></b>
-                    </span>
+                        </span>
                         <small>
                             This page is protected by Google reCAPTCHA to ensure you're not a
-                            bot. <b>Learn more</b>.
+                            bot. <span>Learn more</span>.
                         </small>
                     </form>
                 </div>
             </div>
             <div className="slice"></div>
-            <LoginFooter/>
+            <div style={{background: '#0b0b0b'}}>
+                <Footer/>
+            </div>
         </>
 
     );

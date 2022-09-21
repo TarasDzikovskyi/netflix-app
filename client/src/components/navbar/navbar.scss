@@ -26,7 +26,7 @@
             align-items: center;
 
             img {
-                height: 25px;
+                height: 45px;
                 margin-right: 40px;
 
                 @include mobile{
@@ -67,7 +67,7 @@
                 cursor: pointer;
             }
 
-            .profile{
+            .profile_menu{
                 .options{
                     display: none;
                     background-color: var(--main-color);

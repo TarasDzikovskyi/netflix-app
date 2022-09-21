@@ -32,8 +32,8 @@ export default function Navbar() {
                 <Search className="icon"/>
                 <span>Kids</span>
                 <Notifications className="icon"/>
-                <img src={iconProfile} alt=""/>
-                <div className="profile">
+                <Link to='/profile'><img src={iconProfile} alt="profile"/></Link>
+                <div className="profile_menu">
                     <ArrowDropDown className="icon"/>
                     <div className="options">
                         <span>Settings</span>

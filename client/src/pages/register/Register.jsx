@@ -10,7 +10,7 @@ import kids from '../../content/kids.png'
 import videoDevices from '../../content/video-devices.m4v'
 import videoTV from '../../content/video-tv-0819.m4v'
 import Questions from "../../components/questions/Questions";
-import Footer from "../../components/footer/Footer";
+import FooterRegister from "../../components/footer/FooterRegister";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -132,7 +132,7 @@ export default function Register() {
         <Questions/>
 
         <div className="slice"></div>
-        <Footer/>
+        <FooterRegister/>
       </div>
     </>
   );

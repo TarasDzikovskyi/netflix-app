@@ -1,0 +1,128 @@
+.profile{
+    background-color: var(--main-color);
+    height: 100vh;
+    color: white;
+
+    .logo {
+        height: 45px;
+        margin-top: 25px;
+        margin-left: 50px;
+    }
+
+    .wrapper{
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        // width: 60vw;
+
+        .profile_box{
+            .header{
+                font-size: 50px;
+                // position: absolute;
+            }
+
+            .email_box{
+                width: 60vw;
+                position: relative;
+
+                .input{
+                    display: flex;
+
+                    .email_button{
+                        height: 42px;
+                        margin-top: 20px;
+                        border-bottom-right-radius: 5px;
+                        border-top-right-radius: 5px;
+                        border: none;
+                        padding: 0 30px;
+                        font-size: 15px;
+                        cursor: pointer;
+                        color: white;
+                        background-color: #E50914;
+                        font-weight: 700;
+
+                    }
+                }
+
+                img{
+                    position: absolute;
+                    height: 100px;
+                    width: 100px;
+                    top: 20px;
+                    border-radius: 8px;
+                }
+
+                h3{
+                    margin-left: 10vw;
+                    margin-bottom: 10px;
+                }
+
+                input{
+                    height: 40px;
+                    width: 50vw;
+                    background-color: gray;
+                    border: none;
+                    margin: 20px 0 20px 10vw;
+                    border-bottom-left-radius: 5px;
+                    border-top-left-radius: 5px;
+                    padding-left: 10px;
+                    color: white;
+                    font-size: 16px;
+                }
+            }
+
+            .plans_box{
+                margin-left: 10vw;
+                display: flex;
+                flex-direction: column;
+                width: 50vw;
+
+                
+
+                .date{
+                    margin: 15px 0;
+                }
+
+                .container {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 20px;
+                    
+                    p{
+                        font-size: 14px;
+                    }
+
+                    button{
+                        border: none;
+                        color: white;
+                        background-color: #E50914;
+                        font-size: 15px;
+                        font-weight: 700;
+                        padding: 5px 20px;
+                        cursor: pointer;
+                        border-radius: 5px;
+                    }
+
+                    .button_package{
+                        background-color: gray;
+                    }
+                }
+
+                .sign-button{
+                    color: white;
+                    background-color: #E50914;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                    padding: 10px;
+                    font-weight: 700;
+                    font-size: 16px;
+                    cursor: pointer;
+
+                }
+            }
+        }
+    }
+}
