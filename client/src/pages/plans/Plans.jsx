@@ -7,16 +7,17 @@ import logo from '../../content/logo.png';
 import iconProfile from '../../content/icon_profile.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
+import Footer from "../../components/footer/Footer";
 
 
 export default function Plans() {
-    const [selectedPlan, setSelectedPlan] = useState(null)
+    const [selectedPlan, setSelectedPlan] = useState(2)
     let plan
 
-    const user = JSON.parse(localStorage.getItem("user"))
+    // const user = JSON.parse(localStorage.getItem("user"))
     // const user = false
-    // const usera = true
-    console.log(user._doc._id);
+    const usera = true
+    // console.log(user._doc._id);
 
 
     const plans = ['Basic', 'Standard', 'Premium']
@@ -28,17 +29,17 @@ export default function Plans() {
         if(selectedPlan === 1) plan = 'Standard';
         if(selectedPlan === 2) plan = 'Premium';
 
-        const res = await axios.put(`/users/${user._doc._id}`, {
-            headers: {
-                token:
-                    "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
-            },
-            body:{
-                plan: plan
-            }
-        });
+        // const res = await axios.put(`/users/${user._doc._id}`, {
+        //     headers: {
+        //         token:
+        //             "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+        //     },
+        //     body:{
+        //         plan: plan
+        //     }
+        // });
 
-        console.log(res)
+        // console.log(res)
     }
 
 
@@ -51,22 +52,21 @@ export default function Plans() {
                 <div className="right">
                     <Link to='/register'>Sign Out</Link>
                 </div>
-
             </div>
+            <div className="divider"></div>
 
-            <div className="wrapper">
 
-
+            <div className="wrapper-plan">
                 <div className="conditions">
-                    <h1>Choose the plan that`s right for you</h1>
+                <div className="step">STEP <b>3</b> OF <b>3</b></div>
 
+                    <h1>Choose the plan that`s right for you</h1>
                     <ul>
                         <li><Done className='icon'/> Watch all you want. Ad-free.</li>
                         <li><Done className='icon'/> Recommendations just for you.</li>
                         <li><Done className='icon'/> Change or cancel your plan ahytime.</li>
                     </ul>
                 </div>
-
 
                 <div className="planWrapper">
                     {plans.map((item, index) => (
@@ -85,12 +85,10 @@ export default function Plans() {
                     <Table selectedPlan={selectedPlan}/>
                 </div>
 
-
-
                 <div className="text">
                     <p>HD (720p), Full HD (1080p), Ultra HD (4K) and HDR availability subject to your internet service
                         and device capabilities. Not all content is available in all resolutions.
-                        See our Terms of Use for more details.
+                        See our <span>Terms of Use</span> for more details.
                         <br/>
                         <br/>
                         Only people who live with you may use your account. Watch on 4 different devices at the same
@@ -101,6 +99,10 @@ export default function Plans() {
                 <button className='subscribe' onClick={() => handleClick(selectedPlan)}>Subscribe</button>
             </div>
 
+            <div className='footer'>
+                <div className="divider"></div>
+                <Footer/>
+            </div>
 
         </div>
     )

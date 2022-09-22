@@ -16,10 +16,13 @@ import Plans from "./pages/plans/Plans";
 import Loading from "./components/loading/Loading";
 import ForgotPass from "./pages/forgotPass/ForgotPass";
 import Auth from "./components/test/Auth";
+import InfoPlan from "./components/infoPlan/InfoPlan";
+import SetPass from "./components/setPass/SetPass";
+import PassLoader from "./components/passLoader/PassLoader";
 
 const App = () => {
-  const { user } = useContext(AuthContext);
-  // const user = true
+  // const { user } = useContext(AuthContext);
+  const user = true
 
   return (
     <Router>
@@ -36,34 +39,29 @@ const App = () => {
           {/*{!user ? <Login /> : <Redirect to="/" />}*/}
           <Login />
         </Route>
-        {user && (
-          <>
-            <Route path="/movies">
-              <Home type="movie" />
-            </Route>
-            <Route path="/series">
-              <Home type="series" />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-            <Route path="/plans">
-              <Plans />
-            </Route>
-            <Route path="/loading">
-              <Loading />
-            </Route>
-            <Route path="/forgot">
-              <ForgotPass />
-            </Route>
-            <Route path="/test">
-              <Auth />
-            </Route>
-            <Route path="/watch/:movie_id">
-              <Watch />
-            </Route>
-          </>
-        )}
+        {/* {user && (
+          <> */}
+            <Route path="/movies"><Home type="movie" /></Route>
+
+            <Route path="/series"><Home type="series" /></Route>
+
+            <Route path="/profile"><Profile /></Route>
+
+            <Route path="/plans"><Plans /></Route>
+
+            <Route path="/loading"><Loading /></Route>
+
+            <Route path="/forgot"><ForgotPass /></Route>
+
+            <Route path="/loader"><PassLoader /></Route>
+
+            <Route path="/pass"><SetPass /></Route>
+
+            <Route path="/info"><InfoPlan /></Route>
+
+            <Route path="/watch/:movie_id"><Watch /></Route>
+          {/* </>
+        )} */}
       </Switch>
     </Router>
   );

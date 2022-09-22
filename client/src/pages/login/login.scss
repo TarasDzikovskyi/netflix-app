@@ -1,10 +1,10 @@
 .login {
   width: 100vw;
-  height: 100vh;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
-  url('../../content/login.png');
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, .4) 100%),
+  url('../../content/login2.jpg');
   background-size: cover;
-  position: relative;
+  // position: relative;
 
 
   .top {
@@ -23,13 +23,15 @@
   .container {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     color: white;
 
     form {
@@ -71,7 +73,7 @@
       }
 
       .field__input {
-        --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+        --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #333);
 
         background-color: #333;
         border-radius: 4px;
@@ -300,12 +302,16 @@
         color: #8c8c8c;
         font-size: 16px;
         margin-top: 90px;
-        font-weight: 300;
+        font-weight: 400;
 
         a {
           margin-left: 3px;
           color: white;
           text-decoration: none;
+
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
 
@@ -313,12 +319,22 @@
         color: #8c8c8c;
         font-size: 13px;
         margin: 13px 0;
-        font-weight: 300;
+        font-weight: 400;
 
         span{
           color: #0080ff;
+
+          &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
+  }
+
+  .footer{
+    background-color: rgba(0,0,0,.4);
+    // margin-top: 50px;
   }
 }

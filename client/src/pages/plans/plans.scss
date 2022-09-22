@@ -1,12 +1,19 @@
 .plans {
   // background-color: var(--main-color);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+
+  .divider{
+    border-top: 1px solid #e6e6e6;
+    height: 0;
+    width: 100%;
+  }
 
   .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20px;
 
     .left {
       .logo {
@@ -23,15 +30,15 @@
 
       a {
         text-decoration: none;
-        color: var(--main-color);
-        font-weight: 500;
-        font-size: 17px;
+        color: #333;
+        font-weight: 600;
+        font-size: 19px;
       }
     }
   }
 
-  .wrapper {
-    margin-top: 100px;
+  .wrapper-plan {
+    margin: 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,6 +46,14 @@
 
     .conditions {
       width: 70vw;
+
+      .step{
+        font-size: 14px;
+        line-height: 27px;
+        color: #333;
+        font-weight: 400;
+        padding-bottom: 5px;
+      }
 
       h1 {
         margin-bottom: 15px;
@@ -62,7 +77,7 @@
           box-sizing: border-box;
 
           .icon {
-            color: #E50914;
+            color: #e50914;
             padding-right: 5px;
             font-size: 27px;
           }
@@ -81,9 +96,13 @@
         margin: 0 1.7vw;
         position: relative;
         width: 130px;
+        font-size: 18px;
+        font-weight: 600;
         height: 120px;
-        background-color: #cb3a2d;
+        border-radius: 3px;
+        background-color: #e50914;
         color: white;
+        cursor: pointer;
 
         span {
           position: absolute;
@@ -94,7 +113,7 @@
       }
 
       .planBox::after {
-        background-color: #cb3a2d;
+        background-color: #e50914;
         bottom: -86px;
         content: '';
         display: block;
@@ -128,20 +147,35 @@
       font-size: 13px;
       padding-right: 12vw;
       box-sizing: border-box;
+
+      span{
+        color: #0071eb;
+
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
     }
 
     .subscribe{
       font-size: 24px;
-      background-color: #cb3a2d;
+      background-color: #e50914;
       border: none;
       color: white;
       padding: 18px 170px;
-      font-weight: 200;
-      margin: 20px 0 50px 0;
+      font-weight: 400;
+      margin: 40px 0 50px 0;
       border-radius: 5px;
       cursor: pointer;
+
+      &:hover{
+        background-color: red;
+      }
     }
   }
 
-
+  .footer{
+    background-color: #f3f3f3;
+  }
 }

@@ -39,7 +39,7 @@ export default function Login() {
                             <input
                                 type="email"
                                 className="field__input input"
-                                // placeholder="example@mail.co"
+                                placeholder=" "
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <span className="field__label-wrap">
@@ -51,7 +51,7 @@ export default function Login() {
                             <input
                                 type="password"
                                 className="field__input input"
-                                // placeholder="example@mail.co"
+                                placeholder=" "
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <span className="field__label-wrap">
@@ -85,11 +85,12 @@ export default function Login() {
                         </small>
                     </form>
                 </div>
+                <div className='footer'>
+                    <Footer/>
+                </div>
             </div>
             <div className="slice"></div>
-            <div style={{background: '#0b0b0b'}}>
-                <Footer/>
-            </div>
+            
         </>
 
     );

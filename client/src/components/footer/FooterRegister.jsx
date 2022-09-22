@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './footer.scss'
+import './footerRegister.scss'
 
 export default function FooterRegister() {
 
   return (
-    <div className='footer'>
+    <div className='footerRegister'>
       <div className="wrapper">
         <div className="call">Questions? Call <Link to="#">0800-509-417</Link></div>
         <div className="items">

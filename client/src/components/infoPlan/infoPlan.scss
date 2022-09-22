@@ -1,0 +1,137 @@
+.info-plan {
+  // background-color: var(--main-color);
+  width: 100vw;
+  height: 100%;
+
+  .divider{
+    border-top: 1px solid #e6e6e6;
+    height: 0;
+    width: 100%;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .left {
+      .logo {
+        height: 45px;
+        margin-top: 25px;
+        margin-left: 50px;
+      }
+    }
+
+    .right {
+      margin-top: 25px;
+      margin-right: 50px;
+
+      a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 19px;
+      }
+    }
+  }
+
+
+  .wrapper-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 90px;
+
+    .container{
+      width: 340px;
+      padding: 30px 0 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      .img-box{
+        margin: 100px 0 20px;
+        width: 50px;
+        height: 50px;
+        background-image: url("../../content/Checkmark.png");
+        background-size: 50px;
+      }
+
+      .step{
+        width: 100%;
+        font-size: 14px;
+        line-height: 27px;
+        color: #333;
+        font-weight: 400;
+        padding-bottom: 5px;
+      }
+
+      .header{
+        margin-bottom: 13px;
+        font-weight: 500;
+        font-size: 32px;
+        color: #333;
+      }
+
+      .conditions{
+
+        ul {
+          list-style-type: none;
+          display: flex;
+          flex-direction: column;
+          //justify-content: center;
+          padding: 0;
+          color: #333;
+          // align-items: center;
+
+          li {
+            display: flex;
+            align-items: center;
+            //height: 30px;
+            font-size: 19px;
+            margin-top: 20px;
+            max-width: 310px;
+            box-sizing: border-box;
+            text-align: left;
+
+            .icon {
+              color: #e50914;
+              padding: 0 10px 15px 0;
+              font-size: 35px;
+              //height: 26px;
+              //width: 26px;
+            }
+          }
+        }
+      }
+
+
+      .next-btn{
+        font-size: 24px;
+        min-height: 64px;
+        color: white;
+        background-color: #e50914;
+        border: none;
+        padding: 20.5px 48px;
+        border-radius: 4px;
+        width: 100%;
+        margin-top: 24px;
+
+        &:hover{
+          background-color: red;
+        }
+      }
+
+    }
+  }
+
+
+
+  .footer{
+    background-color: #f3f3f3;
+  }
+}
