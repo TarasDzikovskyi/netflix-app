@@ -8,11 +8,11 @@ import iconProfile from '../../content/icon_profile.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
+import {useHistory} from "react-router-dom";
 
 
 export default function PassLoader() {
-    const [selectedPlan, setSelectedPlan] = useState(2)
-    let plan
+    const history = useHistory();
 
     // const user = JSON.parse(localStorage.getItem("user"))
     // const user = false
@@ -23,8 +23,8 @@ export default function PassLoader() {
 
     // console.log(selectedPlan)
 
-    const handleClick = async (selectedPlan) => {
-       
+    const handleClick = async () => {
+       history.push('/setpass')
     }
 
 
@@ -35,7 +35,7 @@ export default function PassLoader() {
                     <img className="logo" src={logo} alt="logo"/>
                 </div>
                 <div className="right">
-                    <Link to='/register'>Sign Out</Link>
+                    <Link to='/login'>Sign In</Link>
                 </div>
             </div>
             <div className="divider"></div>
@@ -48,7 +48,7 @@ export default function PassLoader() {
                         <div className="header-loader">Finish setting up your account</div>
                         <div className="text-loader">Netflix is personalized for you.<br/> Create a password to watch on any device at any time.</div>
 
-                        <button className="btn-loader">Next</button>
+                        <button className="btn-loader" onClick={handleClick}>Next</button>
 
                     </div>
                 </div>

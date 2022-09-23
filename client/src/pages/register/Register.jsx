@@ -12,6 +12,8 @@ import videoTV from '../../content/video-tv-0819.m4v'
 import Questions from "../../components/questions/Questions";
 import FooterRegister from "../../components/footer/FooterRegister";
 import {ArrowForwardIos} from "@material-ui/icons";
+import logo from '../../content/logo.png';
+
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -23,21 +25,36 @@ export default function Register() {
     const passwordRef = useRef();
     const usernameRef = useRef();
 
-    const handleStart = () => {
-        setEmail(emailRef.current.value);
-    };
-
-    const handleFinish = async (e) => {
+    const handleStart = async (e) => {
         e.preventDefault();
-        setPassword(passwordRef.current.value);
-        setUsername(usernameRef.current.value);
+
         try {
-            await axios.post("auth/register", {email, username, password});
-            history.push("/login");
+            // const res = await axios.post("auth/register", {email});
+
+            // console.log(res);
+
+            // if(res !== false) {
+                let obj = {email: email, new: true}
+                localStorage.setItem('email', JSON.stringify(obj))
+
+                // history.push('/loader')
+                // /setpass
+                // /info
+                // /plans
+            // }
+            // else {
+            //     let obj = {email: email, new: false}
+            //     localStorage.setItem('email', obj)
+            //     history.push('/setpass')
+            // }
         } catch (err) {
             console.log(err);
         }
+        // setEmail(emailRef.current.value);
+
+        console.log(email);
     };
+
 
     const handleClick = () => {
         history.push('/login')
@@ -49,8 +66,8 @@ export default function Register() {
                     <div className="wrapper">
                         <img
                             className="logo"
-                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png'
-                            alt=""
+                            src={logo}
+                            alt="logo"
                         />
                         <button className="loginButton" onClick={handleClick}>Sign In</button>
                     </div>
@@ -62,8 +79,23 @@ export default function Register() {
                         Ready to watch? Enter your email to create or restart your membership.
                     </p>
 
-                    <div className="input">
-                        <input type="email" placeholder="Email address" ref={emailRef}/>
+                    <div className="input-box">
+                        <div className="input-field">
+
+                    <label className="field field_v2">
+                            <input
+                                type="email"
+                                className="field__input input"
+                                placeholder=" "
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <span className="field__label-wrap">
+                                    <span className="field__label">Email address</span>
+                                </span>
+                        </label>
+                        </div>
+
+                        {/* <input type="email" placeholder="Email address" onChange={(e) => setEmail(e.target.value)}/> */}
                         <button className="registerButton" onClick={handleStart}>
                             Get Started
                             <ArrowForwardIos/>

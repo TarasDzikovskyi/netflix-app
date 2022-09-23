@@ -1,3 +1,4 @@
+import { Language } from '@material-ui/icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './footerRegister.scss'
@@ -24,6 +25,15 @@ export default function FooterRegister() {
           <div className="item"><Link to='#'>Speed Test</Link></div>
           <div className="item"><Link to='#'>Legal Notices</Link></div>
           <div className="item"><Link to='#'>Only on Netflix</Link></div>
+        </div>
+
+        <div className="select-block">
+          <label for="language"><Language className='lang-icon'/></label> 
+          
+          <select id='language'>
+          <option value="en">English</option>
+            <option value="ua">Українська</option>
+          </select>
         </div>
 
         <div className="nu">Netflix Ukraine</div>

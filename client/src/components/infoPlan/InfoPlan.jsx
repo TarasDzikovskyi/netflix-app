@@ -1,32 +1,17 @@
-import {ArrowBackOutlined, Done} from '@material-ui/icons'
+import {Done} from '@material-ui/icons'
 import React, {useState} from 'react'
 import './infoPlan.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
-import ReactPlayer from 'react-player'
+import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
-import Table from '../../components/table/Table';
-import axios from "axios";
 import Footer from "../../components/footer/Footer";
-
+import {useHistory} from "react-router-dom";
 
 export default function InfoPlan() {
-    const [selectedPlan, setSelectedPlan] = useState(2)
-    let plan
+    const history = useHistory();
 
-    // const user = JSON.parse(localStorage.getItem("user"))
-    // const user = false
-    const usera = true
-    // console.log(user._doc._id);
-
-
-
-    // console.log(selectedPlan)
-
-    const handleClick = async (selectedPlan) => {
-       
+    const handleClick = () => {
+        history.push('/plans')
     }
-
 
     return (
         <div className="info-plan">
@@ -39,7 +24,6 @@ export default function InfoPlan() {
                 </div>
             </div>
             <div className="divider"></div>
-
 
             <div className="wrapper-info">
                 <div className="container">
@@ -57,10 +41,7 @@ export default function InfoPlan() {
                         </ul>
                     </div>
 
-
-
-                    <button className='next-btn' onClick={() => handleClick(selectedPlan)}>Next</button>
-
+                    <button className='next-btn' onClick={handleClick}>Next</button>
                 </div>
             </div>
 
@@ -68,7 +49,6 @@ export default function InfoPlan() {
                 <div className="divider"></div>
                 <Footer/>
             </div>
-
         </div>
     )
 }

@@ -8,35 +8,39 @@ import iconProfile from '../../content/icon_profile.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
+import {useHistory} from "react-router-dom";
 
 
 export default function SetPass() {
     const [selectedPlan, setSelectedPlan] = useState(2)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('.')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const history = useHistory();
 
     let plan
 
-    // const user = JSON.parse(localStorage.getItem("user"))
+    const obj = JSON.parse(localStorage.getItem("email"))
     // const user = false
-    const first = false
+    const email = obj.email;
     // console.log(user._doc._id);
 
 
 
     // console.log(selectedPlan)
 
-    const handleClick = async (password) => {
+    const handleClick = async (username, password) => {
         if(password == ''){
             const input = document.getElementById('warning');
 
-            if (input.style.display = "none") {
-                input.style.display = "flex"
-            }
+            if (input.style.display = "none")  input.style.display = "flex"
 
+        } else {
+            await axios.post('/auth/register', {email, username, password})
+
+            history.push('/login')
         }
-       
     }
+
 
     console.log(password);
 
@@ -55,7 +59,7 @@ export default function SetPass() {
             </div>
             <div className="divider"></div>
 
-            {first ? (
+            {obj.new === false ? (
                 <div className="container">
                 <div className="wrapper">
                     <div id="warning" style={{display: 'none'}}>
@@ -74,7 +78,7 @@ export default function SetPass() {
                     </div>
 
                     <div className="email-field">
-                        Email <br /> <b>example@mail.com</b>
+                        Email <br /> <b>{email}</b>
                     </div>
 
                     <div className="input-field">
@@ -92,7 +96,7 @@ export default function SetPass() {
                                 </span>
                         </label>
 
-                        {(password.length == 0 && password.length <=1) && (
+                        {(password.length <1) && (
                             <div className="error">Password is required!</div>
                         )}
 
@@ -132,7 +136,7 @@ export default function SetPass() {
                     </div>
 
                     <div className="email-field">
-                        Email <br /> <b>example@mail.com</b>
+                        Email <br /> <b>{email}</b>
                     </div>
 
                     <div className="input-field">
@@ -141,7 +145,7 @@ export default function SetPass() {
                                 type="text"
                                 className="field__input input"
                                 placeholder=" "
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                             <span className="field__label-wrap">
                                     <span className="field__label">Username</span>
