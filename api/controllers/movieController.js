@@ -47,7 +47,7 @@ module.exports.deleteMovie = async (req, res, next) => {
 
 module.exports.getSingleMovie = async (req, res, next) => {
     try{
-        const movie = await Movie.findById(req.params.id)
+        const movie = await Movie.findById(req.params.movie_id)
 
         res.status(200).json(movie)
     } catch(e){
@@ -64,6 +64,11 @@ module.exports.getRandomMovie = async (req, res, next) => {
             movie = await Movie.aggregate([
                 {$match: {isSeries: true}},
                 {$sample: {size: 1}}
+            ])
+        } else if(type === 'random') {
+            movie = await Movie.aggregate([
+                // {$match: {isSeries: true}},
+                {$sample: {size: 18}}
             ])
         } else {
             movie = await Movie.aggregate([

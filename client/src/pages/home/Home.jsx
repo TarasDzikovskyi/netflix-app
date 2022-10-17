@@ -2,14 +2,20 @@ import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
 import "./home.scss";
 import List from "../../components/list/List";
-import { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import Footer from "../../components/footer/Footer";
+import RandomList from "../../components/randomList/RandomList";
+import {useLocation, useParams} from 'react-router-dom'
+import CurrentMovie from "../../components/featured/CurrentMovie";
 
-const Home = ({ type }) => {
+const Home = (props, {type}) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
+    const {pathname} = useLocation()
 
     useEffect(() => {
+        window.scrollTo(0,0)
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
@@ -19,7 +25,7 @@ const Home = ({ type }) => {
                     {
                         headers: {
                             token:
-                                "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+                                "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
                         },
                     }
                 );
@@ -29,16 +35,23 @@ const Home = ({ type }) => {
             }
         };
         getRandomLists();
-    }, [type, genre]);
+    }, [type, genre, pathname]);
 
-    console.log(type)
     return (
         <div className="home">
-            <Navbar />
-            <Featured type={type} setGenre={setGenre} />
+            <Navbar/>
+            <Featured type={type} setGenre={setGenre}/>
+
             {lists.map((list) => (
-                <List list={list} />
+                <div key={list._id}>
+                    <List list={list}/>
+                </div>
             ))}
+
+            <RandomList/>
+            <div className='footer'>
+                <Footer/>
+            </div>
         </div>
     );
 };

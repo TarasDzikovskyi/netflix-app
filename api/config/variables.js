@@ -4,7 +4,7 @@ module.exports = {
     ACTION_SECRET_KEY: process.env.ACTION_SECRET_KEY || 'Secret_3',
     ACTION_TIME: '1h',
     ACCESS_TIME: '12h',
-    REFRESH_TIME: '31d',
+    REFRESH_TIME: '30d',
     ACTION: 'action',
     ACCESS: 'access',
     REFRESH: 'refresh',

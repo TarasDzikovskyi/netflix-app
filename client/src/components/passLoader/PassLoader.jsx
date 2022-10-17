@@ -24,7 +24,7 @@ export default function PassLoader() {
     // console.log(selectedPlan)
 
     const handleClick = async () => {
-       history.push('/setpass')
+       history.push('/pass')
     }
 
 

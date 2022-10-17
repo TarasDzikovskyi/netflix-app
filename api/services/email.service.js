@@ -13,11 +13,10 @@ const templateParser = new EmailTemplates({
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'test@gmail.com',
-        pass: '12345'
+        user: process.env.USER_GMAIL,
+        pass: process.env.PASSWORD_GMAIL
     }
 });
-
 
 const sendMail = async (userMail, emailAction, context = {}) => {
     const templateInfo = allTemplate[emailAction];

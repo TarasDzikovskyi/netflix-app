@@ -29,24 +29,24 @@ export default function Register() {
         e.preventDefault();
 
         try {
-            // const res = await axios.post("auth/register", {email});
+            const res = await axios.post("auth/check", {email});
 
-            // console.log(res);
+            console.log(res.data);
 
-            // if(res !== false) {
+            if(res.data === 'new') {
                 let obj = {email: email, new: true}
                 localStorage.setItem('email', JSON.stringify(obj))
 
-                // history.push('/loader')
+                history.push('/loader')
                 // /setpass
                 // /info
                 // /plans
-            // }
-            // else {
-            //     let obj = {email: email, new: false}
-            //     localStorage.setItem('email', obj)
-            //     history.push('/setpass')
-            // }
+            } else {
+                let obj = {email: email, new: false}
+                localStorage.setItem('email', JSON.stringify(obj))
+
+                history.push('/loader')
+            }
         } catch (err) {
             console.log(err);
         }
@@ -82,8 +82,9 @@ export default function Register() {
                     <div className="input-box">
                         <div className="input-field">
 
-                    <label className="field field_v2">
+                    <label className="field field_v2" htmlFor='email'>
                             <input
+                                id='email'
                                 type="email"
                                 className="field__input input"
                                 placeholder=" "

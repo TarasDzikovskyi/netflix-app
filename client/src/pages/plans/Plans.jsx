@@ -1,45 +1,37 @@
-import {ArrowBackOutlined, Done} from '@material-ui/icons'
+import {Done} from '@material-ui/icons'
 import React, {useState} from 'react'
 import './plans.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
-import ReactPlayer from 'react-player'
+import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
+import {useHistory} from "react-router-dom";
 
 
 export default function Plans() {
     const [selectedPlan, setSelectedPlan] = useState(2)
     let plan
-
-    // const user = JSON.parse(localStorage.getItem("user"))
-    // const user = false
-    const usera = true
-    // console.log(user._doc._id);
-
+    const history = useHistory();
+    const user = JSON.parse(localStorage.getItem("user"))
 
     const plans = ['Basic', 'Standard', 'Premium']
 
-    // console.log(selectedPlan)
-
     const handleClick = async (selectedPlan) => {
-        if(selectedPlan === 0) plan = 'Basic';
-        if(selectedPlan === 1) plan = 'Standard';
-        if(selectedPlan === 2) plan = 'Premium';
+        if (selectedPlan === 0) plan = 'Basic';
+        if (selectedPlan === 1) plan = 'Standard';
+        if (selectedPlan === 2) plan = 'Premium';
 
-        // const res = await axios.put(`/users/${user._doc._id}`, {
-        //     headers: {
-        //         token:
-        //             "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
-        //     },
-        //     body:{
-        //         plan: plan
-        //     }
-        // });
+        const res = await axios.patch(`/users/${user.user._id}`, {
+            headers: {
+                token:
+                    "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
+            },
+            plan: plan
+        });
 
-        // console.log(res)
+        console.log(res)
+        history.push('/')
     }
 
 
@@ -58,7 +50,7 @@ export default function Plans() {
 
             <div className="wrapper-plan">
                 <div className="conditions">
-                <div className="step">STEP <b>3</b> OF <b>3</b></div>
+                    <div className="step">STEP <b>3</b> OF <b>3</b></div>
 
                     <h1>Choose the plan that`s right for you</h1>
                     <ul>

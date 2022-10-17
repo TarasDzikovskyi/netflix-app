@@ -1,6 +1,6 @@
 import React, {useContext, useRef, useState} from 'react'
-import {login} from '../../authContext/apiCalls'
-import {AuthContext} from '../../authContext/AuthContext'
+import {login} from '../../context/authContext/apiCalls'
+import {AuthContext} from '../../context/authContext/AuthContext'
 import './login.scss'
 import {Link} from "react-router-dom";
 import Footer from "../../components/footer/Footer";
@@ -72,10 +72,6 @@ export default function Login() {
                             </div>
                         </div>
 
-
-
-
-
                         <span className='sign-text'>
                         New to Netflix? <b><Link to="/register">Sign up now.</Link></b>
                         </span>
@@ -90,8 +86,6 @@ export default function Login() {
                 </div>
             </div>
             <div className="slice"></div>
-            
         </>
-
     );
 }

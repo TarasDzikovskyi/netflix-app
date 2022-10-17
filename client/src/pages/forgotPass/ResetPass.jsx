@@ -1,23 +1,42 @@
-import {ArrowBackOutlined} from '@material-ui/icons'
 import React, {useState} from 'react'
-import './forgotPass.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
-import ReactPlayer from 'react-player'
+import './resetPass.scss'
+import {Link, Redirect} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
 import 'react-phone-input-2/lib/style.css'
-import PhoneInput from 'react-phone-input-2'
 import Footer from "../../components/footer/Footer";
+import axios from "axios";
 
+export default function ResetPass(props) {
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [redirect, setRedirect] = useState(false)
 
-export default function ResetPass() {
-    const [value, setValue] = useState()
+    // console.log(props.match.params.token)
 
-    console.log(value)
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if (password !== confirmPassword) {
+            console.log('herovo')
+        } else {
+            const res = await axios.post('auth/reset', {
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    password: confirmPassword,
+                    action_token: props.match.params.token
+                })
+            })
+
+            setRedirect(true)
+            console.log(res)
+        }
+    }
+
+    if(redirect) <Redirect to='/login'/>
 
     return (
         <>
-            <div className="forgot">
+            <div className="reset">
                 <div className="nav">
                     <div className="left">
                         <img className="logo" src={logo} alt="logo"/>
@@ -30,22 +49,27 @@ export default function ResetPass() {
 
                 <div className="wrapper">
                     <div className="container">
-                        <h1>Forgot Email/Password</h1>
-                        <p>How would you like to reset your password?</p>
+                        <h1>Reset Your Password</h1>
 
                         <form action="" className="actions">
+                            <p>Please create new password and confirm it.</p>
 
-
-                            <p>We will send you an email with instructions on how to reset your password.</p>
                             <input
                                 className='email_input'
-                                type="email"
-                                placeholder='name@example.com'
-                                value={valueEmail}
-                                onChange={(e) => setValueEmail(e.target.value)}
-
+                                type="password"
+                                placeholder='Password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button>Email Me</button>
+
+                            <input
+                                className='email_input'
+                                type="password"
+                                placeholder='Confirm Password'
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            <button>Reset</button>
 
 
                         </form>

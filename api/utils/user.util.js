@@ -1,9 +1,7 @@
-const { PASSWORD } = require('../config/constants');
-
 module.exports = {
     userNormalizator: (userToNormalize) => {
         const fieldsToRemove = [
-            PASSWORD,
+            'password',
             '_v'
         ];
 

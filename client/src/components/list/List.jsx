@@ -26,7 +26,7 @@ export default function List({list}) {
             setSlideNumber(slideNumber - 1);
             listRef.current.style.transform = `translateX(${185 + distance}px)`;
         }
-        if (direction === "right" && slideNumber < 10 - clickLimit) {
+        if (direction === "right" && slideNumber < list.length - clickLimit) {
             setSlideNumber(slideNumber + 1);
             listRef.current.style.transform = `translateX(${-185 + distance}px)`;
         }
@@ -34,7 +34,7 @@ export default function List({list}) {
 
     const handleItemClick = (item) => {
         getMovie(item)
-        const input = document.getElementById('info_box');
+        const input = document.getElementById(list._id);
         if (input.style.display === "none") {
             input.style.display = "block";
         }
@@ -45,7 +45,7 @@ export default function List({list}) {
             const res = await axios.get("/movies/find/" + item, {
                 headers: {
                     token:
-                        "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+                        "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
                 },
             });
             setInfo(res.data)
@@ -56,7 +56,7 @@ export default function List({list}) {
 
     const onButtonClick = async (title) => {
         let res = await movieTrailer(title)
-        if(title !== null) {
+        if (title !== null) {
             let movie_id = res.slice(-12)
             history.push(`/watch/${movie_id}`)
         } else {
@@ -65,7 +65,7 @@ export default function List({list}) {
     }
 
     const clearState = () => {
-        const input = document.getElementById('info_box');
+        const input = document.getElementById(list._id);
         input.style.display = "none";
     }
 
@@ -80,13 +80,13 @@ export default function List({list}) {
                 />
                 <div className="container" ref={listRef}>
                     {list.content.map((item, i) => (
-                        <div onClick={() => handleItemClick(item)}>
+                        <div key={item._id} onClick={() => handleItemClick(item)}>
                             <ListItem index={i} item={item}/>
                         </div>
                     ))}
                 </div>
 
-                {info && <div id='info_box' style={{display: 'none'}} className='text_item'>
+                {info && <div id={list._id} style={{display: 'none'}} className='text_item'>
                     <div className="wrapper-item">
                         <div className="box-item">
                             <div className="title">{info.title}</div>
@@ -101,9 +101,9 @@ export default function List({list}) {
                                 </button>
 
                                 <div className="icons">
-                                    <Add className="icon" />
-                                    <ThumbUpAltOutlined className="icon" />
-                                    <ThumbDownOutlined className="icon" />
+                                    <Add className="icon"/>
+                                    <ThumbUpAltOutlined className="icon"/>
+                                    <ThumbDownOutlined className="icon"/>
                                 </div>
 
 

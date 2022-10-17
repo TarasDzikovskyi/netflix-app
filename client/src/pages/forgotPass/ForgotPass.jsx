@@ -1,13 +1,11 @@
-import {ArrowBackOutlined} from '@material-ui/icons'
 import React, {useState} from 'react'
 import './forgotPass.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
-import ReactPlayer from 'react-player'
+import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
 import 'react-phone-input-2/lib/style.css'
 import PhoneInput from 'react-phone-input-2'
 import Footer from "../../components/footer/Footer";
+import axios from "axios";
 
 
 export default function ForgotPass() {
@@ -18,6 +16,14 @@ export default function ForgotPass() {
     console.log(radioBtn)
     console.log(value)
     console.log(valueEmail)
+
+    const handleClick = async (e) => {
+        e.preventDefault()
+        const res = await axios.post('auth/forgot', {
+            email: valueEmail
+        })
+
+    }
 
     return (
         <>
@@ -73,7 +79,7 @@ export default function ForgotPass() {
                                         onChange={(e) => setValueEmail(e.target.value)}
 
                                     />
-                                    <button>Email Me</button>
+                                    <button onClick={handleClick}>Email Me</button>
                                 </>
                             ) : (
                                 <>

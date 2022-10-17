@@ -11,7 +11,7 @@ export default function ListItem({index, item}) {
                 const res = await axios.get("/movies/find/" + item, {
                     headers: {
                         token:
-                            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+                            "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
                     },
                 });
                 setMovie(res.data);
@@ -27,6 +27,7 @@ export default function ListItem({index, item}) {
         <>
             <div className="listItem">
                 <img src={movie?.imgSm} alt="title"/>
+                {movie.title}
                 {/*<div className="img-info">{movie.title}</div>*/}
             </div>
         </>

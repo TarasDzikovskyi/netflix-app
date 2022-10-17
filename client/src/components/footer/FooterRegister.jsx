@@ -10,7 +10,7 @@ export default function FooterRegister() {
       <div className="wrapper">
         <div className="call">Questions? Call <Link to="#">0800-509-417</Link></div>
         <div className="items">
-          <div className="item"><Link to='#'>FAQ</Link></div>
+          <div className="item"><Link to='/faq'>FAQ</Link></div>
           <div className="item"><Link to='#'>Help Center</Link></div>
           <div className="item"><Link to='#'>Account</Link></div>
           <div className="item"><Link to='#'>Media Center</Link></div>

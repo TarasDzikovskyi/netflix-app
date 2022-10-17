@@ -1,0 +1,74 @@
+.footer-faq {
+  background: linear-gradient(10deg, rgba(229, 9, 20, 0) 58%, #e50914 128%), #000;
+  height: 390px;
+
+  .container {
+    margin: 0 48px;
+    padding: 0 48px;
+    //width: 100vw;
+    box-sizing: border-box;
+
+    .contact-block {
+      padding: 24px 0 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      h3 {
+        margin-right: 32px;
+        font-size: 21px;
+        line-height: 30px;
+        color: white;
+        font-weight: 400;
+      }
+
+      button {
+        margin-bottom: 8px;
+        min-width: 160px;
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+        border: none;
+        padding: 9px 20px;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 4px;
+      }
+    }
+
+    .informator {
+      height: 20px;
+      width: 100%;
+      border-top: 1px solid #8c8c8c;
+
+      .switcher-wrapper {
+        height: 80px;
+        position: relative;
+
+        select {
+          position: absolute;
+          bottom: 0;
+          font-size: 16px;
+          padding: 13px 45px 13px 16px;
+          background-color: #0b0b0b;
+          border: 1px solid #8c8c8c;
+          color: #8c8c8c;
+          border-radius: 4px;
+        }
+      }
+
+      ul {
+        padding: 40px 0 0;
+        list-style-type: none;
+
+        li {
+          color: hsla(0, 0%, 100%, .7);
+          font-size: 15px;
+          line-height: 21px;
+          margin-bottom: 17px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}

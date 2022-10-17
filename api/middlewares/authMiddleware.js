@@ -1,11 +1,9 @@
 const ErrorHandler = require('../errors/ErrorHandler');
-const { jwtService } = require('../services');
-const { OAuth } = require('../database');
+const { jwtService } = require('../services/jwt.service');
+const { OAuth } = require('../models');
+
 
 module.exports = {
-    isEmailPresent: (req, res, next) => {
-
-    },
 
     validateAccessToken: async (req, res, next) => {
         try {

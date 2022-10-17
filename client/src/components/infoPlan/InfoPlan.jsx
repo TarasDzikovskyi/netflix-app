@@ -1,5 +1,5 @@
 import {Done} from '@material-ui/icons'
-import React, {useState} from 'react'
+import React from 'react'
 import './infoPlan.scss'
 import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
