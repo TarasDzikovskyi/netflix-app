@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema(
         isAdmin: {type: Boolean, default: false},
         plan: {type: String, default: ""},
         list: {type: String, default: ""},
+        cart: {type: Array, default: []},
     },
     {timestamps: true}
 )

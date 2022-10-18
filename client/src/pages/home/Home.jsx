@@ -6,10 +6,9 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
 import RandomList from "../../components/randomList/RandomList";
-import {useLocation, useParams} from 'react-router-dom'
-import CurrentMovie from "../../components/featured/CurrentMovie";
+import {useLocation} from 'react-router-dom'
 
-const Home = (props, {type}) => {
+const Home = ({type}) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
     const {pathname} = useLocation()

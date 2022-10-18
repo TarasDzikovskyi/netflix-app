@@ -8,12 +8,24 @@ import iconProfile from '../../content/icon_profile.png';
 import logo from '../../content/logo.png';
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import { CartContext } from '../../context/cartContext/CartContext';
+import { useEffect } from 'react';
+// import {useSelector} from 'react-redux'
 
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const {dispatch} = useContext(AuthContext)
     const history = useHistory();
+    // const selector = useSelector((state) => state.user)
+    const {cart} = useContext(CartContext)
+    
+    // console.log(cart)
+    
+    const user = JSON.parse(localStorage.getItem("user"))
+    
+
+    // console.log(user)
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -33,17 +45,25 @@ export default function Navbar() {
                     <Link to='/series' className='link'><span className='navbarMainLinks'>Series</span></Link>
                     <Link to='/movies' className='link'><span className='navbarMainLinks'>Movies</span></Link>
                     <span>New and Popular</span>
-                    <Link to='/list' className='link'><span>My List</span></Link>
+                    <Link to='/personal' className='link'><span className='navbarMainLinks'>My List 
+                            {cart && cart.user ? (
+                                <small>{cart.user.cart.length}</small>
+                            ) : (
+                                <small>{user.user.cart.length}</small>
+                            )}
+                        </span>
+                    </Link> 
+
                 </div>
                 <div className="right">
                     <Search className="icon"/>
                     <span>Kids</span>
                     <Notifications className="icon"/>
-                    <Link to='/profile'><img src={iconProfile} alt="profile"/></Link>
+                    <img src={iconProfile} alt="profile"/>
                     <div className="profile_menu">
                         <ArrowDropDown className="icon"/>
                         <div className="options">
-                            <span>Settings</span>
+                        <Link to='/profile' className='link'><span className='navbarMainLinks'>Settings</span></Link>
                             <span onClick={() => {
                                 logout_user()
                                 dispatch(logout())

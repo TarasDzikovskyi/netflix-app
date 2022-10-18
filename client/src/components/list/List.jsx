@@ -3,12 +3,14 @@ import {
     ArrowBackIosOutlined,
     ArrowForwardIosOutlined, Clear, PlayArrow, ThumbDownOutlined, ThumbUpAltOutlined,
 } from "@material-ui/icons";
-import React, {useRef, useState} from "react";
+import React, {useRef, useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
 import {useHistory} from "react-router-dom";
 import axios from "axios";
 import movieTrailer from 'movie-trailer'
+import { addToCart } from "../../context/cartContext/apiCalls";
+import {CartContext} from '../../context/cartContext/CartContext'
 
 export default function List({list}) {
     const [isMoved, setIsMoved] = useState(false);
@@ -16,6 +18,7 @@ export default function List({list}) {
     const [clickLimit, setClickLimit] = useState(window.innerWidth / 185);
     const [info, setInfo] = useState([])
     const history = useHistory()
+    const {dispatch} = useContext(CartContext)
 
     const listRef = useRef();
 
@@ -69,6 +72,14 @@ export default function List({list}) {
         input.style.display = "none";
     }
 
+    const handleClickCart = (movie_id) => {
+        // e.preventDefault()
+        // console.log(movie_id)
+        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        addToCart({user_id, movie_id}, dispatch)
+
+    }
+
     return (
         <div className="list">
             <span className="listTitle">{list.title}</span>
@@ -101,7 +112,7 @@ export default function List({list}) {
                                 </button>
 
                                 <div className="icons">
-                                    <Add className="icon"/>
+                                    <Add className="icon" onClick={() => handleClickCart(info._id)}/>
                                     <ThumbUpAltOutlined className="icon"/>
                                     <ThumbDownOutlined className="icon"/>
                                 </div>

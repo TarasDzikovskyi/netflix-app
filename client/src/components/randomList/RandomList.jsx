@@ -14,7 +14,7 @@ export default function RandomList() {
                 const res = await axios.get(`/movies/random?type=random`, {
                     headers: {
                         token:
-                            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+                            "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
                     },
                 });
                 setContent(res.data);
@@ -29,7 +29,7 @@ export default function RandomList() {
 
     const handleClick = (id) => {
         console.log(id)
-        history.push(`/${id}`)
+        history.push(`/select/${id}`)
     }
 
     return (

@@ -35,6 +35,8 @@ module.exports.login = async (req, res, next) => {
         res.cookie('accessToken', tokenPair.access_token, {maxAge: 12*60*60*1000, httpOnly: true})
         res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30*24*60*60*1000, httpOnly: true})
 
+        console.log(tokenPair)
+
         await OAuth.create({...tokenPair, user: user._id})
 
         res.status(200).json({...tokenPair, user: userNormalizator(user)})

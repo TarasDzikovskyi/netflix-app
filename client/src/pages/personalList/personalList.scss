@@ -1,0 +1,22 @@
+.personalList{
+    background-color: var(--main-color);
+
+    .wrapper-list{
+        padding: 80px 4% 10px;
+        min-height: 70vh;
+
+
+        h2 {
+            color: #fff;
+            font-size: 30px;
+            font-weight: 400;
+            line-height: 34px;
+            margin: 40px 0 10px;
+        }
+
+        .block{
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}

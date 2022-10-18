@@ -24,19 +24,24 @@ import Faq from "./components/differents/faq/Faq";
 import Help from "./components/differents/Help/Help";
 import CurrentMovie from "./components/featured/CurrentMovie";
 import CurrentHome from "./pages/home/CurrentHome";
+import PersonalList from "./pages/personalList/PersonalList";
 
 const App = () => {
     const {user} = useContext(AuthContext);
-    console.log(user)
+    // console.log(user)
     // const user = true
 
     return (
         <Router>
             <Switch>
                 <Route exact path="/">
-                    {user ? <Home/> : <Redirect to="/register"/>}
-                    {/*<Home/>*/}
+                    <Loading/>
                 </Route>
+
+                {/*<Route exact path="/">*/}
+                {/*    {user ? <Home/> : <Redirect to="/register"/>}*/}
+                {/*    /!*<Home/>*!/*/}
+                {/*</Route>*/}
                 <Route path="/register">
                     {!user ? <Register/> : <Redirect to="/"/>}
                     {/*<Register/>*/}
@@ -51,27 +56,29 @@ const App = () => {
 
                         <Route path="/series"><Home type="series"/></Route>
 
-                        <Route path="/:movie_id"><CurrentHome/></Route>
+                        <Route path="/select/:movie_id"><CurrentHome/></Route>
 
                         <Route path="/profile"><Profile/></Route>
 
-                        <Route path="/plans"><Plans/></Route>
-
                         <Route path="/loading"><Loading/></Route>
 
-                        <Route path="/forgot"><ForgotPass/></Route>
-
-                        <Route path="/reset/:token"><ResetPass/></Route>
-
-                        <Route path="/loader"><PassLoader/></Route>
-
-                        <Route path="/pass"><SetPass/></Route>
-
-                        <Route path="/info"><InfoPlan/></Route>
+                        <Route path="/personal"><PersonalList/></Route>
 
                         <Route path="/watch/:movie_id"><Watch/></Route>
                     </>
                 )}
+
+                <Route path="/plans"><Plans/></Route>
+
+                <Route path="/forgot"><ForgotPass/></Route>
+
+                <Route path="/reset/:token"><ResetPass/></Route>
+
+                <Route path="/loader"><PassLoader/></Route>
+
+                <Route path="/pass"><SetPass/></Route>
+
+                <Route path="/info"><InfoPlan/></Route>
 
                 <Route path='/faq'><Faq/></Route>
 

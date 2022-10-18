@@ -1,9 +1,9 @@
 import {InfoOutlined, PlayArrow} from '@material-ui/icons'
 import React, {useEffect, useState} from 'react'
-import './featured.scss'
+import './personalItem.scss'
 import axios from "axios";
 
-export default function CurrentMovie({movie_id}) {
+export default function PersonalItem({movie_id}) {
     const [content, setContent] = useState({})
 
     useEffect(() => {
@@ -26,24 +26,14 @@ export default function CurrentMovie({movie_id}) {
 
     }, [movie_id]);
 
+    console.log(content)
+
     return (
-        <div className="featured">
-            <img src={content.img} alt="title" className='featured_img'/>
-            <div className="info">
-                <h2>{content.title}</h2>
-                {/*<img src={content.imgTitle} alt="imgTitle"/>*/}
-                <span className="desc">{content.desc}</span>
-                <div className="buttons">
-                    <button className="play">
-                        <PlayArrow/>
-                        <span>Play</span>
-                    </button>
-                    <button className="more">
-                        <InfoOutlined/>
-                        <span>Info</span>
-                    </button>
-                </div>
+        <div className="personalItem">
+            <div className="item">
+                {/*{item}*/}
             </div>
+            {/*<p>{item}</p>*/}
         </div>
     )
 }

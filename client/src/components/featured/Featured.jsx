@@ -12,7 +12,7 @@ export default function Featured({type, setGenre}) {
                 const res = await axios.get(`/movies/random?type=${type}`, {
                     headers: {
                         token:
-                            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+                            "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
                     },
                 });
                 setContent(res.data[0]);
@@ -24,7 +24,7 @@ export default function Featured({type, setGenre}) {
 
     }, [type]);
 
-    console.log(content)
+    // console.log(content)
 
     return (
         <div className="featured">

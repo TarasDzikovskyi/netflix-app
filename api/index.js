@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser')
-// const path = require('path');
 
 dotenv.config()
 const {authRouter, userRouter, movieRouter, listRouter} = require('./routes')
@@ -17,12 +16,8 @@ mongoose
     .then(() => console.log('DB Connected Successfully!'))
     .catch((e) => console.log(e))
 
-
-
 app.use(express.json());
 app.use(cookieParser())
-
-// app.use(express.static(path.join(__dirname, 'css')))
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);

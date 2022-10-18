@@ -14,4 +14,8 @@ router.get('/', verify, userController.getAllUsers)
 
 router.get('/stats', userController.getAllUsersStats)
 
+router.post('/cart', userController.addToCart)
+
+// router.delete('/cart', userController.removeFromCart)
+
 module.exports = router;
