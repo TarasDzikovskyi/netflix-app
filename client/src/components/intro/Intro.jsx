@@ -2,7 +2,6 @@ import React from 'react'
 import './intro.sass'
 
 export default function Intro() {
-    // const user = JSON.parse(localStorage.getItem("user"))
 
     return (
         <div id="container">

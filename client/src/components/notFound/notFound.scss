@@ -1,0 +1,92 @@
+.notFound{
+    background-color: var(--main-color);
+    height: 100vh;
+
+
+    .nav{
+        background-color: var(--main-color);
+        height: 68px;
+        left: 0;
+        padding: 0 45px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+    }
+
+    .wrapper{
+        background: url("../../content/notFound.jpeg");
+        background-size: cover;
+        padding-top: 140px;
+
+
+        .block{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+            h1{
+                color: white;
+                font-size: 6em;
+                font-weight: 700;
+                margin-bottom: 40px;
+            }
+
+            p{
+                max-width: 980px;
+                font-size: 2em;
+                font-weight: 400;
+                color: white;
+                text-align: center;
+                margin-bottom: 30px;    
+
+            }
+
+            button{
+                background-color: white;
+                color: black;
+                appearance: none;
+                border: 0;
+                font-size: 23px;
+                font-weight: 600;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                opacity: 1;
+                padding: 15px 35px;
+                position: relative;
+                margin-bottom: 30px;
+            }
+
+            .error{
+                border-left: 2px solid #e50914;
+                font-size: 2.4em;
+                color: white;
+                font-weight: 100;
+                letter-spacing: .1em;
+                line-height: 2.2em;
+                padding: 0 1vw;
+            }
+
+
+
+            .source{
+                bottom: 0;
+                color: hsla(0,0%,90%,.57);
+                font-size: 1.4em;
+                font-weight: 100;
+                letter-spacing: .1em;
+                line-height: 1.5vw;
+                margin: 2.5vw 4.8vw;
+                position: fixed;
+                right: 0;
+                text-shadow: 0 1px 2px rgb(0 0 0 / 57%);
+            }
+        }
+    }
+}

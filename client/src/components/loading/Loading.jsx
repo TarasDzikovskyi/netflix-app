@@ -1,17 +1,13 @@
 import React from 'react'
 import './loading.scss'
+import letter from '../../content/letter.png'
 
 export default function Loading() {
-    // const user = JSON.parse(localStorage.getItem("user"))
-
     return (
         <div className='loading'>
-            <div className="flexbox">
+            <img src={letter} alt="" height={130} />
 
-                <div>
-                    <div className="nb-spinner"></div>
-                </div>
-            </div>
+            <div class="nb-spinner"></div>
         </div>
     )
 }
