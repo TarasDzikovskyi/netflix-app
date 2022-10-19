@@ -6,7 +6,7 @@ import {
 import React, {useRef, useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
-import {useHistory} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 import movieTrailer from 'movie-trailer'
 import { addToCart } from "../../context/cartContext/apiCalls";
@@ -17,8 +17,9 @@ export default function List({list}) {
     const [slideNumber, setSlideNumber] = useState(0);
     const [clickLimit, setClickLimit] = useState(window.innerWidth / 185);
     const [info, setInfo] = useState([])
-    const history = useHistory()
     const {dispatch} = useContext(CartContext)
+    const navigate = useNavigate();
+
 
     const listRef = useRef();
 
@@ -61,9 +62,9 @@ export default function List({list}) {
         let res = await movieTrailer(title)
         if (title !== null) {
             let movie_id = res.slice(-12)
-            history.push(`/watch/${movie_id}`)
+            navigate(`/watch/${movie_id}`)
         } else {
-            history.push('/watch/=IqkVUfYMZWM')
+            navigate('/watch/=IqkVUfYMZWM')
         }
     }
 

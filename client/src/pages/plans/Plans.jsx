@@ -1,18 +1,18 @@
 import {Done} from '@material-ui/icons'
 import React, {useState} from 'react'
 import './plans.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
-import {useHistory} from "react-router-dom";
 
 
 export default function Plans() {
     const [selectedPlan, setSelectedPlan] = useState(2)
     let plan
-    const history = useHistory();
+    const navigate = useNavigate();
+
     const user = JSON.parse(localStorage.getItem("user"))
 
     const plans = ['Basic', 'Standard', 'Premium']
@@ -31,7 +31,7 @@ export default function Plans() {
         });
 
         console.log(res)
-        history.push('/')
+        navigate('/')
     }
 
 

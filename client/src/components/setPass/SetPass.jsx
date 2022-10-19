@@ -1,18 +1,18 @@
 import {WarningRounded} from '@material-ui/icons'
 import React, {useContext, useState} from 'react'
 import './setPass.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
-import {useHistory} from "react-router-dom";
 import {login} from "../../context/authContext/apiCalls";
 import {AuthContext} from "../../context/authContext/AuthContext";
 
 export default function SetPass() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const history = useHistory();
+    const navigate = useNavigate();
+
     const {dispatch} = useContext(AuthContext)
 
     const obj = JSON.parse(localStorage.getItem("email"))
@@ -31,7 +31,7 @@ export default function SetPass() {
 
             login({email, password}, dispatch)
 
-            history.push('/info')
+            navigate('/info')
         }
     }
 

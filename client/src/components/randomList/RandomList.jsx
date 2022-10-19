@@ -1,11 +1,12 @@
 import "./randomList.scss";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function RandomList() {
     const [content, setContent] = useState([])
-    const history = useHistory()
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getRandomContent = async () => {
@@ -29,7 +30,7 @@ export default function RandomList() {
 
     const handleClick = (id) => {
         console.log(id)
-        history.push(`/select/${id}`)
+        navigate(`/select/${id}`)
     }
 
     return (

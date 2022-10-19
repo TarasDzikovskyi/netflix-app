@@ -1,6 +1,6 @@
 .notFound{
     background-color: var(--main-color);
-    height: 100vh;
+    //height: 100vh;
 
 
     .nav{
@@ -17,9 +17,11 @@
     }
 
     .wrapper{
-        background: url("../../content/notFound.jpeg");
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, .3) 100%), url("../../content/notFound.jpeg");
         background-size: cover;
+        height: 85vh;
         padding-top: 140px;
+
 
 
         .block{

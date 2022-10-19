@@ -4,13 +4,13 @@ import './infoPlan.scss'
 import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
 import Footer from "../../components/footer/Footer";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function InfoPlan() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleClick = () => {
-        history.push('/plans')
+        navigate('/plans')
     }
 
     return (

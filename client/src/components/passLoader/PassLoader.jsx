@@ -1,18 +1,18 @@
 import {ArrowBackOutlined, Done} from '@material-ui/icons'
 import React, {useState} from 'react'
 import './passLoader.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import ReactPlayer from 'react-player'
 import logo from '../../content/logo.png';
 import iconProfile from '../../content/icon_profile.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
-import {useHistory} from "react-router-dom";
 
 
 export default function PassLoader() {
-    const history = useHistory();
+    const navigate = useNavigate();
+
 
     // const user = JSON.parse(localStorage.getItem("user"))
     // const user = false
@@ -24,7 +24,7 @@ export default function PassLoader() {
     // console.log(selectedPlan)
 
     const handleClick = async () => {
-       history.push('/pass')
+        navigate('/pass')
     }
 
 

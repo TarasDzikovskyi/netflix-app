@@ -1,4 +1,3 @@
-import {ArrowBackOutlined} from '@material-ui/icons'
 import React from 'react'
 import './notFound.scss'
 import logo from '../../content/logo.png';

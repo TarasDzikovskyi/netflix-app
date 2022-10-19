@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import './resetPass.scss'
-import {Link, Redirect} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
 import 'react-phone-input-2/lib/style.css'
 import Footer from "../../components/footer/Footer";
@@ -10,8 +10,7 @@ export default function ResetPass(props) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [redirect, setRedirect] = useState(false)
-
-    // console.log(props.match.params.token)
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -32,7 +31,7 @@ export default function ResetPass(props) {
         }
     }
 
-    if(redirect) <Redirect to='/login'/>
+    if(redirect) navigate('/login')
 
     return (
         <>

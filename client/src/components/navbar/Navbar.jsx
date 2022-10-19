@@ -1,13 +1,12 @@
 import React, {useContext, useState} from 'react'
 import './navbar.scss'
 import {ArrowDropDown, Notifications, Search} from '@material-ui/icons'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from '../../context/authContext/AuthContext';
 import {logout} from '../../context/authContext/AuthAction';
 import iconProfile from '../../content/icon_profile.png';
 import logo from '../../content/logo.png';
 import axios from "axios";
-import {useHistory} from "react-router-dom";
 import { CartContext } from '../../context/cartContext/CartContext';
 import { useEffect } from 'react';
 // import {useSelector} from 'react-redux'
@@ -16,7 +15,8 @@ import { useEffect } from 'react';
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const {dispatch} = useContext(AuthContext)
-    const history = useHistory();
+    const navigate = useNavigate();
+
     // const selector = useSelector((state) => state.user)
     const {cart} = useContext(CartContext)
     
@@ -67,7 +67,7 @@ export default function Navbar() {
                             <span onClick={() => {
                                 logout_user()
                                 dispatch(logout())
-                                history.push('login')
+                                navigate('login')
                             }}>Logout</span>
                         </div>
                     </div>

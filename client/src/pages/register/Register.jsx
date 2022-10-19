@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useRef} from "react";
 import {useState} from "react";
-import {useHistory} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./register.scss";
 import tv from '../../content/tv.png'
 import mobile from '../../content/mobile-0819.jpg'
@@ -17,17 +17,11 @@ import logo from '../../content/logo.png';
 
 export default function Register() {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
-    const history = useHistory();
+    const navigate = useNavigate();
 
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const usernameRef = useRef();
 
     const handleStart = async (e) => {
         e.preventDefault();
-
         try {
             const res = await axios.post("auth/check", {email});
 
@@ -37,27 +31,20 @@ export default function Register() {
                 let obj = {email: email, new: true}
                 localStorage.setItem('email', JSON.stringify(obj))
 
-                history.push('/loader')
-                // /setpass
-                // /info
-                // /plans
+                navigate('/loader')
             } else {
                 let obj = {email: email, new: false}
                 localStorage.setItem('email', JSON.stringify(obj))
 
-                history.push('/loader')
+                navigate('/loader')
             }
         } catch (err) {
             console.log(err);
         }
-        // setEmail(emailRef.current.value);
-
-        console.log(email);
     };
 
-
     const handleClick = () => {
-        history.push('/login')
+        navigate('/login')
     }
     return (
         <>

@@ -1,5 +1,5 @@
 import "./app.scss";
-import {BrowserRouter as Router,} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import {useContext} from "react";
 import {AuthContext} from "./context/authContext/AuthContext";
 import AnimatedRoutes from "./AnimatedRoutes";
