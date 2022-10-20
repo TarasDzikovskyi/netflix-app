@@ -1,0 +1,57 @@
+.watching{
+    background-color: var(--main-color);
+    height: 100vh;
+
+    .nav{
+        padding: 20px 50px;
+    }
+
+    .wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .block{
+            width: 70vw;
+            
+
+            h2{
+                text-align: center;
+                margin: 70px 0 50px;
+                color: white;
+                font-size: 55px;
+                font-weight: 400;
+            }
+
+            .users{
+                display: flex;
+                justify-content: center;
+
+                .item{
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0 35px;
+
+
+                    img{
+                        border-radius: 4px;
+                        cursor: pointer;
+
+
+                    }
+
+                    p{
+                        margin-top: 12px;
+                        font-size: 18px;
+                        font-weight: 400;
+                        text-align: center;
+                        color: grey;
+                        cursor: pointer;
+
+                    }
+                }
+            }
+        }
+    }
+
+}

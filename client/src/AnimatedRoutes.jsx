@@ -18,6 +18,7 @@ import CurrentHome from "./pages/home/CurrentHome";
 import PersonalList from "./pages/personalList/PersonalList";
 import {AnimatePresence} from "framer-motion";
 import NotFound from "./components/notFound/NotFound";
+import WatchingPersons from "./pages/watchingPersons/WatchingPersons";
 
 export default function AnimatedRoutes({user}) {
     const location = useLocation()
@@ -27,7 +28,9 @@ export default function AnimatedRoutes({user}) {
             <Routes location={location} key={location.pathname}>
                 <Route path='/' element={user ? <Home/> : <Register/>}/>
 
-                <Route path='/login' element={user ? <Navigate to='/' replace/> : <Login/>}/>
+                <Route path='/watching' element={user && <WatchingPersons/>}/>
+
+                <Route path='/login' element={!user && <Login/>}/>
 
                 <Route path='/register' element={user ? <Navigate to='/' replace/> : <Register/>}/>
 

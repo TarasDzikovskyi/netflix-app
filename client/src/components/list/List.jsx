@@ -15,24 +15,23 @@ import {CartContext} from '../../context/cartContext/CartContext'
 export default function List({list}) {
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
-    const [clickLimit, setClickLimit] = useState(window.innerWidth / 185);
+    const [clickLimit, setClickLimit] = useState(window.innerWidth / 190);
     const [info, setInfo] = useState([])
     const {dispatch} = useContext(CartContext)
     const navigate = useNavigate();
-
 
     const listRef = useRef();
 
     const handleClick = (direction) => {
         setIsMoved(true);
-        let distance = listRef.current.getBoundingClientRect().x - 50;
+        let distance = listRef.current.getBoundingClientRect().x - 100;
         if (direction === "left" && slideNumber > 0) {
             setSlideNumber(slideNumber - 1);
-            listRef.current.style.transform = `translateX(${185 + distance}px)`;
+            listRef.current.style.transform = `translateX(${190 + distance}px)`;
         }
-        if (direction === "right" && slideNumber < list.length - clickLimit) {
+        if (direction === "right" && slideNumber < list.content.length - clickLimit) {
             setSlideNumber(slideNumber + 1);
-            listRef.current.style.transform = `translateX(${-185 + distance}px)`;
+            listRef.current.style.transform = `translateX(${-190 + distance}px)`;
         }
     };
 
@@ -117,10 +116,7 @@ export default function List({list}) {
                                     <ThumbUpAltOutlined className="icon"/>
                                     <ThumbDownOutlined className="icon"/>
                                 </div>
-
-
                             </div>
-
 
                             <div className="genre">{info.genre}</div>
 

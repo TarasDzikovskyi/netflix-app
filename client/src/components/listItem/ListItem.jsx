@@ -27,8 +27,7 @@ export default function ListItem({index, item}) {
         <>
             <div className="listItem">
                 <img src={movie?.imgSm} alt="title"/>
-                {/* {movie.title} */}
-                {/*<div className="img-info">{movie.title}</div>*/}
+                <div className="img-info">{movie.title}</div>
             </div>
         </>
     );

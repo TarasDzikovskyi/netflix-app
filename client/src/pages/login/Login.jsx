@@ -7,6 +7,7 @@ import Footer from "../../components/footer/Footer";
 import logo from '../../content/logo.png';
 import Intro from "../../components/intro/Intro";
 import {motion} from "framer-motion"
+import {Visibility} from '@material-ui/icons'
 
 
 export default function Login() {
@@ -15,6 +16,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const {dispatch} = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
+    const [type, setType] = useState('password')
 
     function timeout(el) {
         let promise = new Promise(function (resolve, reject) {
@@ -30,6 +32,11 @@ export default function Login() {
         setLoading(true)
         const res = await timeout(true)
         if (res) login({email, password}, dispatch)
+    }
+
+    const seePass = () => {
+        if (type === 'text') setType('password');
+        else if (type === 'password') setType('text');
     }
 
     return (
@@ -79,6 +86,7 @@ export default function Login() {
                                     <span className="field__label-wrap">
                                     <span className="field__label">Password</span>
                                 </span>
+                                    <div className='icon_eye' onClick={seePass}><Visibility/></div>
                                 </label>
                                 <button className="loginButton" onClick={handleLogin}>
                                     Sign In

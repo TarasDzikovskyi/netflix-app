@@ -103,6 +103,15 @@
         display: var(--fieldDisplay, inline-flex);
         position: relative;
         font-size: var(--fieldFontSize, 1rem);
+
+        .icon_eye{
+          position: absolute;
+          margin: auto 0;
+          top: 25%;
+          right: 10px;
+          color: #8c8c8c;
+          cursor: pointer;
+        }
       }
 
       .field__input {
