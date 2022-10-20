@@ -30,13 +30,16 @@ const CurrentHome = ({type}) => {
                         },
                     }
                 );
+                console.log(res.data)
                 setLists(res.data);
             } catch (err) {
                 console.log(err);
             }
         };
         getRandomLists();
-    }, [type, genre, pathname]);
+    }, [movie_id, pathname]);
+
+    console.log(lists)
 
     return (
         <div className="home">

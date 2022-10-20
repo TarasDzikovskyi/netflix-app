@@ -6,34 +6,19 @@ import {
 import React, {useRef, useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import movieTrailer from 'movie-trailer'
-import { addToCart } from "../../context/cartContext/apiCalls";
+import {addToCart} from "../../context/cartContext/apiCalls";
 import {CartContext} from '../../context/cartContext/CartContext'
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function List({list}) {
-    const [isMoved, setIsMoved] = useState(false);
-    const [slideNumber, setSlideNumber] = useState(0);
-    const [clickLimit, setClickLimit] = useState(window.innerWidth / 190);
     const [info, setInfo] = useState([])
     const {dispatch} = useContext(CartContext)
     const navigate = useNavigate();
-
-    const listRef = useRef();
-
-    const handleClick = (direction) => {
-        setIsMoved(true);
-        let distance = listRef.current.getBoundingClientRect().x - 100;
-        if (direction === "left" && slideNumber > 0) {
-            setSlideNumber(slideNumber - 1);
-            listRef.current.style.transform = `translateX(${190 + distance}px)`;
-        }
-        if (direction === "right" && slideNumber < list.content.length - clickLimit) {
-            setSlideNumber(slideNumber + 1);
-            listRef.current.style.transform = `translateX(${-190 + distance}px)`;
-        }
-    };
 
     const handleItemClick = (item) => {
         getMovie(item)
@@ -73,28 +58,33 @@ export default function List({list}) {
     }
 
     const handleClickCart = (movie_id) => {
-        // e.preventDefault()
-        // console.log(movie_id)
         const user_id = JSON.parse(localStorage.getItem("user")).user._id
         addToCart({user_id, movie_id}, dispatch)
-
     }
+
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 8,
+        slidesToScroll: 6,
+        initialSlide: 0,
+        prevArrow: <ArrowBackIosOutlined className="sliderArrow left"/>,
+        nextArrow: <ArrowForwardIosOutlined className="sliderArrow right"/>
+    };
 
     return (
         <div className="list">
             <span className="listTitle">{list.title}</span>
             <div className="wrapper">
-                <ArrowBackIosOutlined
-                    className="sliderArrow left"
-                    onClick={() => handleClick("left")}
-                    style={{display: !isMoved && "none"}}
-                />
-                <div className="container" ref={listRef}>
-                    {list.content.map((item, i) => (
-                        <div key={item._id} onClick={() => handleItemClick(item)}>
-                            <ListItem index={i} item={item}/>
-                        </div>
-                    ))}
+                <div className="container">
+                    <Slider {...settings}>
+                        {list.content.map((item, i) => (
+                            <div key={item._id} onClick={() => handleItemClick(item)}>
+                                <ListItem index={i} item={item}/>
+                            </div>
+                        ))}
+                    </Slider>
                 </div>
 
                 {info && <div id={list._id} style={{display: 'none'}} className='text_item'>
@@ -144,12 +134,7 @@ export default function List({list}) {
                             </div>
                         </div>
                     </div>
-
                 </div>}
-                <ArrowForwardIosOutlined
-                    className="sliderArrow right"
-                    onClick={() => handleClick("right")}
-                />
             </div>
         </div>
     );

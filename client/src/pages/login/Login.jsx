@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from 'react'
 import {login} from '../../context/authContext/apiCalls'
 import {AuthContext} from '../../context/authContext/AuthContext'
 import './login.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import logo from '../../content/logo.png';
 import Intro from "../../components/intro/Intro";
@@ -17,6 +17,8 @@ export default function Login() {
     const {dispatch} = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
     const [type, setType] = useState('password')
+    const navigate = useNavigate();
+
 
     function timeout(el) {
         let promise = new Promise(function (resolve, reject) {
@@ -31,7 +33,10 @@ export default function Login() {
         e.preventDefault()
         setLoading(true)
         const res = await timeout(true)
-        if (res) login({email, password}, dispatch)
+        if (res) {
+            login({email, password}, dispatch)
+            navigate('/watching')
+        }
     }
 
     const seePass = () => {
@@ -78,7 +83,7 @@ export default function Login() {
 
                                 <label className="field field_v2">
                                     <input
-                                        type="password"
+                                        type={type}
                                         className="field__input input"
                                         placeholder=" "
                                         onChange={(e) => setPassword(e.target.value)}

@@ -2,9 +2,14 @@ import {InfoOutlined, PlayArrow} from '@material-ui/icons'
 import React, {useEffect, useState} from 'react'
 import './featured.scss'
 import axios from "axios";
+import movieTrailer from "movie-trailer";
+import {useNavigate} from "react-router-dom";
+
 
 export default function CurrentMovie({movie_id}) {
     const [content, setContent] = useState({})
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getContent = async () => {
@@ -26,6 +31,16 @@ export default function CurrentMovie({movie_id}) {
 
     }, [movie_id]);
 
+    const handlePlay = async (title) => {
+        let res = await movieTrailer(title)
+        if (title !== null) {
+            let movie_id = res.slice(-12)
+            navigate(`/watch/${movie_id}`)
+        } else {
+            navigate('/watch/=IqkVUfYMZWM')
+        }
+    }
+
     return (
         <div className="featured">
             <img src={content.img} alt="title" className='featured_img'/>
@@ -36,7 +51,7 @@ export default function CurrentMovie({movie_id}) {
                 <div className="buttons">
                     <button className="play">
                         <PlayArrow/>
-                        <span>Play</span>
+                        <span onClick={() => handlePlay(content.title)}>Play</span>
                     </button>
                     <button className="more">
                         <InfoOutlined/>

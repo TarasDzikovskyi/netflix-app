@@ -5,6 +5,7 @@ import img from '../../content/icon_profile.png'
 import {login} from '../../context/authContext/apiCalls'
 import {AuthContext} from '../../context/authContext/AuthContext'
 import CryptoJS from 'crypto-js'
+import {useNavigate} from "react-router-dom";
 
 function setCookie( name, value, maxAge, path, domain, secure ) {
 	document.cookie = name + "=" +JSON.stringify(value) +
@@ -16,11 +17,11 @@ function setCookie( name, value, maxAge, path, domain, secure ) {
 
 
 function getCookie(cname){
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) 
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i=0; i<ca.length; i++)
       {
-      var c = ca[i].trim();
+          let c = ca[i].trim();
       if (c.indexOf(name)===0) return c.substring(name.length,c.length);
       }
     return "";
@@ -30,32 +31,38 @@ function getCookie(cname){
 export default function WatchingPersons() {
     const [users, setUsers] = useState([])
     const {dispatch} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
 
-    let user = JSON.parse(localStorage.getItem("user"))
+    // let user = JSON.parse(localStorage.getItem("user"))
+
+
+    console.log(user)
+
 
     useEffect(() => {
         let cookies = getCookie('users')
 
-        if(cookies.length == 0) setCookie('users', [],  365*24*60*60*1000, 'localhost:3000')
+        if(cookies.length === 0) setCookie('users', [],  365*24*60*60*1000, 'localhost:3000')
         else {
             let array = JSON.parse(cookies)
-            let isIncluded = array.find(item => item._id == user.user._id) && true || false
+            let isIncluded = array.find(item => item._id === user.user._id) && true || false
             if(isIncluded === false) array.push(user.user)
 
             setCookie('users', array, 365*24*60*60*1000, 'localhost:3000')
             setUsers(array)
         }
 
-    },[user])
+    },[])
 
     const handleClick = (id, email, password) => {
-        if(user.user._id === id) console.log('qwerty')//navigate('/')
+        if(user.user._id === id) navigate('/')
         else{
             const bytes = CryptoJS.AES.decrypt(password, 'otsocity');
             const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
             console.log(originalPassword)
             login({email, originalPassword}, dispatch)
-            //navigate('/')
+            navigate('/')
         }
     }
 

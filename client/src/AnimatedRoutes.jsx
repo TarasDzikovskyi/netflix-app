@@ -38,7 +38,7 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/series' element={user && <Home type="series"/>}/>
 
-                <Route path='/select/:movie_id' element={user && <CurrentHome/>}/>
+                <Route path='/:movie_id' element={user && <CurrentHome/>}/>
 
                 <Route path='/profile' element={user && <Profile/>}/>
 
@@ -64,69 +64,6 @@ export default function AnimatedRoutes({user}) {
 
             </Routes>
 
-
-
-            {/*<Switch location={location} key={location.pathname}>*/}
-            {/*    <Route exact path="/">*/}
-            {/*        {user ? <Home/> : <Redirect to="/register"/>}*/}
-            {/*        /!*<Home/>*!/*/}
-            {/*    </Route>*/}
-            {/*    <Route path="/register">*/}
-            {/*        {!user ? <Register/> : <Redirect to="/"/>}*/}
-            {/*        /!*<Register/>*!/*/}
-            {/*    </Route>*/}
-            {/*    <Route path="/login">*/}
-            {/*        {!user ? <Login/> : <Redirect to="/"/>}*/}
-            {/*        /!*<Login/>*!/*/}
-            {/*    </Route>*/}
-            {/*    {user ? (*/}
-            {/*        <>*/}
-            {/*            <Route path="/movies"><Home type="movie"/></Route>*/}
-
-            {/*            <Route path="/series"><Home type="series"/></Route>*/}
-
-            {/*            <Route path="/select/:movie_id"><CurrentHome/></Route>*/}
-
-            {/*            <Route path="/profile"><Profile/></Route>*/}
-
-            {/*            <Route path="/loading"><Loading/></Route>*/}
-
-            {/*            <Route path="/personal"><PersonalList/></Route>*/}
-
-            {/*            <Route path="/watch/:movie_id"><Watch/></Route>*/}
-
-            {/*            <Route path='/notFound'><NotFound/></Route>*/}
-
-            {/*            <Redirect to='/notFound'/>*/}
-
-            {/*        </>*/}
-            {/*    ) : (*/}
-            {/*        <>*/}
-            {/*            <Route path="/plans"><Plans/></Route>*/}
-
-            {/*            <Route path="/forgot"><ForgotPass/></Route>*/}
-
-            {/*            <Route path="/reset/:token"><ResetPass/></Route>*/}
-
-            {/*            <Route path="/loader"><PassLoader/></Route>*/}
-
-            {/*            <Route path="/pass"><SetPass/></Route>*/}
-
-            {/*            <Route path="/info"><InfoPlan/></Route>*/}
-
-            {/*            <Route path='/faq'><Faq/></Route>*/}
-
-            {/*            <Route path='/help'><Help/></Route>*/}
-
-            {/*            <Route path='/notFound'><NotFound/></Route>*/}
-
-            {/*            <Redirect to='/notFound'/>*/}
-            {/*        </>*/}
-            {/*    )}*/}
-
-
-
-            {/*</Switch>*/}
         </AnimatePresence>
     )
 }

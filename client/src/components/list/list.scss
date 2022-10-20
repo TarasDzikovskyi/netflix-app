@@ -1,8 +1,7 @@
 .list {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 50px;
   margin-bottom: 20px;
-  position: relative;
 
   .listTitle {
     color: white;
@@ -12,36 +11,40 @@
   }
 
   .wrapper {
-    position: relative;
-
-    .sliderArrow {
-      width: 50px;
-      height: 240px;
-      background-color: rgb(22, 22, 22, 0.5);
-      color: white;
-      position: absolute;
-      z-index: 99;
-      top: 0;
-      bottom: 0;
-      //margin: auto;
-      cursor: pointer;
-
-      &.left {
-        left: 0;
-      }
-
-      &.right {
-        right: 0;
-      }
-    }
 
     .container {
       margin-left: 50px;
-      display: flex;
       margin-top: 10px;
-      width: max-content;
-      transform: translateX(0px);
-      transition: all 1s ease;
+
+      .slick-track{
+        width: 5000px !important;
+      }
+
+      .slick-slide{
+        width: 170px !important;
+        margin-right: 30px;
+        height: 290px !important;
+        position: relative;
+      }
+
+      .slick-prev, .slick-next{
+        color: #fff;
+        width: 50px;
+        height: 240px;
+        margin-top: 120px;
+        background-color: rgb(22, 22, 22, 0.5);
+        z-index: 99;
+        top: 0;
+        cursor: pointer;
+      }
+
+      .slick-prev{
+        left: -50px;
+      }
+
+      .slick-next{
+        right: 0;
+      }
     }
 
     .text_item {

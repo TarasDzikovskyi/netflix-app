@@ -30,7 +30,7 @@ export default function RandomList() {
 
     const handleClick = (id) => {
         console.log(id)
-        navigate(`/select/${id}`)
+        navigate(`/${id}`)
     }
 
     return (
