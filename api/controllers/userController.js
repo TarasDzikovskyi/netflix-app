@@ -1,5 +1,5 @@
 const CryptoJS = require('crypto-js')
-const User = require('../models/User')
+const {User} = require('../models')
 
 module.exports.updateUser = async (req, res, next) => {
     try {

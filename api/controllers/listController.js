@@ -1,5 +1,4 @@
-const List = require('../models/List')
-const Movie = require("../models/Movie");
+const {List, Movie} = require('../models')
 
 module.exports.createList = async (req, res, next) => {
     try {

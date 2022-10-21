@@ -13,6 +13,10 @@ router.post('/forgot', authController.forgotPassword)
 
 router.post('/reset/:token', authController.changePassword)
 
+router.post('/test', authController.test)
+
+router.get('/test/:link', authController.activate)
+
 router.post('/logout', authController.logoutUser)
 
 module.exports = router;

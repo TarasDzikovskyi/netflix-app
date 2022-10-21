@@ -2,24 +2,24 @@ import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
 import "./home.scss";
 import List from "../../components/list/List";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
 import RandomList from "../../components/randomList/RandomList";
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import Loading from "../../components/loading/Loading";
 
-const Home = ({type}) => {
+const Home = ({ type }) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
-    const {pathname} = useLocation()
+    const { pathname } = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
-                    `lists${type ? "?type=" + type : ""}${
-                        genre ? "&genre=" + genre : ""
+                    `lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""
                     }`,
                     {
                         headers: {
@@ -37,21 +37,28 @@ const Home = ({type}) => {
     }, [type, genre, pathname]);
 
     return (
-        <div className="home">
-            <Navbar/>
-            <Featured type={type} setGenre={setGenre}/>
+        <>
+            {(!type || lists.length === 0 ) ? (
+                <Loading />
+            ) : (
+                <div className="home">
+                    <Navbar />
+                    <Featured type={type} setGenre={setGenre} />
 
-            {lists.map((list) => (
-                <div key={list._id}>
-                    <List list={list}/>
+                    {lists.map((list) => (
+                        <div key={list._id}>
+                            <List list={list} />
+                        </div>
+                    ))}
+
+                    <RandomList />
+                    <div className='footer'>
+                        <Footer />
+                    </div>
                 </div>
-            ))}
+            )}
+        </>
 
-            <RandomList/>
-            <div className='footer'>
-                <Footer/>
-            </div>
-        </div>
     );
 };
 

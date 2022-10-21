@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
         password: {type: String, required: true},
         profilePic: {type: String, default: ""},
         isAdmin: {type: Boolean, default: false},
+        isActivated: {type: Boolean, default: false},
         plan: {type: String, default: ""},
         list: {type: String, default: ""},
         cart: {type: Array, default: []},

@@ -1,4 +1,4 @@
-const Movie = require('../models/Movie')
+const {Movie} = require('../models')
 
 module.exports.createMovie = async (req, res, next) => {
     try{

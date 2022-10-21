@@ -47,8 +47,6 @@
             font-size: 64px;
             max-width: 800px;
             text-align: center;
-            // display: block;
-            // box-sizing: border-box;
         }
 
         h2{
@@ -254,7 +252,6 @@
 
 .body-register{
     width: 100vw;
-    // height: 400px;
     background-color: black;
     display: flex;
     flex-direction: column;
@@ -270,18 +267,15 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-
-        
+        width: 100vw;
+     
         .leftSide{
             color: white;
-            width: 69vh;
+            width: 575px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            // align-items: center;
-            margin: 0 25px;
-            //height: 530px;
-
+            margin: 50px 25px;
 
             h2{
                 font-size: 52px;
@@ -295,7 +289,7 @@
         
         .rightSide{
             color: white;
-            width: 69vh;
+            width: 575px;
             position: relative;
             margin: 0 25px;
             height: 530px;
@@ -309,13 +303,13 @@
                 height: 400px;
                 z-index: 99;
                 position: absolute;
-                top: 0;
+                top: 55px;
 
             }
 
             .videoTV{
                 position: absolute;
-                top: 83px;
+                top: 138px;
                 left: 70px;
                 height: 219px;
             }
@@ -334,7 +328,5 @@
                 height: 188px;
             }
         }
-    }
-    
-    
+    }  
 }

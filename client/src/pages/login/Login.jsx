@@ -9,6 +9,14 @@ import Intro from "../../components/intro/Intro";
 import {motion} from "framer-motion"
 import {Visibility} from '@material-ui/icons'
 
+function timeout(el) {
+    let promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(el);
+        }, 4000);
+    });
+    return promise;
+}
 
 export default function Login() {
 
@@ -19,15 +27,6 @@ export default function Login() {
     const [type, setType] = useState('password')
     const navigate = useNavigate();
 
-
-    function timeout(el) {
-        let promise = new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                resolve(el);
-            }, 4000);
-        });
-        return promise;
-    }
 
     const handleLogin = async (e) => {
         e.preventDefault()

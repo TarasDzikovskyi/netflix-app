@@ -26,25 +26,25 @@ export default function AnimatedRoutes({user}) {
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
-                <Route path='/' element={user ? <Home/> : <Register/>}/>
+                <Route path='/' element={ <Home/> }/>
 
-                <Route path='/watching' element={user && <WatchingPersons/>}/>
+                <Route path='/watching' element={user ? <WatchingPersons/> : <Navigate to='/register' replace/>}/>
 
                 <Route path='/login' element={!user && <Login/>}/>
 
                 <Route path='/register' element={user ? <Navigate to='/' replace/> : <Register/>}/>
 
-                <Route path='/movies' element={user && <Home type="movie"/>}/>
+                <Route path='/movies' element={user ? <Home type="movie"/> : <Navigate to='/register' replace/>}/>
 
-                <Route path='/series' element={user && <Home type="series"/>}/>
+                <Route path='/series' element={user ? <Home type="series"/> : <Navigate to='/register' replace/>}/>
 
-                <Route path='/:movie_id' element={user && <CurrentHome/>}/>
+                <Route path='/:movie_id' element={user ? <CurrentHome/> : <Navigate to='/register' replace/>}/>
 
-                <Route path='/profile' element={user && <Profile/>}/>
+                <Route path='/profile' element={user ? <Profile/> : <Navigate to='/register' replace/>}/>
 
-                <Route path='/personal' element={user && <PersonalList/>}/>
+                <Route path='/personal' element={user ? <PersonalList/> : <Navigate to='/register' replace/>}/>
 
-                <Route path='/watch/:movie_id' element={user && <Watch/>}/>
+                <Route path='/watch/:movie_id' element={user ? <Watch/> : <Navigate to='/register' replace/>}/>
 
                 <Route path='/plans' element={!user && <Plans/>}/>
 
