@@ -28,6 +28,7 @@ const Home = ({ type }) => {
                         },
                     }
                 );
+                console.log(res.data)
                 setLists(res.data);
             } catch (err) {
                 console.log(err);
@@ -38,9 +39,9 @@ const Home = ({ type }) => {
 
     return (
         <>
-            {(!type || lists.length === 0 ) ? (
-                <Loading />
-            ) : (
+            {/*{(lists.length === 0 ) ? (*/}
+            {/*    <Loading />*/}
+            {/*) : (*/}
                 <div className="home">
                     <Navbar />
                     <Featured type={type} setGenre={setGenre} />
@@ -56,7 +57,7 @@ const Home = ({ type }) => {
                         <Footer />
                     </div>
                 </div>
-            )}
+        {/*    )}*/}
         </>
 
     );

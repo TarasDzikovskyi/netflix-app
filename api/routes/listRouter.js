@@ -8,6 +8,6 @@ router.post('/', listController.createList)
 
 router.delete('/:id', verify, listController.deleteList)
 
-router.get('/', verify, listController.getAllLists)
+router.get('/', listController.getAllLists)
 
 module.exports = router;

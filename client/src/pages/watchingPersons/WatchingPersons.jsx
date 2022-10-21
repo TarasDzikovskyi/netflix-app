@@ -28,11 +28,11 @@ function getCookie(cname){
 }
 
 
-export default function WatchingPersons() {
+export default function WatchingPersons({user}) {
     const [users, setUsers] = useState([])
     const {dispatch} = useContext(AuthContext)
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    // const {user} = useContext(AuthContext);
 
     // let user = JSON.parse(localStorage.getItem("user"))
 

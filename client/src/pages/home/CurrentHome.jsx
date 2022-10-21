@@ -16,13 +16,13 @@ const CurrentHome = ({ type }) => {
     const { movie_id } = useParams()
     const { pathname } = useLocation()
 
+    console.log(JSON.parse(localStorage.getItem("user")).access_token)
     useEffect(() => {
         window.scrollTo(0, 0)
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
-                    `lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""
-                    }`,
+                    `http://localhost:3000/lists`,
                     {
                         headers: {
                             token:
@@ -37,14 +37,14 @@ const CurrentHome = ({ type }) => {
             }
         };
         getRandomLists();
-    }, [movie_id, pathname]);
+    }, [ pathname]);
 
 
     return (
         <>
-            {(!type || lists.length == 0) ? (
-                <Loading />
-            ) : (
+            {/*{( lists.length === 0) ? (*/}
+            {/*    <Loading />*/}
+            {/*) : (*/}
                 <div className="home">
                     <Navbar />
                     <CurrentMovie movie_id={movie_id} />
@@ -60,7 +60,7 @@ const CurrentHome = ({ type }) => {
                         <Footer />
                     </div>
                 </div>
-            )}
+            {/*)}*/}
         </>
     );
 };
