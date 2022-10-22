@@ -60,24 +60,33 @@ module.exports.getRandomMovie = async (req, res, next) => {
         const type = req.query.type;
         let movie;
 
-        if(type === 'series') {
-            movie = await Movie.aggregate([
-                {$match: {isSeries: true}},
-                {$sample: {size: 1}}
-            ])
-        } else if(type === 'random') {
-            movie = await Movie.aggregate([
-                // {$match: {isSeries: true}},
-                {$sample: {size: 18}}
-            ])
-        } else {
-            movie = await Movie.aggregate([
-                {$match: {isSeries: false}},
-                {$sample: {size: 1}}
-            ])
-        }
+        const search = req.query.search
+        let regex = {"title" : {'$regex':"^"+search+"$"}}
+        movie = await Movie.find(regex)
+        console.log(movie);
 
-        res.status(200).json(movie)
+        //
+        // if(type === 'series') {
+        //     movie = await Movie.aggregate([
+        //         {$match: {isSeries: true}},
+        //         {$sample: {size: 1}}
+        //     ])
+        // } else if(type === 'random') {
+        //     movie = await Movie.aggregate([
+        //         // {$match: {isSeries: true}},
+        //         {$sample: {size: 18}}
+        //     ])
+        // }  else if(search !== undefined && search.length !== 0) {
+        //         console.log('q');
+        //         movie = await Movie.find({title: search})
+        //     } else {
+        //     movie = await Movie.aggregate([
+        //         {$match: {isSeries: false}},
+        //         {$sample: {size: 1}}
+        //     ])
+        // }
+        //
+        // res.status(200).json(movie)
     } catch(e){
         next(e);
     }
