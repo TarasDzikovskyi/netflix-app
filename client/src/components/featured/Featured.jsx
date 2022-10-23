@@ -27,10 +27,9 @@ export default function Featured({type, setGenre}) {
 
     }, [type]);
 
-    // console.log(content)
     const handlePlay = async (title) => {
         let res = await movieTrailer(title)
-        if (title !== null) {
+        if (res !== null) {
             let movie_id = res.slice(-12)
             navigate(`/watch/${movie_id}`)
         } else {

@@ -15,37 +15,39 @@ import {useEffect} from 'react';
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [value, setValue] = useState('');
+    const [filteredMovie, setFilteredMovie] = useState([]);
     const {dispatch} = useContext(AuthContext)
     const navigate = useNavigate();
     const {cart} = useContext(CartContext)
     const user = JSON.parse(localStorage.getItem("user"))
-
-    useEffect(() => {
-
-    }, [])
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
         return () => (window.onscroll = null)
     }
 
+    console.log(filteredMovie)
+
     const logout_user = async () => {
         await axios.post('auth/logout')
     }
 
-    useEffect(() => {
-        if (value !== '') {
-            const filteredMovies = async () => {
-                const res = await axios.get(`/random/?search=${value}`)
-                console.log(res)
 
+    useEffect(() => {
+        if (value.length > 0) {
+            const filter = async () => {
+                const res = await axios.get(`/movies/random?search=${value}`, {
+                    headers: {
+                        token:
+                            "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
+                    }
+                })
+                setFilteredMovie(res.data)
             }
-            // console.log('qwerty')
-            filteredMovies()
-        }
+            filter()
+        } else setFilteredMovie([])
 
     }, [value])
-
 
     return (
         <>
@@ -81,9 +83,8 @@ export default function Navbar() {
                                                   id="express-form" noValidate="">
                                                 <input required="" name="search" className="form-control tt-input"
                                                        id="express-form-typeahead" autoComplete="off" spellCheck="false"
-                                                       // onClick={(event) => setValue(event.target.value)}
+                                                    // onClick={(event) => setValue(event.target.value)}
                                                        onChange={(e) => setValue(e.target.value)}
-                                                       value={value}
                                                        dir="auto" type="text"/>
                                                 <button className="search-btn"><span className="icon"></span></button>
                                             </form>
@@ -111,9 +112,17 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="">
 
-            </div>
+            {filteredMovie.length > 0 && (
+                <div className="search">
+                    {filteredMovie.map((item) => (
+                        <div className='filter_item'>
+                            {item.title}
+                        </div>
+                    ))}
+                </div>
+            )}
+
         </>
 
     )
