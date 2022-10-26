@@ -3,20 +3,19 @@ const CartReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_CART_START':
             return {
-                cart: [],
-                // lists: state.lists.map(list => list._id === action.payload._id && action.payload),
+                user: [],
                 isFetching: true,
                 error: false
             };
         case 'ADD_CART_SUCCESS':
             return {
-                cart: action.payload,
+                user: action.payload,
                 isFetching: false,
                 error: false
             };
         case 'ADD_CART_FAILURE':
             return {
-                cart: [],
+                user: [],
                 isFetching: false,
                 error: true
             };
@@ -28,8 +27,7 @@ const CartReducer = (state, action) => {
             };
         case 'REMOVE_FROM_CART_SUCCESS':
             return {
-                cart: [...state.cart, action.payload],
-                // lists: state.lists.filter(list => list._id !== action.payload),
+                user: action.payload,
                 isFetching: false,
                 error: false
             };

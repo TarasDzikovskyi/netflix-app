@@ -4,7 +4,7 @@ import {ArrowDropDown, Notifications, Search} from '@material-ui/icons'
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from '../../context/authContext/AuthContext';
 import {logout} from '../../context/authContext/AuthAction';
-import iconProfile from '../../content/icon_profile.png';
+import iconProfile from '../../content/icon_profile/profile_5.jpg';
 import logo from '../../content/logo.png';
 import axios from "axios";
 import {CartContext} from '../../context/cartContext/CartContext';
@@ -18,20 +18,18 @@ export default function Navbar() {
     const [filteredMovie, setFilteredMovie] = useState([]);
     const {dispatch} = useContext(AuthContext)
     const navigate = useNavigate();
-    const {cart} = useContext(CartContext)
-    const user = JSON.parse(localStorage.getItem("user"))
+    let {user} = useContext(CartContext)
+    if(user.length === 0)
+        user = JSON.parse(localStorage.getItem('user'))
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
         return () => (window.onscroll = null)
     }
 
-    console.log(filteredMovie)
-
     const logout_user = async () => {
         await axios.post('auth/logout')
     }
-
 
     useEffect(() => {
         if (value.length > 0) {
@@ -59,13 +57,10 @@ export default function Navbar() {
                         <Link to='/series' className='link'><span className='navbarMainLinks'>Series</span></Link>
                         <Link to='/movies' className='link'><span className='navbarMainLinks'>Movies</span></Link>
                         <span>New and Popular</span>
-                        <Link to='/personal' className='link'><span className='navbarMainLinks'>My List
-                            {cart && cart.user ? (
-                                <small>{cart.user.cart.length}</small>
-                            ) : (
+                        <Link to='/personal' className='link'>
+                            <span className='navbarMainLinks'>My List
                                 <small>{user.user.cart.length}</small>
-                            )}
-                        </span>
+                            </span>
                         </Link>
 
                     </div>

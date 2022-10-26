@@ -16,6 +16,6 @@ router.get('/stats', userController.getAllUsersStats)
 
 router.post('/cart', userController.addToCart)
 
-// router.delete('/cart', userController.removeFromCart)
+router.patch('/remove/cart', userController.removeFromCart)
 
 module.exports = router;

@@ -1,16 +1,18 @@
-import {InfoOutlined, PlayArrow} from '@material-ui/icons'
-import React, {useEffect, useState} from 'react'
+import {NotInterested} from '@material-ui/icons'
+import React, {useContext, useEffect, useState} from 'react'
 import './personalItem.scss'
 import axios from "axios";
+import {removeFromCart} from "../../context/cartContext/apiCalls";
+import {CartContext} from "../../context/cartContext/CartContext";
+
 
 export default function PersonalItem({movie_id}) {
     const [content, setContent] = useState({})
+    const {dispatch} = useContext(CartContext)
 
     useEffect(() => {
         const getContent = async () => {
             try {
-                console.log(movie_id)
-
                 const res = await axios.get(`/movies/find/${movie_id}`, {
                     headers: {
                         token:
@@ -23,17 +25,21 @@ export default function PersonalItem({movie_id}) {
             }
         };
         getContent();
-
     }, [movie_id]);
 
-    console.log(content)
+    const handleDelete = (movie_id) => {
+        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        removeFromCart({user_id, movie_id}, dispatch)
+    }
 
     return (
         <div className="personalItem">
             <div className="item">
-                {/*{item}*/}
+                <img src={content.imgSm} alt="" height={240} width={170}/>
+                <div className="clear_icon" onClick={() =>handleDelete(content._id)}>
+                    <NotInterested />
+                </div>
             </div>
-            {/*<p>{item}</p>*/}
         </div>
     )
 }

@@ -1,13 +1,20 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import './personalList.scss'
 import Footer from "../../components/footer/Footer";
 import Navbar from '../../components/navbar/Navbar';
 import PersonalItem from '../personalItem/PersonalItem';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {AuthContext} from "../../context/authContext/AuthContext";
+import {CartContext} from "../../context/cartContext/CartContext";
 
 export default function PersonalList() {
-    const user = JSON.parse(localStorage.getItem('user'))
+    let {user} = useContext(CartContext)
+    if(user.length === 0)
+        user = JSON.parse(localStorage.getItem('user'))
+
+
+    console.log(user)
 
     return (
         <div className='personalList'>
@@ -22,7 +29,9 @@ export default function PersonalList() {
 
                 <div className="block">
                     {user.user.cart.map((movie_id) => (
-                        <PersonalItem movie_id={movie_id}/>
+                        <div key={movie_id}>
+                            <PersonalItem movie_id={movie_id}/>
+                        </div>
                     ))}
                 </div>
 

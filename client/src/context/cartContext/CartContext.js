@@ -2,7 +2,7 @@ import {createContext,useEffect, useReducer} from 'react'
 import CartReducer from './CartReducer';
 
 const INITIAL_STATE = {
-    cart: [],
+    user: [],
     isFetching: false,
     error: false
 };
@@ -13,12 +13,13 @@ export const CartContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(CartReducer, INITIAL_STATE)
 
     useEffect(() => {
-        localStorage.setItem("user", JSON.stringify(state.cart))
-    },[state.cart])
+    if(state.user && state.user.user && state.user.access_token)
+        localStorage.setItem("user", JSON.stringify(state.user))
+    },[state.user])
 
     return(
         <CartContext.Provider value={{
-            cart: state.cart,
+            user: state.user,
             isFetching: state.isFetching,
             error: state.error,
             dispatch

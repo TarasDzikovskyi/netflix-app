@@ -1,10 +1,29 @@
 .personalItem{
+    .clear_icon{
+        display: none;
+        position: absolute;
+
+    }
+
     .item{
         margin: 20px 20px 0;
         height: 240px;
         width: 170px;
         background-color: red;
         cursor: pointer;
+        position: relative;
+
+
+
+        &:hover{
+            .clear_icon{
+                display: block;
+                color: white;
+                font-size: 25px;
+                top: 3px;
+                right: 3px;
+            }
+        }
     }
 
     p{

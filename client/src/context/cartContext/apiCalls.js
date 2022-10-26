@@ -16,15 +16,16 @@ export const addToCart = async (info, dispatch) => {
     }
 }
 
-export const removeFromCart = async (id, dispatch) => {
+export const removeFromCart = async (info, dispatch) => {
     dispatch(removeFromCartStart())
     try{
-        await axios.delete('/users/cart' + id, {
+        const res = await axios.patch('/users/remove/cart', info, {
             headers: {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).access_token
             }
         })
-        dispatch(removeFromCartSuccess(id))
+
+        dispatch(removeFromCartSuccess(res.data))
     } catch(e){
         dispatch(removeFromCartFailure())
     }

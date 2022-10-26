@@ -1,23 +1,14 @@
-const jsonObject = {
-    "Name":'Ram',
-    "Age":'28',
-    "Dept":'IT'
-}
-const encodedJsonObject = Buffer.from(JSON.stringify(jsonObject)).toString('base64');
-console.log(encodedJsonObject)
+let movie_id = '63230dc668b1c26ce5c23d91'
 
-const object =  Object()
-console.log(object)
+let arr = [
+    '63230b2168b1c26ce5c238a5',
+    '63230dd368b1c26ce5c23dc5',
+    '63230ddd68b1c26ce5c23ded',
+    '63230dea68b1c26ce5c23e21',
+    '63230b4068b1c26ce5c2391b',
+    '63230dea68b1c26ce5c23e21',
+    '63230b2468b1c26ce5c238af',
+    '63230e1968b1c26ce5c23ed7'
+]
 
-const express = require('express');
-const app = express();
-
-
-app.use(express.json());
-
-
-app.listen(5000, () => {
-    console.log(`Server is running on port ${5000}!`);
-})
-
-// 192.168.145.238
+arr.filter((item) => item !== movie_id)

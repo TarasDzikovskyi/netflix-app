@@ -29,8 +29,6 @@ export default function SetPass() {
             const res = await axios.post('/auth/register', {email, username, password})
             console.log(res)
 
-            login({email, password}, dispatch)
-
             navigate('/info')
         }
     }

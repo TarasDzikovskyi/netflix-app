@@ -88,50 +88,41 @@ module.exports.getAllUsersStats = async (req, res, next) => {
 }
 
 module.exports.addToCart = async (req, res, next) => {
-    try{
-        const { user_id, movie_id } = req.body;
-        console.log(req.body)
+    try {
+        const {user_id, movie_id} = req.body;
+        let cart_length = 0
+        let user
 
-        // const user = await User.findById(user_id);
-        // // const movie = await Movie.findById(movie_id);
-        // const { cart } = user;
+        const find_user = await User.findById(user_id);
+        const { cart } = find_user;
+        cart_length = cart.length
+        user = find_user
 
-        // cart.find(
-        //     (item) => item._id.toString() === movie_id.toString()
-        // ) ? console.log('Error') : user.cart.push(movie_id);
-
-        // const updatedUser = await User.findOneAndUpdate({ _id: user_id }, user, { new: true });
-        let user = {
-            _id: '6320d6f76551c535bd1a5fc0',
-            username: "otsocity",
-            email: "tarasdz12367@gmail.com",
-            isAdmin: true,
-            cart: [movie_id]
-        }
-
+        cart.find((item) => item === movie_id) ? console.log('Error') : find_user.cart.push(movie_id);
         const tokenPair = {access_token: req.cookies.accessToken, refresh_token: req.cookies.refreshToken}
 
+        if(cart_length !== cart.length)
+            user = await User.findOneAndUpdate({_id: user_id}, find_user, {new: true});
+
         res.status(200).json({...tokenPair, user});
-    } catch(e){
+    } catch (e) {
         next(e);
     }
 }
 
 module.exports.removeFromCart = async (req, res, next) => {
-    try{
-        const { user_id, movie_id } = req.params;
+    try {
+        const {user_id, movie_id} = req.body;
 
-            // const user = await User.findById(user_id);
+        const find_user = await User.findById(user_id);
+        const new_cart = find_user.cart.filter((item) => item !== movie_id);
+        find_user.cart = new_cart
+        const tokenPair = {access_token: req.cookies.accessToken, refresh_token: req.cookies.refreshToken}
 
-            // const cart = user.cart.filter(
-            //     (rev) => rev._id.toString() !== pub_id.toString()
-            // );
+        const user = await User.findByIdAndUpdate({_id: user_id}, {cart: new_cart}, {new: true});
 
-            // const updatedUser = await User.findByIdAndUpdate({ _id: user_id }, { cart }, { new: true });
-
-            // res.status(200).json(updatedUser);
-        
-    } catch(e){
+        res.status(200).json({...tokenPair, user});
+        } catch (e) {
         next(e);
     }
 }
