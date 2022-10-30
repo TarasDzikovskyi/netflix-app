@@ -1,7 +1,7 @@
 import {
     Add,
     ArrowBackIosOutlined,
-    ArrowForwardIosOutlined, Clear, PlayArrow, ThumbDownOutlined, ThumbUpAltOutlined,
+    ArrowForwardIosOutlined, Check, Clear, PlayArrow, ThumbDownOutlined, ThumbUpAltOutlined,
 } from "@material-ui/icons";
 import React, {useRef, useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
@@ -19,6 +19,8 @@ export default function List({list}) {
     const [info, setInfo] = useState([])
     const {dispatch} = useContext(CartContext)
     const navigate = useNavigate();
+    let {user} = useContext(CartContext)
+    if(user.length === 0) user = JSON.parse(localStorage.getItem('user'))
 
     const handleItemClick = (item) => {
         getMovie(item)
@@ -44,7 +46,7 @@ export default function List({list}) {
 
     const onButtonClick = async (title) => {
         let res = await movieTrailer(title)
-        if (title !== null) {
+        if (res !== null) {
             let movie_id = res.slice(-12)
             navigate(`/watch/${movie_id}`)
         } else {
@@ -102,7 +104,11 @@ export default function List({list}) {
                                 </button>
 
                                 <div className="icons">
-                                    <Add className="icon" onClick={() => handleClickCart(info._id)}/>
+                                    {user &&(
+                                        user.user.cart.find((item) => item === info._id) ?
+                                            <Check className="icon"/> :
+                                            <Add className="icon" onClick={() => handleClickCart(info._id)}/>
+                                        )}
                                     <ThumbUpAltOutlined className="icon"/>
                                     <ThumbDownOutlined className="icon"/>
                                 </div>

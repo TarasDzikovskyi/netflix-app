@@ -12,11 +12,9 @@ import Loading from "../../components/loading/Loading";
 
 const CurrentHome = ({ type }) => {
     const [lists, setLists] = useState([]);
-    const [genre, setGenre] = useState(null);
     const { movie_id } = useParams()
     const { pathname } = useLocation()
 
-    console.log(JSON.parse(localStorage.getItem("user")).access_token)
     useEffect(() => {
         window.scrollTo(0, 0)
         const getRandomLists = async () => {
@@ -38,7 +36,6 @@ const CurrentHome = ({ type }) => {
         };
         getRandomLists();
     }, [ pathname]);
-
 
     return (
         <>

@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import './navbar.scss'
-import {ArrowDropDown, Notifications, Search} from '@material-ui/icons'
+import {Add, ArrowDropDown, Check, Notifications, Search, StarRate} from '@material-ui/icons'
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from '../../context/authContext/AuthContext';
 import {logout} from '../../context/authContext/AuthAction';
@@ -9,6 +9,7 @@ import logo from '../../content/logo.png';
 import axios from "axios";
 import {CartContext} from '../../context/cartContext/CartContext';
 import {useEffect} from 'react';
+import {addToCart} from "../../context/cartContext/apiCalls";
 // import {useSelector} from 'react-redux'
 
 
@@ -46,6 +47,11 @@ export default function Navbar() {
         } else setFilteredMovie([])
 
     }, [value])
+
+    const handleClickCart = (movie_id) => {
+        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        addToCart({user_id, movie_id}, dispatch)
+    }
 
     return (
         <>
@@ -112,7 +118,29 @@ export default function Navbar() {
                 <div className="search">
                     {filteredMovie.map((item) => (
                         <div className='filter_item'>
-                            {item.title}
+                            <img src={item.imgSm} height={200}/>
+                            <div className='search_wrapper'>
+                                <div>{item.title}</div>
+                                <div className="flex">
+                                    <p>{item.genre}</p>
+                                    {item.isSeries === true ?(
+                                        <p>Serial</p>
+                                    ) : (
+                                        <p>Movie</p>
+                                    )}
+                                    <p>{item.year} year</p>
+
+                                </div>
+                                {/*<hr/>*/}
+                                <p className='vote'>{item.vote}<StarRate/></p>
+                                <p className='limit'>+{item.limit}</p>
+                                {user &&(
+                                    user.user.cart.find((item) => item === item._id) ?
+                                        <Check className="icon"/>:
+                                        <Add className="icon" onClick={() => handleClickCart(item._id)}/>
+                                )}
+
+                            </div>
                         </div>
                     ))}
                 </div>
