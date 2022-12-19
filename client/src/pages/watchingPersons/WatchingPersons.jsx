@@ -37,7 +37,7 @@ export default function WatchingPersons({user}) {
     // let user = JSON.parse(localStorage.getItem("user"))
 
 
-    console.log(user)
+    // console.log(user)
 
 
     useEffect(() => {
@@ -46,17 +46,18 @@ export default function WatchingPersons({user}) {
         if(cookies.length === 0) setCookie('users', [],  365*24*60*60*1000, 'localhost:3000')
         else {
             let array = JSON.parse(cookies)
-            let isIncluded = array.find(item => item._id === user.user._id) && true || false
+            let isIncluded = array.find(item => item.id === user.user.id) && true || false
             if(isIncluded === false) array.push(user.user)
 
             setCookie('users', array, 365*24*60*60*1000, 'localhost:3000')
+            console.log(array)
             setUsers(array)
         }
 
     },[])
 
     const handleClick = (id, email, password) => {
-        if(user.user._id === id) navigate('/')
+        if(user.user.id === id) navigate('/')
         else{
             const bytes = CryptoJS.AES.decrypt(password, 'otsocity');
             const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
@@ -67,6 +68,7 @@ export default function WatchingPersons({user}) {
     }
 
 
+    console.log(users)
 
     return (
         <div className='watching'>
@@ -79,7 +81,7 @@ export default function WatchingPersons({user}) {
                     <h2>Who`s Watching?</h2>
                     <div className="users">
                         {users.map((user) => (
-                            <div className="item" key={user._id} onClick={() => handleClick(user._id, user.email, user.password)}>
+                            <div className="item" key={user.id} onClick={() => handleClick(user.id, user.email, user.password)}>
                                 <img src={img} alt="" height={125} />
                                 <p>{user.username}</p>
                     

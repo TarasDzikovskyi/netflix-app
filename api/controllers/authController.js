@@ -1,4 +1,4 @@
-const {User, OAuth, OAuthAction} = require("../models");
+const {User, OAuth, OAuthAction} = require("../models/models");
 const CryptoJS = require('crypto-js')
 const {jwtService} = require("../services");
 const userUtil = require("../utils/user.util");
@@ -14,10 +14,13 @@ module.exports.createUser = async (req, res, next) => {
         if (req.body.password) {
             const hashedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
 
-            let createdUser = await User.create({...req.body, password: hashedPassword});
-
-            const userToReturn = userUtil.userNormalizator(createdUser.toObject());
-            res.status(201).json(userToReturn);
+            await User.create({...req.body, password: hashedPassword}).then(result => {
+                const userToReturn = userUtil.userNormalizator(result.dataValues);
+                // console.log(userToReturn)
+                res.status(201).json(userToReturn);
+            }).catch((error) => {
+                res.status(401).json("User is included!");
+            });
         } else res.status(401).json("Password is required!")
     } catch (e) {
         next(e);
@@ -26,10 +29,10 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
     try {
-        const user = await User.findOne({email: req.body.email});
+        const user = await User.findOne({where: {email: req.body.email}});
         !user && res.status(401).json("Wrong username or password!");
 
-        const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+        const bytes = CryptoJS.AES.decrypt(user.dataValues.password, process.env.SECRET_KEY);
         const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
         originalPassword !== req.body.password && res.status(401).json("Wrong username or password!");
@@ -38,11 +41,9 @@ module.exports.login = async (req, res, next) => {
         res.cookie('accessToken', tokenPair.access_token, {maxAge: 12*60*60*1000, httpOnly: true})
         res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30*24*60*60*1000, httpOnly: true})
 
-        console.log(tokenPair)
+        await OAuth.create({...tokenPair, user: user.dataValues.id})
 
-        await OAuth.create({...tokenPair, user: user._id})
-
-        res.status(200).json({...tokenPair, user: userNormalizator(user)})
+        res.status(200).json({...tokenPair, user: userNormalizator(user.dataValues)})
     } catch (e) {
         next(e);
     }
@@ -52,19 +53,19 @@ module.exports.forgotPassword = async (req, res, next) => {
     try {
         const {email} = req.body;
 
-        const user = await User.findOne({email: email})
+        const user = await User.findOne({where: {email: email}})
 
         const actionToken = jwtService.generateActionToken();
 
         await emailService.sendMail(
             email,
             emailActionEnum.FORGOT,
-            {email: email, userName: user.username, actionToken: actionToken.action_token}
+            {email: email, userName: user.dataValues.username, actionToken: actionToken.action_token}
         );
 
-        await OAuthAction.create({...actionToken, user: user._id});
+        await OAuthAction.create({...actionToken, user: user.dataValues.id});
 
-        res.json({...actionToken, user: userNormalizator(user)});
+        res.json({...actionToken, user: userNormalizator(user.dataValues)});
     } catch (e) {
         next(e);
     }
@@ -74,20 +75,20 @@ module.exports.changePassword = async (req, res, next) => {
         try {
             const {action_token} = req.body;
 
-            const {user: {_id}, body: {password}} = req;
+            const {user: {id}, body: {password}} = req;
 
             const hashedPassword = CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString()
-            await User.findByIdAndUpdate({_id}, {password: hashedPassword});
+            await User.update( {password: hashedPassword}, {where: {id}});
 
-            await OAuthAction.deleteOne({action_token});
-            await OAuth.deleteMany({_id});
+            await OAuthAction.destroy({where:{action_token: action_token}});
+            await OAuth.destroy({where:{id: id}});
 
-            const user = await User.findById(_id)
+            const user = await User.findByPk(id)
 
             await emailService.sendMail(
-                user.email,
+                user.dataValues.email,
                 emailActionEnum.CHANGE,
-                {email: user.email, userName: user.username}
+                {email: user.dataValues.email, userName: user.dataValues.username}
             );
 
             res.status(200);
@@ -100,7 +101,7 @@ module.exports.logoutUser = async (req, res, next) => {
     try {
         const {accessToken} = req.cookies
 
-        await OAuth.deleteOne({accessToken});
+        await OAuth.destroy({where:{accessToken}});
 
         res.clearCookie('accessToken');
         res.clearCookie('refreshToken');

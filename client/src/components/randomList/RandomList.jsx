@@ -41,7 +41,7 @@ export default function RandomList() {
 
             <div className="block">
                 {content.map((item) => (
-                    <div className='item-box' key={item._id} onClick={() => handleClick(item._id)}>
+                    <div className='item-box' key={item.id} onClick={() => handleClick(item.id)}>
                         <img src={item.imgSm} alt="" height={240} width={170}/>
                     </div>
 

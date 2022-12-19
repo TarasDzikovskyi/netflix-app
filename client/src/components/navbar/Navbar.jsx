@@ -32,6 +32,8 @@ export default function Navbar() {
         await axios.post('auth/logout')
     }
 
+    // console.log(user)
+
     useEffect(() => {
         if (value.length > 0) {
             const filter = async () => {
@@ -49,9 +51,12 @@ export default function Navbar() {
     }, [value])
 
     const handleClickCart = (movie_id) => {
-        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        const user_id = JSON.parse(localStorage.getItem("user")).user.id
         addToCart({user_id, movie_id}, dispatch)
     }
+
+
+    if(user.user.cart == null) user.user.cart = []
 
     return (
         <>
@@ -135,9 +140,9 @@ export default function Navbar() {
                                 <p className='vote'>{item.vote}<StarRate/></p>
                                 <p className='limit'>+{item.limit}</p>
                                 {user &&(
-                                    user.user.cart.find((item) => item === item._id) ?
+                                    user.user.cart.find((item) => item === item.id) ?
                                         <Check className="icon"/>:
-                                        <Add className="icon" onClick={() => handleClickCart(item._id)}/>
+                                        <Add className="icon" onClick={() => handleClickCart(item.id)}/>
                                 )}
 
                             </div>

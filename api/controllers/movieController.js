@@ -1,13 +1,13 @@
-const {Movie} = require('../models')
+const {Movie} = require('../models/models')
+const userUtil = require("../utils/user.util");
+const {Sequelize, Op} = require('sequelize')
 
 module.exports.createMovie = async (req, res, next) => {
     try{
         if(req.user.isAdmin){
-            const newMovie = new Movie(req.body);
+            const newMovie = await Movie.create(req.body);
 
-            const savedMovie = await newMovie.save()
-            
-            res.status(201).json(savedMovie)
+            res.status(201).json(newMovie)
         } else {
             req.status(403).json("You are not allowed!")
         }
@@ -18,13 +18,11 @@ module.exports.createMovie = async (req, res, next) => {
 
 module.exports.updateMovie = async (req, res, next) => {
     try{
-        if(req.user.isAdmin){
-            const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-            
-            res.status(200).json(updatedMovie)
-        } else {
-            req.status(403).json("You are not allowed!")
-        }
+        await Movie.update(req.body, {where: {id: req.params.id}})
+
+        const updatedMovie = await Movie.findOne({where: {id: req.params.id}})
+
+        res.status(200).json(updatedMovie.dataValues)
 
     } catch(e){
         next(e);
@@ -34,7 +32,7 @@ module.exports.updateMovie = async (req, res, next) => {
 module.exports.deleteMovie = async (req, res, next) => {
     try{
         if(req.user.isAdmin){
-            await Movie.findByIdAndDelete(req.params.id)
+            await Movie.destroy({where: {id: req.params.id}})
             
             res.status(200).json("The movie has been deleted...")
         } else {
@@ -47,9 +45,9 @@ module.exports.deleteMovie = async (req, res, next) => {
 
 module.exports.getSingleMovie = async (req, res, next) => {
     try{
-        const movie = await Movie.findById(req.params.movie_id)
+        const movie = await Movie.findOne({where: {id: req.params.movie_id}})
 
-        res.status(200).json(movie)
+        res.status(200).json(movie.dataValues)
     } catch(e){
         next(e);
     }
@@ -62,22 +60,16 @@ module.exports.getRandomMovie = async (req, res, next) => {
         const search = req.query.search
 
         if(type === 'series') {
-            movie = await Movie.aggregate([
-                {$match: {isSeries: true}},
-                {$sample: {size: 1}}
-            ])
+            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: true}], limit: 1 })
+
         } else if(type === 'random') {
-            movie = await Movie.aggregate([
-                {$sample: {size: 18}}
-            ])
+            movie = await Movie.findAll({ order: Sequelize.literal('random()'), limit: 18 })
+
         }  else if(search !== undefined && search.length !== 0) {
-                let regex = new RegExp(`^${search}`, "i");
-                movie = await Movie.find({ title: { $regex: regex }})
+                movie = await Movie.findAll({where: {title: {[Op.like]: '%'+search+'%'}}})
+
         } else {
-            movie = await Movie.aggregate([
-                {$match: {isSeries: false}},
-                {$sample: {size: 1}}
-            ])
+            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: false}], limit: 1 })
         }
 
         res.status(200).json(movie)
@@ -88,13 +80,10 @@ module.exports.getRandomMovie = async (req, res, next) => {
 
 module.exports.getAllMovie = async (req, res, next) => {
     try{
-        if(req.user.isAdmin){
-            const movies = await Movie.find()
+        const movies = await Movie.findAll()
 
-            res.status(200).json(movies)
-        } else {
-            req.status(403).json("You are not allowed!")
-        }
+        console.log(movies)
+        res.status(200).json(movies)
     } catch(e){
         next(e);
     }

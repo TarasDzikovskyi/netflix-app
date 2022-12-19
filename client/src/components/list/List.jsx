@@ -24,7 +24,7 @@ export default function List({list}) {
 
     const handleItemClick = (item) => {
         getMovie(item)
-        const input = document.getElementById(list._id);
+        const input = document.getElementById(list.id);
         if (input.style.display === "none") {
             input.style.display = "block";
         }
@@ -55,12 +55,12 @@ export default function List({list}) {
     }
 
     const clearState = () => {
-        const input = document.getElementById(list._id);
+        const input = document.getElementById(list.id);
         input.style.display = "none";
     }
 
     const handleClickCart = (movie_id) => {
-        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        const user_id = JSON.parse(localStorage.getItem("user")).user.id
         addToCart({user_id, movie_id}, dispatch)
     }
 
@@ -75,6 +75,8 @@ export default function List({list}) {
         nextArrow: <ArrowForwardIosOutlined className="sliderArrow right"/>
     };
 
+    if(user.user.cart == null) user.user.cart = []
+
     return (
         <div className="list">
             <span className="listTitle">{list.title}</span>
@@ -82,14 +84,14 @@ export default function List({list}) {
                 <div className="container">
                     <Slider {...settings}>
                         {list.content.map((item, i) => (
-                            <div key={item._id} onClick={() => handleItemClick(item)}>
+                            <div key={item.id} onClick={() => handleItemClick(item)}>
                                 <ListItem index={i} item={item}/>
                             </div>
                         ))}
                     </Slider>
                 </div>
 
-                {info && <div id={list._id} style={{display: 'none'}} className='text_item'>
+                {info && <div id={list.id} style={{display: 'none'}} className='text_item'>
                     <div className="wrapper-item">
                         <div className="box-item">
                             <div className="title">{info.title}</div>
@@ -105,9 +107,9 @@ export default function List({list}) {
 
                                 <div className="icons">
                                     {user &&(
-                                        user.user.cart.find((item) => item === info._id) ?
+                                        user.user.cart.find((item) => String(item) === String(info.id)) ?
                                             <Check className="icon"/> :
-                                            <Add className="icon" onClick={() => handleClickCart(info._id)}/>
+                                            <Add className="icon" onClick={() => handleClickCart(info.id)}/>
                                         )}
                                     <ThumbUpAltOutlined className="icon"/>
                                     <ThumbDownOutlined className="icon"/>

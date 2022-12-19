@@ -47,7 +47,7 @@ const CurrentHome = ({ type }) => {
                     <CurrentMovie movie_id={movie_id} />
 
                     {lists.map((list) => (
-                        <div key={list._id}>
+                        <div key={list.id}>
                             <List list={list} />
                         </div>
                     ))}

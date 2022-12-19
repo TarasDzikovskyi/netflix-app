@@ -1,6 +1,6 @@
 const ErrorHandler = require('../errors/ErrorHandler');
 const { jwtService } = require('../services/jwt.service');
-const { OAuth } = require('../models');
+const { OAuth } = require('../models/models');
 
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
 
             await jwtService.verifyToken(access_token, 'access');
 
-            const tokenFromDB = await OAuth.findOne({ access_token }).populate('user');
+            const tokenFromDB = await OAuth.findOne({where: { access_token }});
 
             if (!tokenFromDB) {
                 throw new ErrorHandler(401, 'Invalid token');
@@ -39,7 +39,7 @@ module.exports = {
 
             await jwtService.verifyToken(action_token, 'action');
 
-            const tokenFromDB = await OAuth.findOne({ action_token }).populate('user');
+            const tokenFromDB = await OAuth.findOne({where: { action_token }});
 
             if (!tokenFromDB) {
                 throw new ErrorHandler(401, 'Invalid token');
@@ -62,7 +62,7 @@ module.exports = {
 
             await jwtService.verifyToken(refresh_token, 'refresh');
 
-            const tokenFromDB = await OAuth.findOne({ refresh_token }).populate('user');
+            const tokenFromDB = await OAuth.findOne({where: { refresh_token }});
 
             if (!tokenFromDB) {
                 throw new ErrorHandler(401, 'Invalid token');

@@ -28,7 +28,7 @@ export default function PersonalItem({movie_id}) {
     }, [movie_id]);
 
     const handleDelete = (movie_id) => {
-        const user_id = JSON.parse(localStorage.getItem("user")).user._id
+        const user_id = JSON.parse(localStorage.getItem("user")).user.id
         removeFromCart({user_id, movie_id}, dispatch)
     }
 
@@ -36,7 +36,7 @@ export default function PersonalItem({movie_id}) {
         <div className="personalItem">
             <div className="item">
                 <img src={content.imgSm} alt="" height={240} width={170}/>
-                <div className="clear_icon" onClick={() =>handleDelete(content._id)}>
+                <div className="clear_icon" onClick={() =>handleDelete(content.id)}>
                     <NotInterested />
                 </div>
             </div>

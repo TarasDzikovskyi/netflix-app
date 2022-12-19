@@ -6,7 +6,7 @@ export const getMovies = async (dispatch) => {
     try{
         const res = await axios.get('/movies', {
             headers: {
-                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).access_token
             }
         })
         dispatch(getMoviesSuccess(res.data))
@@ -20,7 +20,7 @@ export const createMovie = async (movie, dispatch) => {
     try{
         const res = await axios.post('/movies', movie, {
             headers: {
-                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).access_token
             }
         })
         dispatch(createMovieSuccess(res.data))

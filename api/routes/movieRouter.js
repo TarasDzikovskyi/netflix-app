@@ -4,7 +4,7 @@ const {movieController} = require('../controllers')
 const verify = require('../verifyToken')
 
 
-router.post('/', verify, movieController.createMovie)
+router.post('/', movieController.createMovie)
 
 router.put('/:id', movieController.updateMovie)
 

@@ -1,20 +1,23 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser')
+const {sequelize} = require('./models/models')
 
 dotenv.config()
 const {authRouter, userRouter, movieRouter, listRouter} = require('./routes')
 
-mongoose
-    .connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.zmoyzer.mongodb.net/${process.env.MONGODB_DATA}?retryWrites=true&w=majority`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        // useCreateIndex: true
-    })
-    .then(() => console.log('DB Connected Successfully!'))
-    .catch((e) => console.log(e))
+async function db_connect() {
+    try {
+        await sequelize.authenticate();
+        // await sequelize.sync({force: true})
+        console.log('Connection to DB successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
+db_connect()
 
 app.use(express.json());
 app.use(cookieParser())

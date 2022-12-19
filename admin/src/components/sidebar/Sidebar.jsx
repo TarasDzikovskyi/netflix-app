@@ -14,6 +14,9 @@ import {
   Report,
   PlayCircleOutline,
   List,
+  PersonAdd,
+  VideoCall,
+  PlaylistAdd
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -55,16 +58,30 @@ export default function Sidebar() {
                 Movies
               </li>
             </Link>
-            <Link to="/lits" className="link">
+            <Link to="/lists" className="link">
             <li className="sidebarListItem">
               <List className="sidebarIcon" />
               Lists
             </li>
             </Link>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
+            <Link to="/newUser" className="link">
+              <li className="sidebarListItem">
+                <PersonAdd className="sidebarIcon" />
+                New User
+              </li>
+            </Link>
+            <Link to="/newProduct" className="link">
+              <li className="sidebarListItem">
+                <VideoCall className="sidebarIcon" />
+                New Movie
+              </li>
+            </Link>
+            <Link to="/newList" className="link">
+              <li className="sidebarListItem">
+                <PlaylistAdd className="sidebarIcon" />
+                New List
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">

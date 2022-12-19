@@ -1,14 +1,12 @@
-const {List, Movie} = require('../models')
+const {List, Movie} = require('../models/models')
 
 module.exports.createList = async (req, res, next) => {
     try {
-        // if (req.user.isAdmin) {
-            const newList = new List(req.body);
+        if (req.user.isAdmin) {
+            const newList = await List.create(req.body);
 
-            const savedList = await newList.save();
-            res.status(200).json(savedList);
-        // } else res.status(403).json("You are not allowed!")
-
+            res.status(200).json(newList);
+        } else res.status(403).json("You are not allowed!")
     } catch (e) {
         next(e)
     }
@@ -17,7 +15,7 @@ module.exports.createList = async (req, res, next) => {
 module.exports.deleteList = async (req, res, next) => {
     try{
         if(req.user.isAdmin){
-            await List.findByIdAndDelete(req.params.id)
+            await List.destroy({where: {id: req.params.id}})
             res.status(201).json("The list has been deleted...")
         } else {
             req.status(403).json("You are not allowed!")
@@ -35,18 +33,12 @@ module.exports.getAllLists = async (req, res, next) => {
 
         if(typeQuery) {
             if(genreQuery) {
-                list = await List.aggregate([
-                    {$sample: {size: 5}},
-                    {$match: {type: typeQuery, genre: genreQuery}}
-                ]);
+                list = await List.findAll({where: {type: typeQuery, genre: genreQuery}, limit: 5})
             } else {
-                list = await List.aggregate([
-                    {$sample: {size: 5}},
-                    {$match: {type: typeQuery}}
-                ]);
+                list = await List.findAll({where: {type: typeQuery}, limit: 5})
             }
         } else {
-            list = await List.aggregate([{$sample: {size: 5}}])
+            list = await List.findAll({limit: 5})
         }
         res.status(200).json(list);
     } catch(e){

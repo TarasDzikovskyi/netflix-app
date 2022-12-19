@@ -7,7 +7,8 @@ import {ListContext} from '../../context/listContext/ListContext';
 import { deleteList, getLists } from "../../context/listContext/apiCalls";
 
 export default function ListList() {
-  const [lists, dispatch] = useContext(ListContext)
+  const {lists, dispatch} = useContext(ListContext)
+  console.log(lists)
 
   useEffect(() => {
     getLists(dispatch)
@@ -30,7 +31,7 @@ export default function ListList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={{pathname: "/list/" + params.row.id, list: params.row}}>
+            <Link to={{pathname: "/list/" + params.row._id, list: params.row}}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline

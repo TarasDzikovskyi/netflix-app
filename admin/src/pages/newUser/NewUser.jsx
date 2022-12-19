@@ -1,53 +1,70 @@
 import "./newUser.css";
+import { useContext, useState } from "react";
 
 export default function NewUser() {
+  const [user, setUser] = useState(null)
+  const [img, setImg] = useState(null)
+
+
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUser({...user, [e.target.name]: value})
+  }
+
+
+
+  const handleClick = () => {
+
+  }
+
+  console.log(user);
+
   return (
     <div className="newUser">
       <h1 className="newUserTitle">New User</h1>
       <form className="newUserForm">
         <div className="newUserItem">
           <label>Username</label>
-          <input type="text" placeholder="john" />
-        </div>
-        <div className="newUserItem">
-          <label>Full Name</label>
-          <input type="text" placeholder="John Smith" />
+          <input type="text" plan='username' placeholder="john" onChange={handleChange}/>
         </div>
         <div className="newUserItem">
           <label>Email</label>
-          <input type="email" placeholder="john@gmail.com" />
+          <input type="email" name='email' placeholder="john@gmail.com" onChange={handleChange}/>
         </div>
         <div className="newUserItem">
           <label>Password</label>
-          <input type="password" placeholder="password" />
+          <input type="password" name='password' placeholder="password" onChange={handleChange}/>
         </div>
         <div className="newUserItem">
-          <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 78" />
+          <label>Plan</label>
+          <select className="newUserSelect" name="plan" id="active" onChange={handleChange}>
+            <option value="Basic">Basic</option>
+            <option value="Standard">Standard</option>
+            <option value="Premium">Premium</option>
+          </select>
         </div>
         <div className="newUserItem">
-          <label>Address</label>
-          <input type="text" placeholder="New York | USA" />
+          <label>Activated</label>
+          <select className="newUserSelect" name="activated" onChange={handleChange}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
         </div>
         <div className="newUserItem">
-          <label>Gender</label>
+          <label>User role</label>
           <div className="newUserGender">
-            <input type="radio" name="gender" id="male" value="male" />
-            <label for="male">Male</label>
-            <input type="radio" name="gender" id="female" value="female" />
-            <label for="female">Female</label>
-            <input type="radio" name="gender" id="other" value="other" />
-            <label for="other">Other</label>
+            <input type="radio" name="isAdmin" id="user" value="false" onChange={handleChange}/>
+            <label for="user">User</label>
+            <input type="radio" name="isAdmin" id="admin" value="true" onChange={handleChange}/>
+            <label for="admin">Admin</label>
           </div>
         </div>
         <div className="newUserItem">
-          <label>Active</label>
-          <select className="newUserSelect" name="active" id="active">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+          <label>Profile picture</label>
+          <input type="file" name="profilePic" onChange={e => setImg(e.target.files[0])}/>
         </div>
-        <button className="newUserButton">Create</button>
+        <button className="newUserButton" onClick={handleClick}>Create</button>
       </form>
     </div>
   );

@@ -5,9 +5,14 @@ import {productData} from "../../dummyData"
 import { Publish } from "@material-ui/icons";
 
 export default function Product() {
-
     const location = useLocation();
     const movie = location.movie
+
+    const handleUpdate = (e) => {
+        e.preventDefault()
+
+
+    }
 
   return (
     <div className="product">
@@ -67,7 +72,7 @@ export default function Product() {
                       </label>
                       <input type="file" id="file" style={{display:"none"}} />
                   </div>
-                  <button className="productButton">Update</button>
+                  <button className="productButton" onClick={handleUpdate}>Update</button>
               </div>
           </form>
       </div>

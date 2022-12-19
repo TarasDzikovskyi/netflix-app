@@ -20,6 +20,8 @@ function App() {
   const {user} = useContext(AuthContext)
   // const user = true
  
+
+  
   return (
     <Router>
       <Switch>

@@ -28,7 +28,7 @@ const Home = ({ type }) => {
                         },
                     }
                 );
-                console.log(res.data)
+
                 setLists(res.data);
             } catch (err) {
                 console.log(err);
@@ -47,7 +47,7 @@ const Home = ({ type }) => {
                     <Featured type={type} setGenre={setGenre} />
 
                     {lists.map((list) => (
-                        <div key={list._id}>
+                        <div key={list.id}>
                             <List list={list} />
                         </div>
                     ))}

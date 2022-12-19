@@ -1,5 +1,5 @@
 const CryptoJS = require('crypto-js')
-const {User} = require('../models')
+const {User, Movie} = require('../models/models')
 
 module.exports.updateUser = async (req, res, next) => {
     try {
@@ -7,13 +7,11 @@ module.exports.updateUser = async (req, res, next) => {
             req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
         }
 
-        const updateUser = await User.findByIdAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
-            {new: true}
-        )
+        await User.update(req.body, {where: {id: req.params.id}})
 
-        res.status(200).json(updateUser);
+        const updatedUser = await User.findOne({where: {id: req.params.id}})
+
+        res.status(200).json(updatedUser.dataValues);
     } catch (e) {
         next(e);
     }
@@ -22,7 +20,7 @@ module.exports.updateUser = async (req, res, next) => {
 module.exports.deleteUser = async (req, res, next) => {
     try {
         if (req.user.id === req.params.id || req.user.isAdmin) {
-            await User.findByIdAndDelete(req.params.id);
+            await User.destroy({where:{id: req.params.id}});
 
             res.status(200).json("User has been deleted...")
         } else {
@@ -35,9 +33,9 @@ module.exports.deleteUser = async (req, res, next) => {
 
 module.exports.getSingleUser = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id);
-        const {password, ...info} = user._doc
-        res.status(200).json(info)
+        const user = await User.findOne({where: {id: req.params.id}});
+
+        res.status(200).json(user.dataValues)
     } catch (e) {
         next(e);
     }
@@ -47,7 +45,7 @@ module.exports.getAllUsers = async (req, res, next) => {
     try {
         const query = req.query.new;
         if (req.user.isAdmin) {
-            const users = query ? await User.find().sort({_id: 1}).limit(5) : await User.find();
+            const users = query ? await User.findAll.sort({id: 1}).limit(5) : await User.findAll();
             res.status(200).json(users)
         } else {
             req.status(403).json("You are not allowed to all users!")
@@ -93,16 +91,18 @@ module.exports.addToCart = async (req, res, next) => {
         let cart_length = 0
         let user
 
-        const find_user = await User.findById(user_id);
-        const { cart } = find_user;
-        cart_length = cart.length
-        user = find_user
+        const find_user = await User.findOne({where: {id: user_id}});
+        if(find_user.dataValues.cart === null) find_user.dataValues.cart = []
+        cart_length = find_user.dataValues.cart.length
 
-        cart.find((item) => item === movie_id) ? console.log('Error') : find_user.cart.push(movie_id);
+        find_user.dataValues.cart.find((item) => String(item) === String(movie_id)) ? console.log('Error') : find_user.dataValues.cart.push(movie_id);
         const tokenPair = {access_token: req.cookies.accessToken, refresh_token: req.cookies.refreshToken}
 
-        if(cart_length !== cart.length)
-            user = await User.findOneAndUpdate({_id: user_id}, find_user, {new: true});
+        if(cart_length !== find_user.dataValues.cart.length)
+        await User.update(find_user.dataValues, {where: {id: user_id}})
+
+        const updatedUser = await User.findOne({where: {id: user_id}})
+        user = updatedUser.dataValues
 
         res.status(200).json({...tokenPair, user});
     } catch (e) {
@@ -114,12 +114,15 @@ module.exports.removeFromCart = async (req, res, next) => {
     try {
         const {user_id, movie_id} = req.body;
 
-        const find_user = await User.findById(user_id);
-        const new_cart = find_user.cart.filter((item) => item !== movie_id);
-        find_user.cart = new_cart
+        const find_user = await User.findOne({where: {id: user_id}});
+        const new_cart = find_user.dataValues.cart.filter((item) => String(item) !== String(movie_id));
+        find_user.dataValues.cart = new_cart
         const tokenPair = {access_token: req.cookies.accessToken, refresh_token: req.cookies.refreshToken}
 
-        const user = await User.findByIdAndUpdate({_id: user_id}, {cart: new_cart}, {new: true});
+        await User.update({cart: new_cart}, {where: {id: user_id}})
+
+        const updatedUser = await User.findOne({where: {id: user_id}})
+        const user = updatedUser.dataValues
 
         res.status(200).json({...tokenPair, user});
         } catch (e) {

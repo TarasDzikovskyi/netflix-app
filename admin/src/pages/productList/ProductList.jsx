@@ -8,7 +8,8 @@ import {MovieContext} from '../../context/movieContext/MovieContext';
 import { deleteMovie, getMovies } from "../../context/movieContext/apiCalls";
 
 export default function ProductList() {
-  const [movies, dispatch] = useContext(MovieContext)
+  const {movies, dispatch} = useContext(MovieContext)
+  // console.log(movies)
 
   useEffect(() => {
     getMovies(dispatch)
@@ -45,7 +46,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={{pathname: "/product/" + params.row.id, movie: params.row}}>
+            <Link to={{pathname: "/product/" + params.row._id, movie: params.row}}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -64,7 +65,7 @@ export default function ProductList() {
         rows={movies}
         disableSelectionOnClick
         columns={columns}
-        pageSize={8}
+        pageSize={20}
         checkboxSelection
         getRowId={(r) => r._id}
       />

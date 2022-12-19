@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon app.js",
+    "server": "nodemon index.js",
     "front": "npm run start --prefix ../client",
-    "dev": "concurrently \"npm run server\" \"npm run front\""
+    "admin": "npm run start --prefix ../admin",
+    "dev": "concurrently \"npm run server\" \"npm run front\" \"npm run admin\"",
+    "dev_front": "concurrently \"npm run server\" \"npm run front\"",
+    "dev_admin": "concurrently \"npm run server\" \"npm run admin\""
   },
   "author": "",
   "license": "ISC",
@@ -22,8 +25,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.0",
     "nodemailer": "^6.7.8",
-    "nodemon": "^2.0.19",
+    "nodemon": "^2.0.20",
     "path": "^0.12.7",
+    "pg": "^8.8.0",
+    "sequelize": "^6.27.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
