@@ -19,7 +19,7 @@ export default function ListList() {
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 250 },
+    { field: "id", headerName: "ID", width: 250 },
     { field: "title", headerName: "Title", width: 250 },
     { field: "genre", headerName: "Genre", width: 150 },
     { field: "type", headerName: "Type", width: 150 },
@@ -31,12 +31,12 @@ export default function ListList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={{pathname: "/list/" + params.row._id, list: params.row}}>
+            <Link to={{pathname: "/list/" + params.row.id, list: params.row}}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.row.id)}
             />
           </>
         );
@@ -52,7 +52,7 @@ export default function ListList() {
         columns={columns}
         pageSize={8}
         checkboxSelection
-        getRowId={(r) => r._id}
+        getRowId={(r) => r.id}
       />
     </div>
   );

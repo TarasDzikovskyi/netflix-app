@@ -14,8 +14,6 @@ export default function CurrentMovie({movie_id}) {
     useEffect(() => {
         const getContent = async () => {
             try {
-                console.log(movie_id)
-
                 const res = await axios.get(`/movies/find/${movie_id}`, {
                     headers: {
                         token:

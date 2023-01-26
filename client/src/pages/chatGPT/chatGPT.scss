@@ -1,0 +1,52 @@
+.gpt_box{
+  background-color: var(--main-color);
+  height: 100vh;
+  width: 100vw;
+  padding-top: 100px;
+  color: white;
+
+  .gpt_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+
+
+    .block{
+      height: 450px;
+      width: 750px;
+      background-color: #8c8c8c;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .response{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+
+        .text_block{
+          width: 75%;
+        }
+      }
+
+      .request{
+        width: 100%;
+        display: flex;
+
+        .input_text{
+          width: 85%;
+          height: 50px;
+        }
+
+        .input_button{
+          width: 15%;
+          height: 55px;
+        }
+
+      }
+    }
+  }
+}

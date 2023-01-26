@@ -25,7 +25,7 @@ export default function List() {
               <div className="productInfoBottom">
                   <div className="productInfoItem">
                       <span className="productInfoKey">id:</span>
-                      <span className="productInfoValue">{list._id}</span>
+                      <span className="productInfoValue">{list.id}</span>
                   </div>
                   <div className="productInfoItem">
                       <span className="productInfoKey">genre:</span>

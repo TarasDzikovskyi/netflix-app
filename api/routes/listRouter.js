@@ -6,7 +6,7 @@ const {verify} = require("jsonwebtoken");
 
 router.post('/', listController.createList)
 
-router.delete('/:id', verify, listController.deleteList)
+router.delete('/:id', listController.deleteList)
 
 router.get('/', listController.getAllLists)
 

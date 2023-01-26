@@ -1,14 +1,38 @@
-let movie_id = '63230dc668b1c26ce5c23d91'
+const db = require('./db')
+const {Movie} = require("./models/models");
 
-let arr = [
-    '63230b2168b1c26ce5c238a5',
-    '63230dd368b1c26ce5c23dc5',
-    '63230ddd68b1c26ce5c23ded',
-    '63230dea68b1c26ce5c23e21',
-    '63230b4068b1c26ce5c2391b',
-    '63230dea68b1c26ce5c23e21',
-    '63230b2468b1c26ce5c238af',
-    '63230e1968b1c26ce5c23ed7'
-]
 
-arr.filter((item) => item !== movie_id)
+function timeout(el) {
+    var promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(el);
+        }, 1000);
+    });
+    return promise;
+}
+
+async function qwerty() {
+    try {
+        for (let i = 0; i < db.length; i++) {
+            const dbElement = db[i];
+            dbElement.isNetflix = true
+            dbElement.title = dbElement.title+'.'
+
+            const el = await timeout(dbElement)
+
+            if (el.isNetflix === true) {
+                const newMovie = await Movie.create(el);
+                console.log(newMovie)
+            }
+
+        }
+        console.log('completed')
+
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
+
+qwerty()

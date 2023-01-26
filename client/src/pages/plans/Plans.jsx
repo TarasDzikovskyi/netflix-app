@@ -35,7 +35,7 @@ export default function Plans() {
         if (selectedPlan === 1) plan = 'Standard';
         if (selectedPlan === 2) plan = 'Premium';
 
-        const res = await axios.patch(`/users/${user.user._id}`, {
+        const res = await axios.patch(`/users/${user.user.id}`, {
             headers: {
                 token:
                     "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
@@ -44,9 +44,11 @@ export default function Plans() {
         });
 
         console.log(res)
+        localStorage.setItem('email', null)
+
         setLoading(true)
         const result = await timeout(true)
-        if (result) navigate('/')
+        if (result) navigate('/watching')
     }
 
     return (

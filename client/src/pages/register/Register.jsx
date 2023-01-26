@@ -19,8 +19,19 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
-
     const handleStart = async (e) => {
+        try {
+            const res = await axios.post("auth/test");
+            console.log(res)
+
+
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const handleStartz = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("auth/check", {email});

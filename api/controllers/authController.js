@@ -16,7 +16,6 @@ module.exports.createUser = async (req, res, next) => {
 
             await User.create({...req.body, password: hashedPassword}).then(result => {
                 const userToReturn = userUtil.userNormalizator(result.dataValues);
-                // console.log(userToReturn)
                 res.status(201).json(userToReturn);
             }).catch((error) => {
                 res.status(401).json("User is included!");
@@ -101,7 +100,7 @@ module.exports.logoutUser = async (req, res, next) => {
     try {
         const {accessToken} = req.cookies
 
-        await OAuth.destroy({where:{accessToken}});
+        await OAuth.destroy({where:{access_token: accessToken}});
 
         res.clearCookie('accessToken');
         res.clearCookie('refreshToken');
@@ -119,11 +118,14 @@ module.exports.test = async (req, res, next) => {
         const email = 'tarasdz12367@gmail.com'
         const username = 'otsocity'
 
-        await emailService.sendMail(
-            email,
-            emailActionEnum.ACTIVATE,
-            {email: email, userName: username, link: activationLink}
-        );
+        // await emailService.sendMail(
+        //     email,
+        //     emailActionEnum.ACTIVATE,
+        //     {email: email, userName: username, link: activationLink}
+        // );
+
+        res.cookie('activationLink', activationLink, {maxAge: 60*1000, httpOnly: true})
+
 
         res.json('qwerty');
     } catch (e) {
@@ -136,14 +138,14 @@ module.exports.activate = async (req, res, next) => {
         const activationLink = req.params.link
         console.log(activationLink)
 
-        // const user = await User.findOne({activationLink})
-        // if (!user) {
-        //     throw new ErrorHandler(401, 'Incorrect activation link')
-        // }
-        // user.isActivated = true;
-        // await user.save();
+        const user = await User.findOne({activationLink})
+        if (!user) {
+            throw new ErrorHandler(401, 'Incorrect activation link')
+        }
+        user.isActivated = true;
+        await user.save();
 
-        // res.redirect(process.env.CLIENT_URL)
+        res.redirect(process.env.CLIENT_URL)
     } catch (e) {
         next(e);
     }

@@ -31,7 +31,7 @@ export default function Product() {
               <div className="productInfoBottom">
                   <div className="productInfoItem">
                       <span className="productInfoKey">id:</span>
-                      <span className="productInfoValue">{movie._id}</span>
+                      <span className="productInfoValue">{movie.id}</span>
                   </div>
                   <div className="productInfoItem">
                       <span className="productInfoKey">genre:</span>

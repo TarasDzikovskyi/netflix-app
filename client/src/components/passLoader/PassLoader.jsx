@@ -1,32 +1,16 @@
-import {ArrowBackOutlined, Done} from '@material-ui/icons'
-import React, {useState} from 'react'
+import React from 'react'
 import './passLoader.scss'
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import ReactPlayer from 'react-player'
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
-import Table from '../../components/table/Table';
-import axios from "axios";
 import Footer from "../../components/footer/Footer";
 
 
 export default function PassLoader() {
     const navigate = useNavigate();
 
-
-    // const user = JSON.parse(localStorage.getItem("user"))
-    // const user = false
-    const usera = true
-    // console.log(user._doc._id);
-
-
-
-    // console.log(selectedPlan)
-
     const handleClick = async () => {
         navigate('/pass')
     }
-
 
     return (
         <div className="pass-loader">
@@ -39,7 +23,6 @@ export default function PassLoader() {
                 </div>
             </div>
             <div className="divider"></div>
-
 
             <div className="loader">
                     <div className="wrapper-loader">
@@ -57,7 +40,6 @@ export default function PassLoader() {
                 <div className="divider"></div>
                 <Footer/>
             </div>
-
         </div>
     )
 }

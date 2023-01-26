@@ -10,7 +10,6 @@ import axios from "axios";
 import {CartContext} from '../../context/cartContext/CartContext';
 import {useEffect} from 'react';
 import {addToCart} from "../../context/cartContext/apiCalls";
-// import {useSelector} from 'react-redux'
 
 
 export default function Navbar() {
@@ -32,7 +31,6 @@ export default function Navbar() {
         await axios.post('auth/logout')
     }
 
-    // console.log(user)
 
     useEffect(() => {
         if (value.length > 0) {
@@ -67,7 +65,7 @@ export default function Navbar() {
                         <Link to='/' className='link'><span className='navbarMainLinks'>Homepage</span></Link>
                         <Link to='/series' className='link'><span className='navbarMainLinks'>Series</span></Link>
                         <Link to='/movies' className='link'><span className='navbarMainLinks'>Movies</span></Link>
-                        <span>New and Popular</span>
+                        <Link to='/netflix' className='link'><span className='navbarMainLinks'>New and Popular</span></Link>
                         <Link to='/personal' className='link'>
                             <span className='navbarMainLinks'>My List
                                 <small>{user.user.cart.length}</small>
@@ -76,7 +74,6 @@ export default function Navbar() {
 
                     </div>
                     <div className="right">
-                        {/*<Search className="icon"/>*/}
                         <div className="search_icon">
 
                             <div className="span3 widget-span widget-type-raw_html custom-search"
@@ -99,7 +96,9 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <span>Kids</span>
+                        {/*<span>Kids</span>*/}
+                        <Link to='/gpt' className='link'><span className='navbarMainLinks'>ChatGPT</span></Link>
+
                         <Notifications className="icon"/>
                         <img src={iconProfile} alt="profile"/>
                         <div className="profile_menu">

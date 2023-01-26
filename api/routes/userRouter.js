@@ -6,11 +6,11 @@ const verify = require('../verifyToken')
 
 router.patch('/:id', userController.updateUser)
 
-router.delete('/:id', verify, userController.deleteUser)
+router.delete('/:id', userController.deleteUser)
 
 router.get('/find/:id', userController.getSingleUser)
 
-router.get('/', verify, userController.getAllUsers)
+router.get('/', userController.getAllUsers)
 
 router.get('/stats', userController.getAllUsersStats)
 

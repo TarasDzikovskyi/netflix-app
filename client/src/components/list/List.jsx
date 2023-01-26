@@ -6,7 +6,7 @@ import {
 import React, {useRef, useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import movieTrailer from 'movie-trailer'
 import {addToCart} from "../../context/cartContext/apiCalls";
@@ -94,7 +94,13 @@ export default function List({list}) {
                 {info && <div id={list.id} style={{display: 'none'}} className='text_item'>
                     <div className="wrapper-item">
                         <div className="box-item">
-                            <div className="title">{info.title}</div>
+                            <div className="title">
+                                <Link
+                                    style={{textDecoration: 'none', cursor: 'pointer', color: 'white'}}
+                                    to={`/select/${info.id}`}>
+                                    {info.title}
+                                </Link>
+                            </div>
                             <div className="desc">
                                 <p>{info.desc}</p>
                             </div>

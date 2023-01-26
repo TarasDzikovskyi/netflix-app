@@ -19,6 +19,8 @@ import PersonalList from "./pages/personalList/PersonalList";
 import {AnimatePresence} from "framer-motion";
 import NotFound from "./components/notFound/NotFound";
 import WatchingPersons from "./pages/watchingPersons/WatchingPersons";
+import NetflixPage from "./pages/netflixPage/NetflixPage";
+import ChatGPT from "./pages/chatGPT/ChatGPT";
 
 export default function AnimatedRoutes({user}) {
     const location = useLocation()
@@ -46,7 +48,13 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/watch/:movie_id' element={user ? <Watch/> : <Navigate to='/register' />}/>
 
-                <Route path='/plans' element={!user && <Plans/>}/>
+                <Route path='/info' element={user ? <InfoPlan/> : <Navigate to='/register'/>}/>
+
+                <Route path='/plans' element={user ? <Plans/> : <Navigate to='/register'/>}/>
+
+                <Route path='/netflix' element={user ? <NetflixPage/> : <Navigate to='/register'/>}/>
+
+                <Route path='/gpt' element={user ? <ChatGPT/> : <Navigate to='/register'/>}/>
 
                 <Route path='/forgot' element={!user && <ForgotPass/>}/>
 
@@ -55,8 +63,6 @@ export default function AnimatedRoutes({user}) {
                 <Route path='/loader' element={!user && <PassLoader/>}/>
 
                 <Route path='/pass' element={!user && <SetPass/>}/>
-
-                <Route path='/info' element={!user && <InfoPlan/>}/>
 
                 <Route path='/faq' element={<Faq/>}/>
 

@@ -1,13 +1,13 @@
-import React, {useContext, useRef, useState} from 'react'
-import {login} from '../../context/authContext/apiCalls'
-import {AuthContext} from '../../context/authContext/AuthContext'
-import './login.scss'
+import React, {useContext, useRef, useState} from 'react';
+import {login} from '../../context/authContext/apiCalls';
+import {AuthContext} from '../../context/authContext/AuthContext';
+import './login.scss';
 import {Link, useNavigate} from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import logo from '../../content/logo.png';
 import Intro from "../../components/intro/Intro";
-import {motion} from "framer-motion"
-import {Visibility} from '@material-ui/icons'
+import {motion} from "framer-motion";
+import {Visibility} from '@material-ui/icons';
 
 function timeout(el) {
     let promise = new Promise(function (resolve, reject) {
@@ -19,22 +19,21 @@ function timeout(el) {
 }
 
 export default function Login() {
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const {dispatch} = useContext(AuthContext)
-    const [loading, setLoading] = useState(false)
-    const [type, setType] = useState('password')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const {dispatch} = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
+    const [type, setType] = useState('password');
     const navigate = useNavigate();
 
 
     const handleLogin = async (e) => {
-        e.preventDefault()
-        setLoading(true)
-        const res = await timeout(true)
+        e.preventDefault();
+        setLoading(true);
+        const res = await timeout(true);
         if (res) {
-            login({email, password}, dispatch)
-            navigate('/watching')
+            login({email, password}, dispatch);
+            navigate('/watching');
         }
     }
 

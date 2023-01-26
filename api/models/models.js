@@ -32,7 +32,7 @@ const List = sequelize.define('list', {
 
 
 const Movie = sequelize.define('movie', {
-    title: {type: DataTypes.STRING, required: true, unique: true},
+    title: {type: DataTypes.STRING},
     desc: {type: DataTypes.STRING},
     img: {type: DataTypes.STRING},
     imgTitle: {type: DataTypes.STRING},

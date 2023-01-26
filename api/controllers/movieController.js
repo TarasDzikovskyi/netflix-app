@@ -1,6 +1,7 @@
 const {Movie} = require('../models/models')
 const userUtil = require("../utils/user.util");
 const {Sequelize, Op} = require('sequelize')
+const {getAll} = require("../services/movies.service");
 
 module.exports.createMovie = async (req, res, next) => {
     try{
@@ -56,23 +57,28 @@ module.exports.getSingleMovie = async (req, res, next) => {
 module.exports.getRandomMovie = async (req, res, next) => {
     try{
         const type = req.query.type;
+        const netflix = req.query.isNetflix;
         let movie;
-        const search = req.query.search
+        const search = req.query.search;
 
         if(type === 'series') {
-            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: true}], limit: 1 })
+            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: true}], limit: 1 });
 
         } else if(type === 'random') {
-            movie = await Movie.findAll({ order: Sequelize.literal('random()'), limit: 18 })
+            movie = await Movie.findAll({ order: Sequelize.literal('random()'), limit: 18 });
 
         }  else if(search !== undefined && search.length !== 0) {
-                movie = await Movie.findAll({where: {title: {[Op.like]: '%'+search+'%'}}})
+            movie = await Movie.findAll({where: {title: {[Op.like]: '%'+search+'%'}}});
+
+        }  else if(netflix) {
+            movie = await getAll(req.query);
 
         } else {
-            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: false}], limit: 1 })
+            movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: false}], limit: 1 });
         }
 
-        res.status(200).json(movie)
+
+        res.status(200).json(movie);
     } catch(e){
         next(e);
     }
@@ -82,7 +88,6 @@ module.exports.getAllMovie = async (req, res, next) => {
     try{
         const movies = await Movie.findAll()
 
-        console.log(movies)
         res.status(200).json(movies)
     } catch(e){
         next(e);
