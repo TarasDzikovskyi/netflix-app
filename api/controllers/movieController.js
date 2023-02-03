@@ -65,7 +65,7 @@ module.exports.getRandomMovie = async (req, res, next) => {
             movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: true}], limit: 1 });
 
         } else if(type === 'random') {
-            movie = await Movie.findAll({ order: Sequelize.literal('random()'), limit: 18 });
+            movie = await Movie.findAll({ order: Sequelize.literal('random()'),  where: [{isNetflix: 'false'}], limit: 18 });
 
         }  else if(search !== undefined && search.length !== 0) {
             movie = await Movie.findAll({where: {title: {[Op.like]: '%'+search+'%'}}});
@@ -76,7 +76,6 @@ module.exports.getRandomMovie = async (req, res, next) => {
         } else {
             movie = await Movie.findAll({order: Sequelize.literal('random()'), where: [{isSeries: false}], limit: 1 });
         }
-
 
         res.status(200).json(movie);
     } catch(e){

@@ -7,6 +7,7 @@ import axios from "axios";
 import Footer from "../../components/footer/Footer";
 import {login} from "../../context/authContext/apiCalls";
 import {AuthContext} from "../../context/authContext/AuthContext";
+import img from '../../content/icon_profile/profile_1.jpg';
 
 export default function SetPass() {
     const [username, setUsername] = useState('')
@@ -19,7 +20,6 @@ export default function SetPass() {
     const email = obj.email;
 
     const handleClick = async (username, password) => {
-
         if (password === '') {
             const input = document.getElementById('warning');
 

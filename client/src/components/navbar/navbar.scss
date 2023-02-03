@@ -192,6 +192,10 @@
       width: 60vw;
       box-sizing: border-box;
 
+      .title_search{
+        cursor: pointer;
+      }
+
       .flex{
         display: flex;
         width: 45%;

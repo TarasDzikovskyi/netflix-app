@@ -6,14 +6,12 @@ import Login from "./pages/login/Login";
 import {Navigate, Route, Routes, useLocation} from "react-router-dom";
 import Profile from "./pages/profile/Profile";
 import Plans from "./pages/plans/Plans";
-import Loading from "./components/loading/Loading";
 import ForgotPass from "./pages/forgotPass/ForgotPass";
 import InfoPlan from "./components/infoPlan/InfoPlan";
 import SetPass from "./components/setPass/SetPass";
 import PassLoader from "./components/passLoader/PassLoader";
 import ResetPass from "./pages/forgotPass/ResetPass";
 import Faq from "./components/differents/faq/Faq";
-import Help from "./components/differents/Help/Help";
 import CurrentHome from "./pages/home/CurrentHome";
 import PersonalList from "./pages/personalList/PersonalList";
 import {AnimatePresence} from "framer-motion";
@@ -21,9 +19,12 @@ import NotFound from "./components/notFound/NotFound";
 import WatchingPersons from "./pages/watchingPersons/WatchingPersons";
 import NetflixPage from "./pages/netflixPage/NetflixPage";
 import ChatGPT from "./pages/chatGPT/ChatGPT";
+import Test from "./Test";
 
 export default function AnimatedRoutes({user}) {
     const location = useLocation()
+
+    // console.log(user)
     
     return (
         <AnimatePresence>
@@ -48,7 +49,7 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/watch/:movie_id' element={user ? <Watch/> : <Navigate to='/register' />}/>
 
-                <Route path='/info' element={user ? <InfoPlan/> : <Navigate to='/register'/>}/>
+                <Route path='/info' element= <InfoPlan/> />
 
                 <Route path='/plans' element={user ? <Plans/> : <Navigate to='/register'/>}/>
 
@@ -62,9 +63,11 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/loader' element={!user && <PassLoader/>}/>
 
-                <Route path='/pass' element={!user && <SetPass/>}/>
+                <Route path='/pass' element={ <SetPass/>}/>
 
                 <Route path='/faq' element={<Faq/>}/>
+
+                <Route path='/test' element={<Test/>}/>
 
                 <Route path='*' element={<NotFound/>}/>
 

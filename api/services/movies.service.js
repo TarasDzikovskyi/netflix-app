@@ -55,7 +55,7 @@ module.exports = {
             }
         });
 
-        console.log(filterObject)
+        // console.log(filterObject)
 
         const {count, rows: movies} = await Movie.findAndCountAll({
             where: filterObject,

@@ -1,6 +1,8 @@
 const {Sequelize, DataTypes} = require('sequelize');
-console.log(process.env.POSTGRES_PASS)
-const sequelize = new Sequelize('netflix', 'postgres', 'Lenovoa390', {
+const dotenv = require('dotenv');
+dotenv.config()
+
+const sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PASS, {
     host: 'localhost',
     port: 5432,
     dialect: 'postgres',

@@ -11,7 +11,6 @@ export default function RandomList() {
     useEffect(() => {
         const getRandomContent = async () => {
             try {
-
                 const res = await axios.get(`/movies/random?type=random`, {
                     headers: {
                         token:
@@ -29,7 +28,6 @@ export default function RandomList() {
     // console.log(content)
 
     const handleClick = (id) => {
-        console.log(id)
         navigate(`/select/${id}`)
     }
 

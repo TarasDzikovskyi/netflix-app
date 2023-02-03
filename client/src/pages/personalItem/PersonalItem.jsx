@@ -4,11 +4,14 @@ import './personalItem.scss'
 import axios from "axios";
 import {removeFromCart} from "../../context/cartContext/apiCalls";
 import {CartContext} from "../../context/cartContext/CartContext";
+import {useNavigate} from "react-router-dom";
 
 
 export default function PersonalItem({movie_id}) {
-    const [content, setContent] = useState({})
-    const {dispatch} = useContext(CartContext)
+    const [content, setContent] = useState({});
+    const {dispatch} = useContext(CartContext);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getContent = async () => {
@@ -32,6 +35,10 @@ export default function PersonalItem({movie_id}) {
         removeFromCart({user_id, movie_id}, dispatch)
     }
 
+    const handleClick = (id) => {
+        navigate(`/select/${id}`)
+    }
+
     return (
         <div className="personalItem">
             <div className="item">
@@ -39,6 +46,7 @@ export default function PersonalItem({movie_id}) {
                 <div className="clear_icon" onClick={() =>handleDelete(content.id)}>
                     <NotInterested />
                 </div>
+                <p onClick={() => handleClick(content.id)}>{content.title}</p>
             </div>
         </div>
     )

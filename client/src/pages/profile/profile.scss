@@ -1,6 +1,6 @@
 .profile{
     background-color: var(--main-color);
-    height: 100vh;
+    height: 100%;
     color: white;
 
     .logo {
@@ -9,7 +9,7 @@
         margin-left: 50px;
     }
 
-    .wrapper{
+    .profile_wrapper{
         margin-top: 100px;
         display: flex;
         flex-direction: column;
@@ -80,7 +80,7 @@
                 flex-direction: column;
                 width: 50vw;
 
-                
+
 
                 .date{
                     margin: 15px 0;
@@ -90,7 +90,7 @@
                     display: flex;
                     justify-content: space-between;
                     margin: 20px;
-                    
+
                     p{
                         font-size: 14px;
                     }
@@ -116,14 +116,17 @@
                     background-color: #E50914;
                     border-radius: 5px;
                     border: none;
-                    margin-top: 20px;
+                    margin: 20px 0 50px;
                     padding: 10px;
                     font-weight: 700;
                     font-size: 16px;
                     cursor: pointer;
-
                 }
             }
         }
+    }
+
+    .footer {
+        background-color: rgba(0, 0, 0, .4);
     }
 }

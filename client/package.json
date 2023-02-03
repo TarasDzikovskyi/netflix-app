@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
     "framer-motion": "^7.6.1",
     "movie-trailer": "^2.1.0",
     "openai": "^3.1.0",

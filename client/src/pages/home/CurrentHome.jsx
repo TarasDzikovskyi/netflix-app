@@ -1,5 +1,4 @@
 import Navbar from "../../components/navbar/Navbar";
-import Featured from "../../components/featured/Featured";
 import "./home.scss";
 import List from "../../components/list/List";
 import React, { useEffect, useState } from "react";
@@ -12,11 +11,15 @@ import Loading from "../../components/loading/Loading";
 
 const CurrentHome = ({ type }) => {
     const [lists, setLists] = useState([]);
+    const [loading, setLoading] = useState(false)
+
     const { movie_id } = useParams()
     const { pathname } = useLocation()
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        setLoading(true);
+
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
@@ -28,20 +31,19 @@ const CurrentHome = ({ type }) => {
                         },
                     }
                 );
-                console.log(res.data)
                 setLists(res.data);
             } catch (err) {
                 console.log(err);
             }
         };
         getRandomLists();
+
+        setLoading(false);
     }, [ pathname]);
 
     return (
         <>
-            {/*{( lists.length === 0) ? (*/}
-            {/*    <Loading />*/}
-            {/*) : (*/}
+            {!loading ? (
                 <div className="home">
                     <Navbar />
                     <CurrentMovie movie_id={movie_id} />
@@ -57,7 +59,9 @@ const CurrentHome = ({ type }) => {
                         <Footer />
                     </div>
                 </div>
-            {/*)}*/}
+            ) : (
+            <Loading/>
+            )}
         </>
     );
 };

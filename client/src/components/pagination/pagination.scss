@@ -1,8 +1,23 @@
 .pagination{
   color: #f3f3f3;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 100vw;
+  padding-bottom: 50px;
+
 
   .item{
-    margin-right: 10px;
+    margin-right: 18px;
+    cursor: pointer;
+
+    .selected{
+      color: #b92d2b;
+      font-weight: bold;
+      font-size: 19px;
+      cursor: pointer;
+
+    }
   }
 }

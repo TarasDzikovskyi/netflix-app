@@ -96,8 +96,8 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        {/*<span>Kids</span>*/}
-                        <Link to='/gpt' className='link'><span className='navbarMainLinks'>ChatGPT</span></Link>
+                        <span>Kids</span>
+                        {/*<Link to='/gpt' className='link'><span className='navbarMainLinks'>ChatGPT</span></Link>*/}
 
                         <Notifications className="icon"/>
                         <img src={iconProfile} alt="profile"/>
@@ -109,7 +109,7 @@ export default function Navbar() {
                                 <span onClick={() => {
                                     logout_user()
                                     dispatch(logout())
-                                    navigate('login')
+                                    navigate('/login')
                                 }}>Logout</span>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ export default function Navbar() {
                         <div className='filter_item'>
                             <img src={item.imgSm} height={200}/>
                             <div className='search_wrapper'>
-                                <div>{item.title}</div>
+                                <span className='title_search' onClick={() => {navigate(`select/${item.id}`)}}>{item.title}</span>
                                 <div className="flex">
                                     <p>{item.genre}</p>
                                     {item.isSeries === true ?(

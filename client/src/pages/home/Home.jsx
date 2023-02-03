@@ -12,10 +12,14 @@ import Loading from "../../components/loading/Loading";
 const Home = ({ type }) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
+    const [loading, setLoading] = useState(false)
+
     const { pathname } = useLocation()
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        setLoading(true);
+
         const getRandomLists = async () => {
             try {
                 const res = await axios.get(
@@ -35,13 +39,12 @@ const Home = ({ type }) => {
             }
         };
         getRandomLists();
+        setLoading(false);
     }, [type, genre, pathname]);
 
     return (
         <>
-            {/*{(lists.length === 0 ) ? (*/}
-            {/*    <Loading />*/}
-            {/*) : (*/}
+            {!loading ? (
                 <div className="home">
                     <Navbar />
                     <Featured type={type} setGenre={setGenre} />
@@ -57,7 +60,9 @@ const Home = ({ type }) => {
                         <Footer />
                     </div>
                 </div>
-        {/*    )}*/}
+            ) : (
+                <Loading/>
+            )}
         </>
 
     );

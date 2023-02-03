@@ -27,6 +27,7 @@ export default function Plans() {
     const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("user"))
+    console.log(user)
 
     const plans = ['Basic', 'Standard', 'Premium']
 

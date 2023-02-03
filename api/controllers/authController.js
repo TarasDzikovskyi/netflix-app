@@ -11,16 +11,19 @@ const ErrorHandler = require("../errors/ErrorHandler");
 
 module.exports.createUser = async (req, res, next) => {
     try {
-        if (req.body.password) {
-            const hashedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
+        console.log(req.body)
+        console.log(req.files)
 
-            await User.create({...req.body, password: hashedPassword}).then(result => {
-                const userToReturn = userUtil.userNormalizator(result.dataValues);
-                res.status(201).json(userToReturn);
-            }).catch((error) => {
-                res.status(401).json("User is included!");
-            });
-        } else res.status(401).json("Password is required!")
+        // if (req.body.password) {
+        //     const hashedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
+        //
+        //     await User.create({...req.body, password: hashedPassword}).then(result => {
+        //         const userToReturn = userUtil.userNormalizator(result.dataValues);
+        //         res.status(201).json(userToReturn);
+        //     }).catch((error) => {
+        //         res.status(401).json("User is included!");
+        //     });
+        // } else res.status(401).json("Password is required!")
     } catch (e) {
         next(e);
     }

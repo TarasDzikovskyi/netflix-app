@@ -1,7 +1,98 @@
-.netflix_box{
+.netflix_box {
   background-color: var(--main-color);
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   padding-top: 100px;
   color: white;
+
+
+  .filter {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+
+    .filter_btn {
+      position: absolute;
+      right: 150px;
+
+      .icon {
+        font-size: 30px;
+        margin-top: 5px;
+      }
+    }
+
+    .filter_items {
+      position: absolute;
+      right: 180px;
+
+      .select {
+        display: flex;
+        width: 800px;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .select-block {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 140px;
+          height: 30px;
+          border: 1px solid #333;
+
+          .lang-icon {
+            color: #999;
+          }
+
+          select {
+            height: 100%;
+            width: 100%;
+            background-color: #000;
+            border: none !important;
+            color: #999;
+            font-size: 16px;
+
+            option {
+              width: 80%;
+            }
+          }
+        }
+      }
+
+      .apply {
+        font-size: 16px;
+        margin-left: 100px;
+
+        &:hover {
+          transition: 0.3s;
+          color: #b92d2b;
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+
+
+  .movies_block {
+    min-height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+
+    .item_box {
+      margin: 10px 25px 40px;
+      height: 180px;
+      width: 260px;
+      // background-color: #b92d2b;
+      cursor: pointer;
+    }
+  }
+
+  .footer {
+    background-color: rgba(0, 0, 0, .4);
+  }
 }
