@@ -10,7 +10,8 @@
     "admin": "npm run start --prefix ../admin",
     "dev": "concurrently \"npm run server\" \"npm run front\" \"npm run admin\"",
     "dev_front": "concurrently \"npm run server\" \"npm run front\"",
-    "dev_admin": "concurrently \"npm run server\" \"npm run admin\""
+    "dev_admin": "concurrently \"npm run server\" \"npm run admin\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
   },
   "author": "",
   "license": "ISC",
@@ -33,11 +34,11 @@
     "path": "^0.12.7",
     "pg": "^8.8.0",
     "sequelize": "^6.27.0",
-    "winston": "^3.8.2"
-  },
-  "devDependencies": {
+    "winston": "^3.8.2",
     "aws-sdk": "^2.1309.0",
     "concurrently": "^7.4.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
   }
 }

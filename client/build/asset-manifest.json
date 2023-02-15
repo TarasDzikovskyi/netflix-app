@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.968f185f.css",
+    "main.js": "/static/js/main.2c3a265f.js",
+    "static/media/faq1.png": "/static/media/faq1.839095234d0085434a5f.png",
+    "static/media/faq5.png": "/static/media/faq5.4423f342ad2dbfc2ca29.png",
+    "static/media/faq2.png": "/static/media/faq2.e614465d7a73d23a711d.png",
+    "static/media/faq4.png": "/static/media/faq4.8f50869888a78e712bec.png",
+    "static/media/faq3.png": "/static/media/faq3.9fcd561b6de3a3c11711.png",
+    "static/media/register.jpg": "/static/media/register.b25a426713c58f98bde3.jpg",
+    "static/media/login2.jpg": "/static/media/login2.50bf517c793d44674b33.jpg",
+    "static/media/video-tv-0819.m4v": "/static/media/video-tv-0819.053994fc9a5da7a97b5b.m4v",
+    "static/media/kids.png": "/static/media/kids.e93820cb7c2a2691baf7.png",
+    "static/media/video-devices.m4v": "/static/media/video-devices.b27bb59e747d5b567095.m4v",
+    "static/media/notFound.jpeg": "/static/media/notFound.bff2c94ce746267a82fd.jpeg",
+    "static/media/device-pile.png": "/static/media/device-pile.8e6539e8bfc6937a0648.png",
+    "static/media/forgot.jpeg": "/static/media/forgot.285b3f310543765b5813.jpeg",
+    "static/media/mobile-0819.jpg": "/static/media/mobile-0819.063578d5b6d5ab4155ec.jpg",
+    "static/media/profile_1.jpg": "/static/media/profile_1.80aa163b53caf9fe31d4.jpg",
+    "static/media/profile_5.jpg": "/static/media/profile_5.0379ea687f2d524348b8.jpg",
+    "static/media/search-icon.png": "/static/media/search-icon.9e834c37e9265dfeed50.png",
+    "static/media/logo.png": "/static/media/logo.330ebad676f114e0a130.png",
+    "static/media/tv.png": "/static/media/tv.0049bc70babc1f94cf88.png",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/index.html",
+    "main.968f185f.css.map": "/static/css/main.968f185f.css.map",
+    "main.2c3a265f.js.map": "/static/js/main.2c3a265f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.968f185f.css",
+    "static/js/main.2c3a265f.js"
+  ]
+}
