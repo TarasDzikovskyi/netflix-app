@@ -9,7 +9,7 @@ export default function PassLoader() {
     const navigate = useNavigate();
 
     const handleClick = async () => {
-        navigate('/pass')
+        navigate('/verify')
     }
 
     return (

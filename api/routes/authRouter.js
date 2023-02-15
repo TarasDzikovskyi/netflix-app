@@ -1,22 +1,22 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
-const {authController} = require('../controllers')
-const {userMiddleware} = require('../middlewares')
+const {authController} = require('../controllers');
+const {userMiddleware, authMiddleware} = require('../middlewares');
 
-router.post('/register', authController.createUser)
+router.post('/register', authController.createUser);
 
-router.post('/check', userMiddleware.isEmailPresent)
+router.post('/check', userMiddleware.isEmailPresent);
 
-router.post('/login', authController.login)
+router.post('/login', authController.login);
 
-router.post('/forgot', authController.forgotPassword)
+router.post('/forgot', authController.forgotPassword);
 
-router.post('/reset/:token', authController.changePassword)
+router.post('/reset/:token', authController.changePassword);
 
-router.post('/test', authController.test)
+router.post('/verify', authController.verifyEmail);
 
-router.get('/test/:link', authController.activate)
+router.post('/logout', authController.logoutUser);
 
-router.post('/logout', authController.logoutUser)
+router.post('/test', authMiddleware.validateAccessToken, authController.test)
 
 module.exports = router;

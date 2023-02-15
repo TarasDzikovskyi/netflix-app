@@ -1,4 +1,4 @@
-const {User, OAuth, OAuthAction} = require("../models/models");
+const {User, OAuth, OAuthAction, ProfilePictures} = require("../models/models");
 const CryptoJS = require('crypto-js')
 const {jwtService} = require("../services");
 const userUtil = require("../utils/user.util");
@@ -7,23 +7,24 @@ const {emailService} = require("../services");
 const emailActionEnum = require("../config/emailActionEnum");
 const uuid = require('uuid');
 const ErrorHandler = require("../errors/ErrorHandler");
+const s3Service = require("../services/s3.service");
+const {Sequelize} = require("sequelize");
 
 
 module.exports.createUser = async (req, res, next) => {
     try {
-        console.log(req.body)
-        console.log(req.files)
+        if (req.body.password) {
+            const hashedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
 
-        // if (req.body.password) {
-        //     const hashedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
-        //
-        //     await User.create({...req.body, password: hashedPassword}).then(result => {
-        //         const userToReturn = userUtil.userNormalizator(result.dataValues);
-        //         res.status(201).json(userToReturn);
-        //     }).catch((error) => {
-        //         res.status(401).json("User is included!");
-        //     });
-        // } else res.status(401).json("Password is required!")
+            const random_pic = await ProfilePictures.findAll({order: Sequelize.literal('random()'), limit: 1 });
+            req.body['profilePic'] = random_pic[0].dataValues.pictures;
+
+            let createdUser = await User.create({...req.body, password: hashedPassword})
+
+            const userToReturn = userUtil.userNormalizator(createdUser.dataValues);
+
+            res.status(201).json(userToReturn);
+        } else res.status(401).json("Password is required!")
     } catch (e) {
         next(e);
     }
@@ -40,8 +41,8 @@ module.exports.login = async (req, res, next) => {
         originalPassword !== req.body.password && res.status(401).json("Wrong username or password!");
 
         const tokenPair = jwtService.generateTokenPair();
-        res.cookie('accessToken', tokenPair.access_token, {maxAge: 12*60*60*1000, httpOnly: true})
-        res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30*24*60*60*1000, httpOnly: true})
+        res.cookie('accessToken', tokenPair.access_token, {maxAge: 12 * 60 * 60 * 1000, httpOnly: true})
+        res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
 
         await OAuth.create({...tokenPair, user: user.dataValues.id})
 
@@ -71,39 +72,39 @@ module.exports.forgotPassword = async (req, res, next) => {
     } catch (e) {
         next(e);
     }
-},
+}
 
 module.exports.changePassword = async (req, res, next) => {
-        try {
-            const {action_token} = req.body;
+    try {
+        const {action_token} = req.body;
 
-            const {user: {id}, body: {password}} = req;
+        const {user: {id}, body: {password}} = req;
 
-            const hashedPassword = CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString()
-            await User.update( {password: hashedPassword}, {where: {id}});
+        const hashedPassword = CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString()
+        await User.update({password: hashedPassword}, {where: {id}});
 
-            await OAuthAction.destroy({where:{action_token: action_token}});
-            await OAuth.destroy({where:{id: id}});
+        await OAuthAction.destroy({where: {action_token: action_token}});
+        await OAuth.destroy({where: {id: id}});
 
-            const user = await User.findByPk(id)
+        const user = await User.findByPk(id)
 
-            await emailService.sendMail(
-                user.dataValues.email,
-                emailActionEnum.CHANGE,
-                {email: user.dataValues.email, userName: user.dataValues.username}
-            );
+        await emailService.sendMail(
+            user.dataValues.email,
+            emailActionEnum.CHANGE,
+            {email: user.dataValues.email, userName: user.dataValues.username}
+        );
 
-            res.status(200);
-        } catch (e) {
-            next(e);
-        }
+        res.status(200);
+    } catch (e) {
+        next(e);
+    }
 }
 
 module.exports.logoutUser = async (req, res, next) => {
     try {
         const {accessToken} = req.cookies
 
-        await OAuth.destroy({where:{access_token: accessToken}});
+        await OAuth.destroy({where: {access_token: accessToken}});
 
         res.clearCookie('accessToken');
         res.clearCookie('refreshToken');
@@ -113,42 +114,27 @@ module.exports.logoutUser = async (req, res, next) => {
     }
 }
 
-module.exports.test = async (req, res, next) => {
+module.exports.verifyEmail = async (req, res, next) => {
     try {
-        const activationLink = uuid.v4(); 
-        console.log(activationLink)
+        await emailService.sendMail(
+            req.body.email,
+            emailActionEnum.ACTIVATE,
+            {email: req.body.email, code: req.body.verifyCode}
+        );
 
-        const email = 'tarasdz12367@gmail.com'
-        const username = 'otsocity'
-
-        // await emailService.sendMail(
-        //     email,
-        //     emailActionEnum.ACTIVATE,
-        //     {email: email, userName: username, link: activationLink}
-        // );
-
-        res.cookie('activationLink', activationLink, {maxAge: 60*1000, httpOnly: true})
-
-
-        res.json('qwerty');
+        res.status(200).json('Accepted');
     } catch (e) {
         next(e);
     }
 }
 
-module.exports.activate = async (req, res, next) => {
+
+module.exports.test = async (req, res, next) => {
     try {
-        const activationLink = req.params.link
-        console.log(activationLink)
+        console.log(req.body)
+        console.log(req.user)
 
-        const user = await User.findOne({activationLink})
-        if (!user) {
-            throw new ErrorHandler(401, 'Incorrect activation link')
-        }
-        user.isActivated = true;
-        await user.save();
-
-        res.redirect(process.env.CLIENT_URL)
+        res.status(200).json('Accepted');
     } catch (e) {
         next(e);
     }

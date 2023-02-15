@@ -20,6 +20,7 @@ import WatchingPersons from "./pages/watchingPersons/WatchingPersons";
 import NetflixPage from "./pages/netflixPage/NetflixPage";
 import ChatGPT from "./pages/chatGPT/ChatGPT";
 import Test from "./Test";
+import VerifyEmail from "./pages/verifyEmail/VerifyEmail";
 
 export default function AnimatedRoutes({user}) {
     const location = useLocation()
@@ -62,6 +63,8 @@ export default function AnimatedRoutes({user}) {
                 <Route path='/reset/:token' element={!user && <ResetPass/>}/>
 
                 <Route path='/loader' element={!user && <PassLoader/>}/>
+
+                <Route path='/verify' element={!user && <VerifyEmail/>}/>
 
                 <Route path='/pass' element={ <SetPass/>}/>
 

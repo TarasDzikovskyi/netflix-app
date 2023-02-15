@@ -8,6 +8,8 @@ import Footer from "../../components/footer/Footer";
 import {login} from "../../context/authContext/apiCalls";
 import {AuthContext} from "../../context/authContext/AuthContext";
 import img from '../../content/icon_profile/profile_1.jpg';
+import {motion} from "framer-motion";
+import pictures from '../../content/icon_profile/picturesArray';
 
 export default function SetPass() {
     const [username, setUsername] = useState('')
@@ -26,9 +28,14 @@ export default function SetPass() {
             if (input.style.display === "none") input.style.display = "flex"
 
         } else {
-            const res = await axios.post('/auth/register', {email, username, password})
+            const numberOfPicture = Math.floor(Math.random() * 12);
+            let picture = pictures.find((item) => item.id = numberOfPicture);
+            if(picture === undefined) picture = pictures[0];
+            const picturePic = picture.picture;
+
+            const res = await axios.post('/auth/register', {email, username, password, picturePic})
             console.log(res)
-            if(res.data) login({email, password}, dispatch)
+            if (res.data) login({email, password}, dispatch)
 
             localStorage.setItem('user', JSON.stringify(res.data))
             navigate('/info')
@@ -40,151 +47,157 @@ export default function SetPass() {
 
 
     return (
-        <div className="set-pass">
-            <div className="nav">
-                <div className="left">
-                    <img className="logo" src={logo} alt="logo"/>
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+        >
+            <div className="set-pass">
+                <div className="nav">
+                    <div className="left">
+                        <img className="logo" src={logo} alt="logo"/>
+                    </div>
+                    <div className="right">
+                        <Link to='/login'>Sign In</Link>
+                    </div>
                 </div>
-                <div className="right">
-                    <Link to='/login'>Sign In</Link>
-                </div>
-            </div>
-            <div className="divider"></div>
+                <div className="divider"></div>
 
-            {obj.new === false ? (
-                <div className="container">
-                    <div className="wrapper">
-                        <div id="warning" style={{display: 'none'}}>
-                            <div><WarningRounded className='icon'/></div>
-                            <p>Your password must contain between 4 and 40 characters.</p>
-                        </div>
+                {obj.new === false ? (
+                    <div className="container">
+                        <div className="wrapper">
+                            <div id="warning" style={{display: 'none'}}>
+                                <div><WarningRounded className='icon'/></div>
+                                <p>Your password must contain between 4 and 40 characters.</p>
+                            </div>
 
-                        <div className="step">STEP <b>1</b> OF <b>3</b></div>
+                            <div className="step">STEP <b>1</b> OF <b>3</b></div>
 
-                        <div className="header">
-                            <p>Welcome back! <br/> Joining Netflix is easy.</p>
-                        </div>
+                            <div className="header">
+                                <p>Welcome back! <br/> Joining Netflix is easy.</p>
+                            </div>
 
-                        <div className="row">
-                            Enter your password and you'll be watching in no time.
-                        </div>
+                            <div className="row">
+                                Enter your password and you'll be watching in no time.
+                            </div>
 
-                        <div className="email-field">
-                            Email <br/> <b>{email}</b>
-                        </div>
+                            <div className="email-field">
+                                Email <br/> <b>{email}</b>
+                            </div>
 
-                        <div className="input-field">
-                            <label className="field field_v2">
-                                <input
-                                    type="password"
-                                    className="field__input input"
-                                    placeholder=" "
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    minLength='4'
-                                    maxLength='45'
-                                />
-                                <span className="field__label-wrap">
+                            <div className="input-field">
+                                <label className="field field_v2">
+                                    <input
+                                        type="password"
+                                        className="field__input input"
+                                        placeholder=" "
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        minLength='4'
+                                        maxLength='45'
+                                    />
+                                    <span className="field__label-wrap">
                                     <span className="field__label">Enter your password</span>
                                 </span>
-                            </label>
+                                </label>
 
-                            {(password.length < 1) && (
-                                <div className="error">Password is required!</div>
-                            )}
+                                {(password.length < 1) && (
+                                    <div className="error">Password is required!</div>
+                                )}
 
-                            {(password.length >= 2 && password.length < 4) && (
-                                <div className="error">Password should be between 4 and 40 characters.</div>
-                            )}
+                                {(password.length >= 2 && password.length < 4) && (
+                                    <div className="error">Password should be between 4 and 40 characters.</div>
+                                )}
 
-                            {password.length > 40 && (
-                                <div className="error">Please shorten your password to 40 characters or less.</div>
-                            )}
+                                {password.length > 40 && (
+                                    <div className="error">Please shorten your password to 40 characters or less.</div>
+                                )}
+                            </div>
+
+                            <div className="help">
+                                <Link to='/forgot'>Forgot your password?</Link>
+                            </div>
+
+                            <button className='next-btn' onClick={() => handleClick(password)}>Next</button>
                         </div>
-
-                        <div className="help">
-                            <Link to='/forgot'>Forgot your password?</Link>
-                        </div>
-
-                        <button className='next-btn' onClick={() => handleClick(password)}>Next</button>
                     </div>
-                </div>
-            ) : (
-                <div className="container">
-                    <div className="wrapper">
-                        <div id="warning" style={{display: 'none'}}>
-                            <div><WarningRounded className='icon'/></div>
-                            <p>Your password must contain between 4 and 40 characters.</p>
-                        </div>
+                ) : (
+                    <div className="container">
+                        <div className="wrapper">
+                            <div id="warning" style={{display: 'none'}}>
+                                <div><WarningRounded className='icon'/></div>
+                                <p>Your password must contain between 4 and 40 characters.</p>
+                            </div>
 
-                        <div className="step">STEP <b>1</b> OF <b>3</b></div>
+                            <div className="step">STEP <b>1</b> OF <b>3</b></div>
 
-                        <div className="header">
-                            <p>Create a password to start your membership</p>
-                        </div>
+                            <div className="header">
+                                <p>Create a password to start your membership</p>
+                            </div>
 
-                        <div className="row">
-                            Just a few more steps and you're done!<br/> <p>We hate paperwork, too.</p>
-                        </div>
+                            <div className="row">
+                                Just a few more steps and you're done!<br/> <p>We hate paperwork, too.</p>
+                            </div>
 
-                        <div className="email-field">
-                            Email <br/> <b>{email}</b>
-                        </div>
+                            <div className="email-field">
+                                Email <br/> <b>{email}</b>
+                            </div>
 
-                        <div className="input-field">
-                            <label className="field field_v2">
-                                <input
-                                    type="text"
-                                    className="field__input input"
-                                    placeholder=" "
-                                    onChange={(e) => setUsername(e.target.value)}
-                                />
-                                <span className="field__label-wrap">
+                            <div className="input-field">
+                                <label className="field field_v2">
+                                    <input
+                                        type="text"
+                                        className="field__input input"
+                                        placeholder=" "
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                    <span className="field__label-wrap">
                                     <span className="field__label">Username</span>
                                 </span>
-                            </label>
+                                </label>
 
-                            <label className="field field_v2">
-                                <input
-                                    type="password"
-                                    className="field__input input"
-                                    placeholder=" "
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    minLength='4'
-                                    maxLength='45'
-                                />
-                                <span className="field__label-wrap">
+                                <label className="field field_v2">
+                                    <input
+                                        type="password"
+                                        className="field__input input"
+                                        placeholder=" "
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        minLength='4'
+                                        maxLength='45'
+                                    />
+                                    <span className="field__label-wrap">
                                     <span className="field__label">Add a password</span>
                                 </span>
-                            </label>
+                                </label>
 
-                            {(password.length < 1) && (
-                                <div className="error">Password is required!</div>
-                            )}
+                                {(password.length < 1) && (
+                                    <div className="error">Password is required!</div>
+                                )}
 
-                            {(password.length >= 1 && password.length < 4) && (
-                                <div className="error">Password should be between 4 and 40 characters.</div>
-                            )}
+                                {(password.length >= 1 && password.length < 4) && (
+                                    <div className="error">Password should be between 4 and 40 characters.</div>
+                                )}
 
-                            {password.length > 40 && (
-                                <div className="error">Please shorten your password to 40 characters or less.</div>
-                            )}
+                                {password.length > 40 && (
+                                    <div className="error">Please shorten your password to 40 characters or less.</div>
+                                )}
 
+                            </div>
+
+                            <div className="checkbox-block">
+                                <input type="checkbox" name='check'/>
+                                <label htmlFor="check">Please do not email me Netflix special offers.</label>
+                            </div>
+
+                            <button className='next-btn' onClick={() => handleClick(username, password)}>Next</button>
                         </div>
-
-                        <div className="checkbox-block">
-                            <input type="checkbox" name='check'/>
-                            <label htmlFor="check">Please do not email me Netflix special offers.</label>
-                        </div>
-
-                        <button className='next-btn' onClick={() => handleClick(username, password)}>Next</button>
                     </div>
-                </div>
-            )}
+                )}
 
-            <div className='footer'>
-                <div className="divider"></div>
-                <Footer/>
+                <div className='footer'>
+                    <div className="divider"></div>
+                    <Footer/>
+                </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

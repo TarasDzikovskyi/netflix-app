@@ -63,6 +63,11 @@ const OAuth = sequelize.define('oauth', {
 }, {timestamps: true});
 
 
+const ProfilePictures = sequelize.define('profilePictures', {
+    id: {type: DataTypes.INTEGER, primaryKey: true},
+    pictures: {type: DataTypes.STRING},
+}, {timestamps: false, tableName: 'profilePictures'});
+
 
 module.exports.sequelize = sequelize
 module.exports.User = User
@@ -70,3 +75,4 @@ module.exports.List = List
 module.exports.Movie = Movie
 module.exports.OAuth = OAuth
 module.exports.OAuthAction = OAuthAction
+module.exports.ProfilePictures = ProfilePictures

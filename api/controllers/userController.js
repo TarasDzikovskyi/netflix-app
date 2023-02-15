@@ -7,6 +7,14 @@ module.exports.updateUser = async (req, res, next) => {
             req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
         }
 
+        // if (req.files && req.files.profilePic) {
+        //     const s3Response = s3Service.uploadFile(req.files.profilePic, 'users', createdUser.dataValues.id);
+        //     createdUser = await User.update(
+        //         {profilePic: s3Response.Location},
+        //         {where: {id}}
+        //     );
+        // }
+
         await User.update(req.body, {where: {id: req.params.id}})
 
         const updatedUser = await User.findOne({where: {id: req.params.id}})

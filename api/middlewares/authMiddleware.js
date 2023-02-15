@@ -1,13 +1,13 @@
 const ErrorHandler = require('../errors/ErrorHandler');
-const { jwtService } = require('../services/jwt.service');
+const { jwtService } = require('../services');
 const { OAuth } = require('../models/models');
 
 
 module.exports = {
-
     validateAccessToken: async (req, res, next) => {
         try {
             const access_token = req.get('Authorization');
+            console.log(access_token)
 
             if (!access_token) {
                 throw new ErrorHandler(401, 'No token');
@@ -16,11 +16,12 @@ module.exports = {
             await jwtService.verifyToken(access_token, 'access');
 
             const tokenFromDB = await OAuth.findOne({where: { access_token }});
+            console.log(tokenFromDB)
 
             if (!tokenFromDB) {
                 throw new ErrorHandler(401, 'Invalid token');
             }
-            req.user = tokenFromDB.user;
+            req.user = tokenFromDB.dataValues;
 
             next();
         } catch (e) {

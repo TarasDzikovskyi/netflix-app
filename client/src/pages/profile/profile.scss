@@ -28,6 +28,21 @@
                 width: 60vw;
                 position: relative;
 
+                .img-button{
+                    position: absolute;
+                    width: 100px;
+                    height: 30px;
+                    bottom: -70px;
+                    border: none;
+                    color: white;
+                    background-color: #E50914;
+                    border-radius: 5px;
+                    font-size: 15px;
+                    font-weight: 700;
+                }
+
+                
+
                 .input{
                     display: flex;
 

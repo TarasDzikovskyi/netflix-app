@@ -13,6 +13,13 @@ p{
     padding: 20px 40px 0;
 }
 
+.code{
+    padding: 20px 40px 0;
+    color: #e50914;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .p20{
     padding: 20px 0;
 }

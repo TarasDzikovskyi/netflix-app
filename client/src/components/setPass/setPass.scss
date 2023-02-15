@@ -248,7 +248,7 @@
         
               .field_v2 .field__input:focus ~ .field__label-wrap::after {
                 transform: translate3d(0, 0, 0);
-                transition-delay: 0;
+                transition-delay: 0s;
               }
         
         
@@ -339,7 +339,7 @@
             color: white;
             padding: 18px 195px;
             font-weight: 400;
-            margin: 24px 0 50px 0;
+            margin-top: 24px;
             border-radius: 5px;
             cursor: pointer;
         
