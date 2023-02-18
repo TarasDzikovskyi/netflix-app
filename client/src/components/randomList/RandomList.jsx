@@ -4,7 +4,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 export default function RandomList() {
-    const [content, setContent] = useState([])
+    const [content, setContent] = useState([]);
     const navigate = useNavigate();
 
 

@@ -1,6 +1,6 @@
-import {Done} from '@material-ui/icons'
-import React from 'react'
-import './infoPlan.scss'
+import {Done} from '@material-ui/icons';
+import React from 'react';
+import './infoPlan.scss';
 import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
 import Footer from "../../components/footer/Footer";

@@ -1,12 +1,12 @@
-import React from 'react'
-import './faq.scss'
+import React from 'react';
+import './faq.scss';
 import logo from '../../../content/logo.png';
 import {Link} from "react-router-dom";
-import faq1 from '../diff-content/faq1.png'
-import faq2 from '../diff-content/faq2.png'
-import faq3 from '../diff-content/faq3.png'
-import faq4 from '../diff-content/faq4.png'
-import faq5 from '../diff-content/faq5.png'
+import faq1 from '../diff-content/faq1.png';
+import faq2 from '../diff-content/faq2.png';
+import faq3 from '../diff-content/faq3.png';
+import faq4 from '../diff-content/faq4.png';
+import faq5 from '../diff-content/faq5.png';
 import {ArrowBack, DescriptionOutlined} from "@material-ui/icons";
 import Footer from "../footer/Footer";
 

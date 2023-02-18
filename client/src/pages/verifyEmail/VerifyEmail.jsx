@@ -10,14 +10,15 @@ import axios from "axios";
 import validator from 'validator';
 
 export default function VerifyEmail() {
-    const [email, setEmail] = useState('');
+    // const [email, setEmail] = useState('');
     const [check, setCheck] = useState(false);
-    const [code, setCode] = useState(null)
-    const [verifyCode, setVerifyCode] = useState(null)
+    const [code, setCode] = useState(null);
+    const [verifyCode, setVerifyCode] = useState(null);
     const navigate = useNavigate();
+    const localEmail = JSON.parse(localStorage.getItem("email"));
 
     const sendCode = async () => {
-        if (email === '' || validator.isEmail(email) === false) {
+        if (localEmail.email === '' || validator.isEmail(localEmail.email) === false) {
             const input = document.getElementById('warning');
 
             if (input.style.display === "none") input.style.display = "flex";
@@ -31,7 +32,7 @@ export default function VerifyEmail() {
             setVerifyCode(verifyCode);
             setCheck(true);
 
-            await axios.post('/auth/verify', {verifyCode, email});
+            await axios.post('/auth/verify', {verifyCode, email: localEmail.email});
         }
     }
 
@@ -101,9 +102,11 @@ export default function VerifyEmail() {
                                 <label className="field field_v2">
                                     <input
                                         type="text"
+                                        value={localEmail.email}
                                         className="field__input input"
                                         placeholder=" "
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        readOnly={true}
+                                        // onChange={(e) => setEmail(e.target.value)}
                                     />
                                     <span className="field__label-wrap">
                                     <span className="field__label">Email</span>

@@ -7,6 +7,7 @@ import {AuthContext} from '../../context/authContext/AuthContext'
 import CryptoJS from 'crypto-js'
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
+import Intro from "../../components/intro/Intro";
 
 function setCookie(name, value, maxAge, path, domain, secure) {
     document.cookie = name + "=" + JSON.stringify(value) +
@@ -15,7 +16,6 @@ function setCookie(name, value, maxAge, path, domain, secure) {
         ((domain) ? "; domain=" + domain : "") +
         ((secure) ? ";   secure" : "");
 }
-
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -28,68 +28,85 @@ function getCookie(cname) {
 }
 
 
+function timeout(el) {
+    let promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(el);
+        }, 4000);
+    });
+    return promise;
+}
+
+
 export default function WatchingPersons({user}) {
-    const [users, setUsers] = useState([])
-    const {dispatch} = useContext(AuthContext)
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const {dispatch} = useContext(AuthContext);
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        let cookies = getCookie('users')
-
-        if (cookies.length === 0) setCookie('users', [], 365 * 24 * 60 * 60 * 1000, 'localhost:3000')
-        else {
-            let array = JSON.parse(cookies)
-            let isIncluded = array.find(item => item.id === user.user.id) && true || false
-            if (isIncluded === false) array.push(user.user)
-
-            setCookie('users', array, 365 * 24 * 60 * 60 * 1000, 'localhost:3000')
-            console.log(array)
-            setUsers(array)
+        const intro = async() => {
+            const res = await timeout(false);
+            setLoading(res)
         }
+        intro()
 
+        let cookies = getCookie('users');
+
+        if (cookies.length === 0) setCookie('users', [], 365 * 24 * 60 * 60 * 1000, 'localhost:3000');
+        else {
+            let array = JSON.parse(cookies);
+            let isIncluded = array.find(item => item.id === user.user.id) && true || false;
+            if (isIncluded === false) array.push(user.user);
+
+            setCookie('users', array, 365 * 24 * 60 * 60 * 1000, 'localhost:3000');
+            setUsers(array);
+        }
     }, [])
 
-    const handleClick = (id, email, password) => {
+    const handleClick = async (id, email, password) => {
         if (user.user.id === id) navigate('/')
         else {
             const bytes = CryptoJS.AES.decrypt(password, 'otsocity');
             const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-            console.log(originalPassword)
-            login({email, originalPassword}, dispatch)
-            navigate('/')
+            await login({email, originalPassword}, dispatch);
+            navigate('/');
         }
     }
 
-
-    console.log(users)
-
     return (
-        <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-        >
-            <div className='watching'>
-                <div className="nav">
-                    <img src={logo} height={45}/>
-                </div>
+        <>
+            {loading === true ? (
+                <Intro/>
+            ) : (
+                <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                >
+                    <div className='watching'>
+                        <div className="nav">
+                            <img src={logo} height={45}/>
+                        </div>
 
-                <div className="wrapper">
-                    <div className="block">
-                        <h2>Who`s Watching?</h2>
-                        <div className="users">
-                            {users.map((user) => (
-                                <div className="item" key={user.id}
-                                     onClick={() => handleClick(user.id, user.email, user.password)}>
-                                    <img src={img} alt="" height={125}/>
-                                    <p>{user.username}</p>
-
+                        <div className="wrapper">
+                            <div className="block">
+                                <h2>Who`s Watching?</h2>
+                                <div className="users">
+                                    {users.map((user) => (
+                                        <div className="item" key={user.id}
+                                             onClick={() => handleClick(user.id, user.email, user.password)}>
+                                            <img src={user.profilePic} alt="" height={125}/>
+                                            <p>{user.username}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </motion.div>
+                </motion.div>
+            )}
+        </>
     )
 }

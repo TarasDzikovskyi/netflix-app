@@ -1,13 +1,34 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
 import './profile.scss'
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
-import iconProfile from '../../content/icon_profile.png';
 import Footer from "../../components/footer/Footer";
 import {motion} from "framer-motion";
+import {update} from "../../context/userContext/apiCalls";
+import {UserContext} from "../../context/userContext/UserContext";
 
 export default function Profile() {
-    const user = JSON.parse(localStorage.getItem("user"))
+    const [visible, setVisible] = useState(false);
+    const {user, dispatch} = useContext(UserContext);
+
+    const visibleFile = () => {
+        const input = document.getElementById('file-wrapper');
+        if (input.style.display === "none") input.style.display = "block";
+        setVisible(true);
+    }
+
+    const updatePhoto = async () => {
+
+        const formData = new FormData();
+        const fileField = document.querySelector('input[type="file"]');
+        formData.append('profilePic', fileField.files[0]);
+
+        await update(formData, user.user.id, dispatch);
+
+        const input = document.getElementById('file-wrapper');
+        input.style.display = "none";
+        setVisible(false)
+    }
 
     return (
         <motion.div
@@ -22,14 +43,23 @@ export default function Profile() {
                         <p className='header'>Edit Profile</p>
                         <div className="email_box">
                             <hr/>
-                            <img src={iconProfile} alt=""/>
-                            <button className='img-button'>Edit</button>
+                            <img src={user.user.profilePic} alt=""/>
 
-                            <div className=''></div>
-                            <label className="file">
-                                <input type="file" id="file" aria-label="File browser example"/>
-                                    <span className="file-custom"></span>
-                            </label>
+                            <div className='btn-wrapper'>
+                                {visible ? (
+                                    <button className='img-button' onClick={updatePhoto}>Upload</button>
+                                ) : (
+                                    <button className='img-button' onClick={visibleFile}>Edit</button>
+                                )}
+
+                                <div id="file-wrapper" style={{display: 'none'}}>
+                                    <label className="file">
+                                        <input type="file" id="file" aria-label="File browser example"/>
+                                        <span className="file-custom"></span>
+                                    </label>
+                                </div>
+
+                            </div>
 
                             <div className="input">
                                 <input type="email" placeholder={user.user.email} className='input_email'/>

@@ -1,14 +1,13 @@
 import axios from "axios";
-import {useRef} from "react";
 import {useState} from "react";
 import { useNavigate} from "react-router-dom";
 import "./register.scss";
-import tv from '../../content/tv.png'
-import mobile from '../../content/mobile-0819.jpg'
-import devices from '../../content/device-pile.png'
-import kids from '../../content/kids.png'
-import videoDevices from '../../content/video-devices.m4v'
-import videoTV from '../../content/video-tv-0819.m4v'
+import tv from '../../content/tv.png';
+import mobile from '../../content/mobile-0819.jpg';
+import devices from '../../content/device-pile.png';
+import kids from '../../content/kids.png';
+import videoDevices from '../../content/video-devices.m4v';
+import videoTV from '../../content/video-tv-0819.m4v';
 import Questions from "../../components/questions/Questions";
 import FooterRegister from "../../components/footer/FooterRegister";
 import {ArrowForwardIos} from "@material-ui/icons";
@@ -22,8 +21,6 @@ export default function Register() {
         e.preventDefault();
         try {
             const res = await axios.post("auth/check", {email});
-
-            console.log(res.data);
 
             if(res.data === 'new') {
                 let obj = {email: email, new: true}
@@ -44,6 +41,7 @@ export default function Register() {
     const handleClick = () => {
         navigate('/login')
     }
+
     return (
         <>
             <div className="register">

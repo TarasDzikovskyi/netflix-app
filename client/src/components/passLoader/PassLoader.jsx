@@ -1,5 +1,5 @@
-import React from 'react'
-import './passLoader.scss'
+import React from 'react';
+import './passLoader.scss';
 import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
 import Footer from "../../components/footer/Footer";

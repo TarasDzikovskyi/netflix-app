@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Home from "./pages/home/Home";
 import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
@@ -7,7 +7,6 @@ import {Navigate, Route, Routes, useLocation} from "react-router-dom";
 import Profile from "./pages/profile/Profile";
 import Plans from "./pages/plans/Plans";
 import ForgotPass from "./pages/forgotPass/ForgotPass";
-import InfoPlan from "./components/infoPlan/InfoPlan";
 import SetPass from "./components/setPass/SetPass";
 import PassLoader from "./components/passLoader/PassLoader";
 import ResetPass from "./pages/forgotPass/ResetPass";
@@ -18,15 +17,13 @@ import {AnimatePresence} from "framer-motion";
 import NotFound from "./components/notFound/NotFound";
 import WatchingPersons from "./pages/watchingPersons/WatchingPersons";
 import NetflixPage from "./pages/netflixPage/NetflixPage";
-import ChatGPT from "./pages/chatGPT/ChatGPT";
-import Test from "./Test";
 import VerifyEmail from "./pages/verifyEmail/VerifyEmail";
+import AuthVerify from "./AuthVerify";
+import InfoPlan from './components/infoPlan/InfoPlan';
 
 export default function AnimatedRoutes({user}) {
-    const location = useLocation()
+    const location = useLocation();
 
-    // console.log(user)
-    
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
@@ -50,13 +47,11 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/watch/:movie_id' element={user ? <Watch/> : <Navigate to='/register' />}/>
 
-                <Route path='/info' element= <InfoPlan/> />
+                <Route path='/info' element={<InfoPlan/>}/>
 
                 <Route path='/plans' element={user ? <Plans/> : <Navigate to='/register'/>}/>
 
                 <Route path='/netflix' element={user ? <NetflixPage/> : <Navigate to='/register'/>}/>
-
-                <Route path='/gpt' element={user ? <ChatGPT/> : <Navigate to='/register'/>}/>
 
                 <Route path='/forgot' element={!user && <ForgotPass/>}/>
 
@@ -70,12 +65,12 @@ export default function AnimatedRoutes({user}) {
 
                 <Route path='/faq' element={<Faq/>}/>
 
-                <Route path='/test' element={<Test/>}/>
+                {/*<Route path='/test' element={<Test/>}/>*/}
 
                 <Route path='*' element={<NotFound/>}/>
-
             </Routes>
 
+            <AuthVerify location={location} />
         </AnimatePresence>
     )
 }

@@ -1,20 +1,23 @@
+import {useContext, useEffect} from "react";
+import jwt_decode from 'jwt-decode';
+import {AuthContext} from "./context/authContext/AuthContext";
+import {logout} from "./context/authContext/apiCalls";
 
-const AuthVerify = ({history}) => {
-    const token = JSON.parse(localStorage.getItem("user")).access_token
+const AuthVerify = ({ location}) => {
+    const {dispatch} = useContext(AuthContext);
+    const user = JSON.parse(localStorage.getItem("user"));
 
-    // history.listen(() => {
-    //     if(token) {
-    //         const jwt_Token_decoded = Jwt_Decode(localStorage.getItem("JWT_Token"));
-    //         console.log(jwt_Token_decoded.exp * 1000);
-    //         console.log(Date.now());
-    //         if (jwt_Token_decoded.exp * 1000 < Date.now()) {
-    //             localStorage.clear();
-    //         } else {
-    //             initialstate.user = jwt_Token_decoded;
-    //         }
-    //     }
-    //
-    // })
+    useEffect(() => {
+        if(user !== null && user.access_token){
+            const decoded = jwt_decode(user.access_token);
+
+            if(decoded.exp * 1000 < Date.now()){
+                logout(dispatch);
+                localStorage.setItem('user', null);
+            }
+            // else console.log( decoded.exp*1000 - Date.now() )
+        }
+    },[location.pathname])
 
 
     return(

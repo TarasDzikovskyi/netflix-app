@@ -2,7 +2,7 @@ import "./listItem.scss";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function ListItem({index, item}) {
+export default function ListItem({item}) {
     const [movie, setMovie] = useState({});
 
     useEffect(() => {

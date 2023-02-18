@@ -1,28 +1,22 @@
-import React, {useState} from 'react'
-import './forgotPass.scss'
+import React, {useState} from 'react';
+import './forgotPass.scss';
 import {Link} from "react-router-dom";
 import logo from '../../content/logo.png';
-import 'react-phone-input-2/lib/style.css'
-import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css';
+import PhoneInput from 'react-phone-input-2';
 import Footer from "../../components/footer/Footer";
 import axios from "axios";
-
 
 export default function ForgotPass() {
     const [radioBtn, setRadioBtn] = useState('email')
     const [value, setValue] = useState()
     const [valueEmail, setValueEmail] = useState()
 
-    console.log(radioBtn)
-    console.log(value)
-    console.log(valueEmail)
-
     const handleClick = async (e) => {
         e.preventDefault()
-        const res = await axios.post('auth/forgot', {
+        await axios.post('auth/forgot', {
             email: valueEmail
         })
-
     }
 
     return (

@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import './questionBox.scss'
-import {Add, Close} from '@material-ui/icons'
-import {list} from './list'
+import React, { useState } from 'react';
+import './questionBox.scss';
+import {Add, Close} from '@material-ui/icons';
 
 export default function QuestionBox({item}) {
-    const [isVisible, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(false);
 
     const handleClick = () => {
         const input = document.getElementById(item.answer);

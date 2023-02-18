@@ -9,7 +9,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import CurrentMovie from "../../components/featured/CurrentMovie";
 import Loading from "../../components/loading/Loading";
 
-const CurrentHome = ({ type }) => {
+const CurrentHome = () => {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(false)
 

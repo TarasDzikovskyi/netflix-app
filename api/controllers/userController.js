@@ -1,5 +1,7 @@
 const CryptoJS = require('crypto-js')
-const {User, Movie} = require('../models/models')
+const {User, OAuth} = require('../models/models')
+const s3Service = require("../services/s3.service");
+const {userNormalizator} = require("../utils/user.util");
 
 module.exports.updateUser = async (req, res, next) => {
     try {
@@ -7,19 +9,25 @@ module.exports.updateUser = async (req, res, next) => {
             req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString()
         }
 
-        // if (req.files && req.files.profilePic) {
-        //     const s3Response = s3Service.uploadFile(req.files.profilePic, 'users', createdUser.dataValues.id);
-        //     createdUser = await User.update(
-        //         {profilePic: s3Response.Location},
-        //         {where: {id}}
-        //     );
-        // }
+        if (req.files && req.files.profilePic) {
+            const s3Response = await s3Service.uploadFile(req.files.profilePic, 'users', req.params.id);
+            await User.update(
+                {profilePic: s3Response.Location},
+                {where: {id: req.params.id}}
+            );
+        }
 
-        await User.update(req.body, {where: {id: req.params.id}})
+        if(req.body.email || req.body.plan) await User.update(req.body, {where: {id: req.params.id}})
 
         const updatedUser = await User.findOne({where: {id: req.params.id}})
 
-        res.status(200).json(updatedUser.dataValues);
+        const tokenPair = await OAuth.findOne({where: {user: req.params.id}})
+
+        let tokenObj = {};
+        tokenObj['access_token'] = tokenPair.dataValues.access_token;
+        tokenObj['refresh_token'] = tokenPair.dataValues.refresh_token;
+
+        res.status(200).json({...tokenObj, user: userNormalizator(updatedUser.dataValues)});
     } catch (e) {
         next(e);
     }
@@ -30,7 +38,7 @@ module.exports.deleteUser = async (req, res, next) => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
             await User.destroy({where:{id: req.params.id}});
 
-            res.status(200).json("User has been deleted...")
+            res.status(204).json("User has been deleted...")
         } else {
             req.status(403).json("You can delete only your account!")
         }

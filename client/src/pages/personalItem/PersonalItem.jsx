@@ -31,8 +31,8 @@ export default function PersonalItem({movie_id}) {
     }, [movie_id]);
 
     const handleDelete = (movie_id) => {
-        const user_id = JSON.parse(localStorage.getItem("user")).user.id
-        removeFromCart({user_id, movie_id}, dispatch)
+        const user_id = JSON.parse(localStorage.getItem("user")).user.id;
+        removeFromCart({user_id, movie_id}, dispatch);
     }
 
     const handleClick = (id) => {

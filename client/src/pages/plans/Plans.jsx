@@ -6,28 +6,15 @@ import logo from '../../content/logo.png';
 import Table from '../../components/table/Table';
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
-import Intro from "../../components/intro/Intro";
 import {motion} from "framer-motion"
 
 
-function timeout(el) {
-    let promise = new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            resolve(el);
-        }, 4000);
-    });
-    return promise;
-}
-
 export default function Plans() {
     const [selectedPlan, setSelectedPlan] = useState(2)
-    const [loading, setLoading] = useState(false)
-
-    let plan
     const navigate = useNavigate();
+    let plan
 
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
 
     const plans = ['Basic', 'Standard', 'Premium']
 
@@ -36,7 +23,7 @@ export default function Plans() {
         if (selectedPlan === 1) plan = 'Standard';
         if (selectedPlan === 2) plan = 'Premium';
 
-        const res = await axios.patch(`/users/${user.user.id}`, {
+        await axios.patch(`/users/${user.user.id}`, {
             headers: {
                 token:
                     "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
@@ -44,87 +31,79 @@ export default function Plans() {
             plan: plan
         });
 
-        console.log(res)
-        localStorage.setItem('email', null)
+        localStorage.setItem('email', null);
 
-        setLoading(true)
-        const result = await timeout(true)
-        if (result) navigate('/watching')
+        navigate('/watching');
     }
 
     return (
-        <>
-            {loading === true ? (
-                <Intro/>
-            ) : (
-                <motion.div
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    exit={{opacity: 0}}
-                >
-                    <div className="plans">
-                        <div className="nav">
-                            <div className="left">
-                                <img className="logo" src={logo} alt="logo"/>
-                            </div>
-                            <div className="right">
-                                <Link to='/register'>Sign Out</Link>
-                            </div>
-                        </div>
-                        <div className="divider"></div>
 
-
-                        <div className="wrapper-plan">
-                            <div className="conditions">
-                                <div className="step">STEP <b>3</b> OF <b>3</b></div>
-
-                                <h1>Choose the plan that`s right for you</h1>
-                                <ul>
-                                    <li><Done className='icon'/> Watch all you want. Ad-free.</li>
-                                    <li><Done className='icon'/> Recommendations just for you.</li>
-                                    <li><Done className='icon'/> Change or cancel your plan ahytime.</li>
-                                </ul>
-                            </div>
-
-                            <div className="planWrapper">
-                                {plans.map((item, index) => (
-                                    <div className={`planBox ${
-                                        selectedPlan === index ? 'opacity-100' : 'opacity-60'
-                                    }`}
-                                         key={index}
-                                         onClick={() => setSelectedPlan(index)}>
-                                        <span>{item}</span>
-                                    </div>
-                                ))}
-
-                            </div>
-
-                            <div className="tableWrapper">
-                                <Table selectedPlan={selectedPlan}/>
-                            </div>
-
-                            <div className="text">
-                                <p>HD (720p), Full HD (1080p), Ultra HD (4K) and HDR availability subject to your
-                                    internet service
-                                    and device capabilities. Not all content is available in all resolutions.
-                                    See our <span>Terms of Use</span> for more details.
-                                    <br/>
-                                    <br/>
-                                    Only people who live with you may use your account. Watch on 4 different devices at
-                                    the same
-                                    time with Premium, 2 with Standard and 1 with Basic.
-                                </p>
-                            </div>
-
-                            <button className='subscribe' onClick={() => handleClick(selectedPlan)}>Subscribe</button>
-                        </div>
-                        <div className='footer'>
-                            <div className="divider"></div>
-                            <Footer/>
-                        </div>
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+        >
+            <div className="plans">
+                <div className="nav">
+                    <div className="left">
+                        <img className="logo" src={logo} alt="logo"/>
                     </div>
-                </motion.div>
-            )}
-        </>
+                    <div className="right">
+                        <Link to='/register'>Sign Out</Link>
+                    </div>
+                </div>
+                <div className="divider"></div>
+
+
+                <div className="wrapper-plan">
+                    <div className="conditions">
+                        <div className="step">STEP <b>3</b> OF <b>3</b></div>
+
+                        <h1>Choose the plan that`s right for you</h1>
+                        <ul>
+                            <li><Done className='icon'/> Watch all you want. Ad-free.</li>
+                            <li><Done className='icon'/> Recommendations just for you.</li>
+                            <li><Done className='icon'/> Change or cancel your plan ahytime.</li>
+                        </ul>
+                    </div>
+
+                    <div className="planWrapper">
+                        {plans.map((item, index) => (
+                            <div className={`planBox ${
+                                selectedPlan === index ? 'opacity-100' : 'opacity-60'
+                            }`}
+                                 key={index}
+                                 onClick={() => setSelectedPlan(index)}>
+                                <span>{item}</span>
+                            </div>
+                        ))}
+
+                    </div>
+
+                    <div className="tableWrapper">
+                        <Table selectedPlan={selectedPlan}/>
+                    </div>
+
+                    <div className="text">
+                        <p>HD (720p), Full HD (1080p), Ultra HD (4K) and HDR availability subject to your
+                            internet service
+                            and device capabilities. Not all content is available in all resolutions.
+                            See our <span>Terms of Use</span> for more details.
+                            <br/>
+                            <br/>
+                            Only people who live with you may use your account. Watch on 4 different devices at
+                            the same
+                            time with Premium, 2 with Standard and 1 with Basic.
+                        </p>
+                    </div>
+
+                    <button className='subscribe' onClick={() => handleClick(selectedPlan)}>Subscribe</button>
+                </div>
+                <div className='footer'>
+                    <div className="divider"></div>
+                    <Footer/>
+                </div>
+            </div>
+        </motion.div>
     )
 }

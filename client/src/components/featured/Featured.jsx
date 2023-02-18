@@ -1,6 +1,6 @@
-import {Add, Check, InfoOutlined, PlayArrow} from '@material-ui/icons'
-import React, {useContext, useEffect, useState} from 'react'
-import './featured.scss'
+import {Add, Check, InfoOutlined, PlayArrow} from '@material-ui/icons';
+import React, {useContext, useEffect, useState} from 'react';
+import './featured.scss';
 import axios from "axios";
 import movieTrailer from "movie-trailer";
 import {useNavigate} from "react-router-dom";

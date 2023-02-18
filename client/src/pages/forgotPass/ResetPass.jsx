@@ -1,37 +1,47 @@
-import React, {useState} from 'react'
-import './resetPass.scss'
-import {Link, useNavigate} from "react-router-dom";
+import React, {useState} from 'react';
+import './resetPass.scss';
+import {Link, useNavigate, useParams} from "react-router-dom";
 import logo from '../../content/logo.png';
-import 'react-phone-input-2/lib/style.css'
+import 'react-phone-input-2/lib/style.css';
 import Footer from "../../components/footer/Footer";
 import axios from "axios";
 
-export default function ResetPass(props) {
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [redirect, setRedirect] = useState(false)
+export default function ResetPass() {
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
+    const params = useParams();
+
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        try {
+            e.preventDefault();
 
-        if (password !== confirmPassword) {
-            console.log('herovo')
-        } else {
-            const res = await axios.post('auth/reset', {
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
+            if (password !== confirmPassword) {
+                const text = document.getElementById('password');
+                text.style.display = 'block'
+
+            } else {
+                const text = document.getElementById('password');
+                text.style.display = 'none'
+
+                const res = await axios.post('/auth/reset', {
                     password: confirmPassword,
-                    action_token: props.match.params.token
-                })
-            })
+                    action_token: params.token
+                });
 
-            setRedirect(true)
-            console.log(res)
+                if(res.data === false){
+                    const text = document.getElementById('token');
+                    text.style.display = 'block'
+                }
+
+                if(res.data === true) navigate('/login')
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
-    if(redirect) navigate('/login')
 
     return (
         <>
@@ -68,10 +78,11 @@ export default function ResetPass(props) {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            <button>Reset</button>
-
-
+                            <button onClick={handleSubmit}>Reset</button>
                         </form>
+
+                        <p id='token' className='attention' style={{display: 'none'}}>Token is expired!</p>
+                        <p id='password' className='attention' style={{display: 'none'}}>Passwords don`t match. Try again!</p>
 
                         <Link to='#'>I don`t remember my email or phone.</Link>
                     </div>

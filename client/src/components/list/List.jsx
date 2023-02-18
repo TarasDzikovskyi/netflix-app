@@ -3,27 +3,27 @@ import {
     ArrowBackIosOutlined,
     ArrowForwardIosOutlined, Check, Clear, PlayArrow, ThumbDownOutlined, ThumbUpAltOutlined,
 } from "@material-ui/icons";
-import React, {useRef, useContext, useState} from "react";
+import React, { useContext, useState} from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import movieTrailer from 'movie-trailer'
+import movieTrailer from 'movie-trailer';
 import {addToCart} from "../../context/cartContext/apiCalls";
-import {CartContext} from '../../context/cartContext/CartContext'
-import Slider from 'react-slick'
+import {CartContext} from '../../context/cartContext/CartContext';
+import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function List({list}) {
-    const [info, setInfo] = useState([])
-    const {dispatch} = useContext(CartContext)
+    const [info, setInfo] = useState([]);
+    const {dispatch} = useContext(CartContext);
     const navigate = useNavigate();
-    let {user} = useContext(CartContext)
-    if(user.length === 0) user = JSON.parse(localStorage.getItem('user'))
+    let {user} = useContext(CartContext);
+    if(user.length === 0) user = JSON.parse(localStorage.getItem('user'));
 
     const handleItemClick = (item) => {
-        getMovie(item)
+        getMovie(item);
         const input = document.getElementById(list.id);
         if (input.style.display === "none") {
             input.style.display = "block";
@@ -45,9 +45,9 @@ export default function List({list}) {
     }
 
     const onButtonClick = async (title) => {
-        let res = await movieTrailer(title)
+        let res = await movieTrailer(title);
         if (res !== null) {
-            let movie_id = res.slice(-12)
+            let movie_id = res.slice(-12);
             navigate(`/watch/${movie_id}`)
         } else {
             navigate('/watch/=IqkVUfYMZWM')
@@ -60,7 +60,7 @@ export default function List({list}) {
     }
 
     const handleClickCart = (movie_id) => {
-        const user_id = JSON.parse(localStorage.getItem("user")).user.id
+        const user_id = JSON.parse(localStorage.getItem("user")).user.id;
         addToCart({user_id, movie_id}, dispatch)
     }
 
@@ -75,7 +75,7 @@ export default function List({list}) {
         nextArrow: <ArrowForwardIosOutlined className="sliderArrow right"/>
     };
 
-    if(user.user.cart == null) user.user.cart = []
+    if(user.user.cart == null) user.user.cart = [];
 
     return (
         <div className="list">

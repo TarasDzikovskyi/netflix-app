@@ -1,14 +1,12 @@
 const {User, OAuth, OAuthAction, ProfilePictures} = require("../models/models");
-const CryptoJS = require('crypto-js')
+const CryptoJS = require('crypto-js');
 const {jwtService} = require("../services");
 const userUtil = require("../utils/user.util");
 const {userNormalizator} = require("../utils/user.util");
 const {emailService} = require("../services");
 const emailActionEnum = require("../config/emailActionEnum");
-const uuid = require('uuid');
-const ErrorHandler = require("../errors/ErrorHandler");
-const s3Service = require("../services/s3.service");
 const {Sequelize} = require("sequelize");
+const jwt_decode = require('jwt-decode');
 
 
 module.exports.createUser = async (req, res, next) => {
@@ -33,20 +31,37 @@ module.exports.createUser = async (req, res, next) => {
 module.exports.login = async (req, res, next) => {
     try {
         const user = await User.findOne({where: {email: req.body.email}});
-        !user && res.status(401).json("Wrong username or password!");
+
+        if(!user) return res.status(401).json("Wrong username or password!");
 
         const bytes = CryptoJS.AES.decrypt(user.dataValues.password, process.env.SECRET_KEY);
         const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
-        originalPassword !== req.body.password && res.status(401).json("Wrong username or password!");
+        if (originalPassword !== req.body.password) return res.status(401).json("Wrong username or password!");
 
-        const tokenPair = jwtService.generateTokenPair();
-        res.cookie('accessToken', tokenPair.access_token, {maxAge: 12 * 60 * 60 * 1000, httpOnly: true})
-        res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+        const isIncludes = await OAuth.findOne({where: {user: user.dataValues.id}})
 
-        await OAuth.create({...tokenPair, user: user.dataValues.id})
+        if(isIncludes !== null){
 
-        res.status(200).json({...tokenPair, user: userNormalizator(user.dataValues)})
+            let tokenObj = {};
+            tokenObj['access_token'] = isIncludes.dataValues.access_token;
+            tokenObj['refresh_token'] = isIncludes.dataValues.refresh_token;
+
+            res.cookie('accessToken', tokenObj.access_token, {maxAge: 12 * 60 * 60 * 1000, httpOnly: true})
+            res.cookie('refreshToken', tokenObj.refresh_token, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+
+            res.status(200).json({...tokenObj, user: user.dataValues});
+            // res.status(200).json('NIHERA NEMA');
+
+        } else {
+            const tokenPair = jwtService.generateTokenPair();
+            res.cookie('accessToken', tokenPair.access_token, {maxAge: 12 * 60 * 60 * 1000, httpOnly: true})
+            res.cookie('refreshToken', tokenPair.refresh_token, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+
+            await OAuth.create({...tokenPair, user: user.dataValues.id})
+
+            res.status(200).json({...tokenPair, user: userNormalizator(user.dataValues)})
+        }
     } catch (e) {
         next(e);
     }
@@ -76,17 +91,26 @@ module.exports.forgotPassword = async (req, res, next) => {
 
 module.exports.changePassword = async (req, res, next) => {
     try {
-        const {action_token} = req.body;
+        const { body: {password, action_token}} = req;
+        let updated = false;
 
-        const {user: {id}, body: {password}} = req;
+        const decoded = jwt_decode(action_token);
 
-        const hashedPassword = CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString()
-        await User.update({password: hashedPassword}, {where: {id}});
+        if(decoded.exp * 1000 < Date.now()){
+            await OAuthAction.destroy({where: {action_token: action_token}});
+
+            return res.status(200).json(updated);
+        }
+
+        const actionToken = await OAuthAction.findOne({where: {action_token: action_token}});
+
+        const hashedPassword = CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString();
+        await User.update({password: hashedPassword}, {where: {id: actionToken.dataValues.user}});
 
         await OAuthAction.destroy({where: {action_token: action_token}});
-        await OAuth.destroy({where: {id: id}});
+        await OAuth.destroy({where: {id: actionToken.dataValues.user}});
 
-        const user = await User.findByPk(id)
+        const user = await User.findOne({where: {id: actionToken.dataValues.user}});
 
         await emailService.sendMail(
             user.dataValues.email,
@@ -94,7 +118,9 @@ module.exports.changePassword = async (req, res, next) => {
             {email: user.dataValues.email, userName: user.dataValues.username}
         );
 
-        res.status(200);
+        updated = true;
+
+        res.status(200).json(updated);
     } catch (e) {
         next(e);
     }

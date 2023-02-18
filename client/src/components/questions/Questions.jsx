@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import './questions.scss'
-import {Add, Close} from '@material-ui/icons'
-import {list} from './list'
-import QuestionBox from './QuestionBox'
+import React from 'react';
+import './questions.scss';
+import {list} from './list';
+import QuestionBox from './QuestionBox';
 
 export default function Questions() {
 

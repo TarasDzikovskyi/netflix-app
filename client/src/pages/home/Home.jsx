@@ -6,18 +6,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../../components/footer/Footer";
 import RandomList from "../../components/randomList/RandomList";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import Loading from "../../components/loading/Loading";
 
 const Home = ({ type }) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const { pathname } = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         setLoading(true);
 
         const getRandomLists = async () => {

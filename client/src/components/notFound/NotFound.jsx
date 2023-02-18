@@ -1,5 +1,5 @@
-import React from 'react'
-import './notFound.scss'
+import React from 'react';
+import './notFound.scss';
 import logo from '../../content/logo.png';
 import {Link} from "react-router-dom";
 

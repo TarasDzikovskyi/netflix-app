@@ -1,6 +1,6 @@
-import {WarningRounded} from '@material-ui/icons'
-import React, {useContext, useState} from 'react'
-import './setPass.scss'
+import {WarningRounded} from '@material-ui/icons';
+import React, {useContext, useState} from 'react';
+import './setPass.scss';
 import {Link, useNavigate} from "react-router-dom";
 import logo from '../../content/logo.png';
 import axios from "axios";
@@ -12,20 +12,20 @@ import {motion} from "framer-motion";
 import pictures from '../../content/icon_profile/picturesArray';
 
 export default function SetPass() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const {dispatch} = useContext(AuthContext)
+    const {dispatch} = useContext(AuthContext);
 
-    const obj = JSON.parse(localStorage.getItem("email"))
+    const obj = JSON.parse(localStorage.getItem("email"));
     const email = obj.email;
 
     const handleClick = async (username, password) => {
         if (password === '') {
             const input = document.getElementById('warning');
 
-            if (input.style.display === "none") input.style.display = "flex"
+            if (input.style.display === "none") input.style.display = "flex";
 
         } else {
             const numberOfPicture = Math.floor(Math.random() * 12);
@@ -33,17 +33,14 @@ export default function SetPass() {
             if(picture === undefined) picture = pictures[0];
             const picturePic = picture.picture;
 
-            const res = await axios.post('/auth/register', {email, username, password, picturePic})
-            console.log(res)
+            const res = await axios.post('/auth/register', {email, username, password, picturePic});
+
             if (res.data) login({email, password}, dispatch)
 
-            localStorage.setItem('user', JSON.stringify(res.data))
+            localStorage.setItem('user', JSON.stringify(res.data));
             navigate('/info')
         }
     }
-
-
-    // icnorrect password. Please try again
 
 
     return (

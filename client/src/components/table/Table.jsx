@@ -1,18 +1,16 @@
-import {Done} from '@material-ui/icons'
-import React from 'react'
-import './table.scss'
+import {Done} from '@material-ui/icons';
+import React from 'react';
+import './table.scss';
 
 export default function Table({selectedPlan}) {
-    // const user = JSON.parse(localStorage.getItem("user"))
 
-    let price = ['EUR 4.99', 'EUR 7.99', 'EUR 9.99']
-    let quality = ['Good', 'Better', 'Best']
-    let resolutions = ['480p', '1080p', '4K+HDR']
-    let done = [0, 1, 2]
+    let price = ['EUR 4.99', 'EUR 7.99', 'EUR 9.99'];
+    let quality = ['Good', 'Better', 'Best'];
+    let resolutions = ['480p', '1080p', '4K+HDR'];
+    let done = [0, 1, 2];
 
     return (
         <div className="table">
-
             <table>
                 <tr className='tr_border'>
                     <td className='title'>Monthly price</td>
@@ -25,7 +23,6 @@ export default function Table({selectedPlan}) {
                         </>
                     ))}
                 </tr>
-                {/*<div className='slide'></div>*/}
                 <tr>
                     <td className='title'>Video quality</td>
                     {quality.map((item, index) => (

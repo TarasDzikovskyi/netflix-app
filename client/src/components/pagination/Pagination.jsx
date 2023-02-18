@@ -1,5 +1,4 @@
 import './pagination.scss'
-import {useState} from "react";
 
 export default function Pagination({queryParams, totalMovies, moviesPerPage, paginate}) {
     const pages = Math.round(totalMovies/moviesPerPage);
@@ -9,8 +8,7 @@ export default function Pagination({queryParams, totalMovies, moviesPerPage, pag
         arr.push(i);
     }
 
-    let page = 1
-    console.log(queryParams)
+    let page = 1;
     if(queryParams.length > 0){
     let newQuery = queryParams.split('page=')[1];
         page = newQuery.split('&')[0];
@@ -23,13 +21,9 @@ export default function Pagination({queryParams, totalMovies, moviesPerPage, pag
             {arr.map((item) => (
                 <div className='item' key={item} onClick={() => paginate(item)}>
                     {Number(page) === item ? (
-                        <div className='selected'>
-                            {item}
-                        </div>
+                        <div className='selected'>{item}</div>
                     ) : (
-                        <div>
-                            {item}
-                        </div>
+                        <div>{item}</div>
                     )}
                 </div>
             ))}

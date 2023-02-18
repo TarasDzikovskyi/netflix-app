@@ -3,8 +3,7 @@ import './navbar.scss'
 import {Add, ArrowDropDown, Check, Notifications, Search, StarRate} from '@material-ui/icons'
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from '../../context/authContext/AuthContext';
-import {logout} from '../../context/authContext/AuthAction';
-import iconProfile from '../../content/icon_profile/profile_5.jpg';
+import {logout} from '../../context/authContext/apiCalls';
 import logo from '../../content/logo.png';
 import axios from "axios";
 import {CartContext} from '../../context/cartContext/CartContext';
@@ -19,18 +18,12 @@ export default function Navbar() {
     const {dispatch} = useContext(AuthContext)
     const navigate = useNavigate();
     let {user} = useContext(CartContext)
-    if(user.length === 0)
-        user = JSON.parse(localStorage.getItem('user'))
+    if(user.length === 0) user = JSON.parse(localStorage.getItem('user'))
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
         return () => (window.onscroll = null)
     }
-
-    const logout_user = async () => {
-        await axios.post('auth/logout')
-    }
-
 
     useEffect(() => {
         if (value.length > 0) {
@@ -100,16 +93,19 @@ export default function Navbar() {
                         {/*<Link to='/gpt' className='link'><span className='navbarMainLinks'>ChatGPT</span></Link>*/}
 
                         <Notifications className="icon"/>
-                        <img src={iconProfile} alt="profile"/>
+                        {user.user && (
+                            <img src={user.user.profilePic} alt="profile"/>
+                        )}
                         <div className="profile_menu">
                             <ArrowDropDown className="icon"/>
                             <div className="options">
                                 <Link to='/profile' className='link'><span
                                     className='navbarMainLinks'>Settings</span></Link>
                                 <span onClick={() => {
-                                    logout_user()
-                                    dispatch(logout())
-                                    navigate('/login')
+                                    // logout_user()
+                                    // dispatch(logout())
+                                    logout(dispatch)
+                                    // navigate('/login')
                                 }}>Logout</span>
                             </div>
                         </div>
@@ -149,8 +145,6 @@ export default function Navbar() {
                     ))}
                 </div>
             )}
-
         </>
-
     )
 }

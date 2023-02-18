@@ -34,10 +34,10 @@ app.use("/api/users", userRouter);
 app.use("/api/movies", movieRouter);
 app.use("/api/lists", listRouter);
 
-app.use(express.static(path.resolve(__dirname, "../client/build")));
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-})
+// app.use(express.static(path.resolve(__dirname, "../client/build")));
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+// })
 
 
 app.listen(process.env.PORT, () => {
